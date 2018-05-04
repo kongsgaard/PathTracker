@@ -138,6 +138,29 @@ namespace PathTracker_Backend {
         public int Y { get; set; }
     }
 
+    /// <summary>
+    /// Comparer for item, used when calculating Difference between lists of items
+    /// </summary>
+    public class ItemComparer : IEqualityComparer<Item> {
+        public int GetHashCode(Item item) {
+            if (item == null) {
+                return 0;
+            }
+            return item.Id.GetHashCode();
+        }
+
+        public bool Equals(Item i1, Item i2) {
+            if (object.ReferenceEquals(i1, i2)) {
+                return true;
+            }
+            if (object.ReferenceEquals(i1, null) ||
+                object.ReferenceEquals(i2, null)) {
+                return false;
+            }
+            return i1.Id == i2.Id;
+        }
+    }
+
     public class Property {
         [JsonProperty("name")]
         public string Name { get; set; }
