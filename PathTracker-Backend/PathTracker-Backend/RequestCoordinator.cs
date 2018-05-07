@@ -9,6 +9,7 @@ using log4net;
 using log4net.Config;
 using System.Reflection;
 using System.Diagnostics;
+using System.Linq;
 
 namespace PathTracker_Backend
 {
@@ -16,6 +17,7 @@ namespace PathTracker_Backend
 
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog RequestCoordinatorLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "RequestCoordinatorLogger");
+        private Dictionary<string, List<StashTab>> LeagueStashtabDictionary = new Dictionary<string, List<StashTab>>();
 
         public RequestCoordinator() {
 
@@ -55,7 +57,87 @@ namespace PathTracker_Backend
 
             HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
 
-            WebHeaderCollection headers = webResponse.Headers;
+            LogHeader(webResponse.Headers);
+            string responseDecompressed = DecompressToString(webResponse);
+            Inventory deserialized = JsonConvert.DeserializeObject<Inventory>(responseDecompressed);
+
+            return deserialized; 
+        }
+
+        /// <summary>
+        /// Function to get stash tab by name and league. Assumes that the stash tab name is unique within the league
+        /// </summary>
+        /// <param name="name">Name of the stash tab</param>
+        /// <param name="league">Name of the league</param>
+        /// <param name="initializeTabs">This value is only internal, and should not be set</param>
+        /// <returns></returns>
+        public StashApiRequest GetStashtab(string name = "", string league= "", bool initializeTabs=false) {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            if (league == "") {
+                league = Settings.GetValue("CurrentLeague");
+            }
+            string SessID = Settings.GetValue("POESESSID");
+            string account = Settings.GetValue("Account");
+
+
+            int tabIndex = 0;
+            if(initializeTabs == false) {
+                if (LeagueStashtabDictionary.ContainsKey(league) && league != "") {
+                    List<StashTab> tabs = LeagueStashtabDictionary[league];
+                    tabIndex = tabs.Single(x => x.Name == name).Index;
+                }
+                else {
+                    GetStashtab(initializeTabs : true);
+                }
+            }
+            
+            string tabIndexString = "";
+            if (initializeTabs==false) {
+                tabIndexString = "&tabIndex=" + tabIndex.ToString();
+            }
+            
+            string _apiEndpoint = $"https://www.pathofexile.com/character-window/get-stash-items?league=" + league + "&accountName=" + account + "&tabs=1" + tabIndexString;
+
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(_apiEndpoint);
+            
+            CookieContainer cont = new CookieContainer();
+            Cookie cookie = new Cookie("POESESSID", SessID, "/", ".pathofexile.com");
+            Cookie cookie1 = new Cookie("stored_data", "1", "/", ".pathofexile.com");
+            webRequest.CookieContainer = cont;
+            webRequest.CookieContainer.Add(cookie);
+            webRequest.CookieContainer.Add(cookie1);
+            
+            webRequest.Headers.Add("Accept-Encoding", "gzip,deflate");
+
+            HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+
+            LogHeader(webResponse.Headers);
+            string decompressedStashTab = DecompressToString(webResponse);
+
+            StashApiRequest apiRequest = JsonConvert.DeserializeObject<StashApiRequest>(decompressedStashTab);
+
+            //Verify that the selected tab has the correct name. If the tab was moved, the cached index will be wrong and needs correcting.
+
+            return apiRequest;
+        }
+
+
+
+        private string DecompressToString(WebResponse response) {
+            byte[] decompFile = null;
+            using (Stream stream = response.GetResponseStream()) {
+                byte[] tmpArr = ReadFully(stream);
+                Stream stream1 = new MemoryStream(tmpArr);
+                using (GZipStream decompStream = new GZipStream(stream1, CompressionMode.Decompress)) {
+                    decompFile = ReadFully(decompStream);
+                }
+            }
+            return System.Text.Encoding.Default.GetString(decompFile);
+        }
+
+        private void LogHeader(WebHeaderCollection headers) {
 
             string[] xRateLimitAccount = { "X-Rate-Limit-Account" };
             string[] xRateLimitAccountState = { "X-Rate-Limit-Account-State" };
@@ -63,24 +145,14 @@ namespace PathTracker_Backend
                 string header = headers.GetKey(i);
                 foreach (string value in headers.GetValues(i)) {
 
-                    if(header == "X-Rate-Limit-Account") {
+                    if (header == "X-Rate-Limit-Account") {
                         xRateLimitAccount = value.Split(',');
                     }
-                    else if(header == "X-Rate-Limit-Account-State") {
+                    else if (header == "X-Rate-Limit-Account-State") {
                         xRateLimitAccountState = value.Split(',');
                     }
                 }
             }
-
-            byte[] decompFile = null;
-            using (Stream stream = webResponse.GetResponseStream()) {
-                byte[] tmpArr = ReadFully(stream);
-                Stream stream1 = new MemoryStream(tmpArr);
-                using (GZipStream decompStream = new GZipStream(stream1, CompressionMode.Decompress)) {
-                    decompFile = ReadFully(decompStream);
-                }
-            }
-            Inventory deserialized = JsonConvert.DeserializeObject<Inventory>(System.Text.Encoding.Default.GetString(decompFile));
 
             string rateLimit = "";
             for (int i = 0; i < xRateLimitAccount.Length; i++) {
@@ -92,8 +164,6 @@ namespace PathTracker_Backend
 
             RequestCoordinatorLog.Info("Finnished inventory request in " + timer.ElapsedMilliseconds + "ms");
             RequestCoordinatorLog.Info(rateLimit);
-            
-            return deserialized; 
         }
 
         private static byte[] ReadFully(Stream stream, int bufferSize = 32768) {
