@@ -13,10 +13,11 @@ using System.Collections;
 
 namespace PathTracker_Backend {
     public class InventoryListener {
+
         private int MsListenDelay;
         private Stopwatch ListenTimer = new Stopwatch();
         private RequestCoordinator Coordinator;
-
+        private SettingsManager Settings = SettingsManager.Instance;
         private List<Item> CurrentInventory = null;
         private Character CurrentCharacter = null;
 
@@ -60,7 +61,7 @@ namespace PathTracker_Backend {
                         logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
                     }
 
-                    InventoryLog.Info("Changes: " + logAdded + "||" + logRemoved);
+                    InventoryLog.Info("Inventory (account:"+Settings.GetValue("Account")+",character:"+Settings.GetValue("CurrentCharacter")+") changes: " + logAdded + "||" + logRemoved);
                 }
                 else {
                     System.Threading.Thread.Sleep(MsListenDelay - (int)ListenTimer.ElapsedMilliseconds);

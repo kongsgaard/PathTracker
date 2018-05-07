@@ -15,12 +15,13 @@ namespace PathTracker_Backend {
             
             RequestCoordinator requestCoordinator = new RequestCoordinator();
 
-            InventoryListener inventoryListener = new InventoryListener(5000, requestCoordinator);
+            StashtabListener inventoryListener = new StashtabListener("Ch",5000, requestCoordinator);
             
             Task tsk1 = new Task(inventoryListener.StartListening);
 
-            //tsk1.Start();
+            tsk1.Start();
 
+            tsk1.Wait();
 
             //FileSystemWatcher watcher = new FileSystemWatcher();
             //string fileMinimap = "C:\\Users\\emilk\\Documents\\My Games\\Path of Exile\\Minimap";
@@ -35,7 +36,7 @@ namespace PathTracker_Backend {
             watch.Start();
             long numBytes = 0;
 
-
+            /*
             while (true) {
                 if (watch.ElapsedMilliseconds >= 1000) { 
                     using (FileStream stream = File.Open(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
@@ -68,21 +69,8 @@ namespace PathTracker_Backend {
                 }
 
             }
+            */
 
-
-
-
-            //watcher.Path = Path.GetDirectoryName(fileMinimap);
-            //watcher.Filter = Path.GetFileName(filepath);
-
-            //watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            //
-            //watcher.Changed += new FileSystemEventHandler(OnChanged);
-            //watcher.Created += new FileSystemEventHandler(OnChanged);
-            //watcher.Deleted += new FileSystemEventHandler(OnChanged);
-            //watcher.Renamed += new RenamedEventHandler(OnRenamed);
-            //
-            //watcher.EnableRaisingEvents = true;
 
 
             //Console.WriteLine("Press \'q\' to quit the sample.");
@@ -101,14 +89,6 @@ namespace PathTracker_Backend {
             Console.ReadLine();
         }
 
-        private static void OnChanged(object source, FileSystemEventArgs e) {
-            // Specify what is done when a file is changed, created, or deleted.
-            Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-        }
 
-        private static void OnRenamed(object source, RenamedEventArgs e) {
-            // Specify what is done when a file is renamed.
-            Console.WriteLine("File: {0} renamed to {1}", e.OldFullPath, e.FullPath);
-        }
     }
 }

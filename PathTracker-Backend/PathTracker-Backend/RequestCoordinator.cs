@@ -61,6 +61,9 @@ namespace PathTracker_Backend
             string responseDecompressed = DecompressToString(webResponse);
             Inventory deserialized = JsonConvert.DeserializeObject<Inventory>(responseDecompressed);
 
+            RequestCoordinatorLog.Info("Finnished inventory request (Account:" + account + ",character: " + currentChar + ") request in " + timer.ElapsedMilliseconds + "ms");
+
+
             return deserialized; 
         }
 
@@ -71,25 +74,28 @@ namespace PathTracker_Backend
         /// <param name="league">Name of the league</param>
         /// <param name="initializeTabs">This value is only internal, and should not be set</param>
         /// <returns></returns>
-        public StashApiRequest GetStashtab(string name = "", string league= "", bool initializeTabs=false) {
+        public StashApiRequest GetStashtab(string name, string league= "", bool initializeTabs=false) {
             Stopwatch timer = new Stopwatch();
             timer.Start();
-            string fetchLeague = "";
+            string fetchLeague = league;
             if (league == "") {
                 fetchLeague = Settings.GetValue("CurrentLeague");
             }
             string SessID = Settings.GetValue("POESESSID");
             string account = Settings.GetValue("Account");
 
+            if(!(LeagueStashtabDictionary.ContainsKey(fetchLeague)) && initializeTabs==false) {
+                GetStashtab(name: name, league: fetchLeague, initializeTabs: true);
+            }
 
             int tabIndex = 0;
             if(initializeTabs == false) {
-                if (LeagueStashtabDictionary.ContainsKey(fetchLeague) && fetchLeague != "") {
+                if (LeagueStashtabDictionary.ContainsKey(fetchLeague)) {
                     List<StashTab> tabs = LeagueStashtabDictionary[fetchLeague];
                     tabIndex = tabs.Single(x => x.Name == name).Index;
                 }
                 else {
-                    GetStashtab(name : name, league : fetchLeague, initializeTabs : true);
+                    throw new Exception("Should never happen... Dave");
                 }
             }
             
@@ -118,22 +124,27 @@ namespace PathTracker_Backend
 
             StashApiRequest apiRequest = JsonConvert.DeserializeObject<StashApiRequest>(decompressedStashTab);
             
-            RequestCoordinatorLog.Info("Finnished inventory request in " + timer.ElapsedMilliseconds + "ms");
+            RequestCoordinatorLog.Info("Finnished stash tab (Account:"+account+",name: "+ name + ",league: " + league +") request in " + timer.ElapsedMilliseconds + "ms");
 
             //Verify that the selected tab has the correct name. If the tab was moved, the cached index will be wrong and needs correcting.
-            int newIndex = apiRequest.StashTabs.Single(x => x.Name == name).Index;
-            if (newIndex != tabIndex) {
-                int oldIndex = LeagueStashtabDictionary[fetchLeague].Single(x => x.Name == name).Index;
-                RequestCoordinatorLog.Info("Requesting stash tab " + name + " again. Index changed from " + oldIndex.ToString() + " to " + newIndex.ToString());
+            if (initializeTabs) {
                 LeagueStashtabDictionary[fetchLeague] = apiRequest.StashTabs;
-                GetStashtab(name : name, league : fetchLeague);
+                return null;
             }
+            else {
+                int newIndex = apiRequest.StashTabs.Single(x => x.Name == name).Index;
+                if (newIndex != tabIndex) {
+                    int oldIndex = LeagueStashtabDictionary[fetchLeague].Single(x => x.Name == name).Index;
+                    RequestCoordinatorLog.Info("Requesting stash tab " + name + " again. Index changed from " + oldIndex.ToString() + " to " + newIndex.ToString());
+                    LeagueStashtabDictionary[fetchLeague] = apiRequest.StashTabs;
+                    apiRequest = GetStashtab(name: name, league: fetchLeague);
+                }
+            }
+            
 
             return apiRequest;
         }
-
-
-
+        
         private string DecompressToString(WebResponse response) {
             byte[] decompFile = null;
             using (Stream stream = response.GetResponseStream()) {

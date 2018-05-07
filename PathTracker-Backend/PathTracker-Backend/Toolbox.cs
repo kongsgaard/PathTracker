@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using log4net;
+using log4net.Appender;
+using log4net.Repository.Hierarchy;
 
 namespace PathTracker_Backend
 {
@@ -15,5 +18,21 @@ namespace PathTracker_Backend
             return (added, removed);
         }
 
+        public static void StartNewFile(this ILog log, string newFileName) {
+            Logger logger = (Logger)log.Logger;
+
+            while (logger != null) {
+                foreach (IAppender appender in logger.Appenders) {
+                    FileAppender fileAppender = appender as FileAppender;
+                    if (fileAppender != null) {
+                        fileAppender.File = newFileName;
+                        fileAppender.ActivateOptions();
+                    }
+                }
+                logger = logger.Parent;
+            }
+        }
     }
+
+
 }

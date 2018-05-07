@@ -12,37 +12,53 @@ using System.Collections;
 
 namespace PathTracker_Backend {
     public class StashtabListener {
+
         private int MsListenDelay;
         private Stopwatch ListenTimer = new Stopwatch();
         private RequestCoordinator Coordinator;
+        private string StashName = "";
+        private List<Item> CurrentStashItems = null;
+        private SettingsManager Settings = SettingsManager.Instance;
+        private static readonly ILog StashtabLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "StashtabLogger");
 
-        private List<Item> CurrentInventory = null;
-
-        private static readonly ILog InventoryLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "InventoryLogger");
-
-        public StashtabListener(int msListenDelay, RequestCoordinator coordinator) {
+        public StashtabListener(string stashName, int msListenDelay, RequestCoordinator coordinator) {
             MsListenDelay = msListenDelay;
             Coordinator = coordinator;
+            StashName = stashName;
 
-            log4net.GlobalContext.Properties["InventoryLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//InventoryLog";
+            //Toolbox.StartNewFile(StashtabLog, "Testlogging_" + stashName);
+
+            log4net.GlobalContext.Properties["StashtabLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//StashtabLog";
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
 
         public void StartListening() {
 
-            Inventory current = Coordinator.GetInventory();
-            CurrentInventory = current.Items.Where(x => x.InventoryId == "MainInventory").ToList();
+            StashApiRequest currentStashTab = Coordinator.GetStashtab(StashName);
+            CurrentStashItems = currentStashTab.Items;
 
             ListenTimer.Start();
 
             while (true) {
 
                 if (ListenTimer.ElapsedMilliseconds >= MsListenDelay) {
-                    Inventory newInventory = Coordinator.GetInventory();
+                    StashApiRequest newStashTab = Coordinator.GetStashtab(StashName);
                     ListenTimer.Restart();
                     
+                    (List<Item > added, List<Item > removed) = Toolbox.ItemDiffer(CurrentStashItems, newStashTab.Items);
 
+                    string logAdded = "Added - ";
+                    string logRemoved = "Removed - ";
+
+                    foreach (Item item in added) {
+                        logAdded = logAdded + item.Name + " " + item.TypeLine + " & ";
+                    }
+                    foreach (Item item in removed) {
+                        logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
+                    }
+
+                    StashtabLog.Info("Stash (account:" + Settings.GetValue("account")+ ",name:"+StashName + ", league:"+Settings.GetValue("league")+") changes: " + logAdded + "||" + logRemoved);
                 }
                 else {
                     System.Threading.Thread.Sleep(MsListenDelay - (int)ListenTimer.ElapsedMilliseconds);
