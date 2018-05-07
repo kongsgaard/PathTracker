@@ -10,7 +10,7 @@ namespace PathTracker_Backend {
         bool Hidden { get; set; }
 
         [JsonProperty("selected")]
-        bool Selected { get; set; }
+        public bool Selected { get; set; }
 
         [JsonProperty("i")]
         public int Index { get; set; }

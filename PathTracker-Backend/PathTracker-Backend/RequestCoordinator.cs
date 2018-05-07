@@ -74,9 +74,9 @@ namespace PathTracker_Backend
         public StashApiRequest GetStashtab(string name = "", string league= "", bool initializeTabs=false) {
             Stopwatch timer = new Stopwatch();
             timer.Start();
-
+            string fetchLeague = "";
             if (league == "") {
-                league = Settings.GetValue("CurrentLeague");
+                fetchLeague = Settings.GetValue("CurrentLeague");
             }
             string SessID = Settings.GetValue("POESESSID");
             string account = Settings.GetValue("Account");
@@ -84,12 +84,12 @@ namespace PathTracker_Backend
 
             int tabIndex = 0;
             if(initializeTabs == false) {
-                if (LeagueStashtabDictionary.ContainsKey(league) && league != "") {
-                    List<StashTab> tabs = LeagueStashtabDictionary[league];
+                if (LeagueStashtabDictionary.ContainsKey(fetchLeague) && fetchLeague != "") {
+                    List<StashTab> tabs = LeagueStashtabDictionary[fetchLeague];
                     tabIndex = tabs.Single(x => x.Name == name).Index;
                 }
                 else {
-                    GetStashtab(initializeTabs : true);
+                    GetStashtab(name : name, league : fetchLeague, initializeTabs : true);
                 }
             }
             
@@ -98,7 +98,7 @@ namespace PathTracker_Backend
                 tabIndexString = "&tabIndex=" + tabIndex.ToString();
             }
             
-            string _apiEndpoint = $"https://www.pathofexile.com/character-window/get-stash-items?league=" + league + "&accountName=" + account + "&tabs=1" + tabIndexString;
+            string _apiEndpoint = $"https://www.pathofexile.com/character-window/get-stash-items?league=" + fetchLeague + "&accountName=" + account + "&tabs=1" + tabIndexString;
 
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(_apiEndpoint);
             
@@ -117,8 +117,17 @@ namespace PathTracker_Backend
             string decompressedStashTab = DecompressToString(webResponse);
 
             StashApiRequest apiRequest = JsonConvert.DeserializeObject<StashApiRequest>(decompressedStashTab);
+            
+            RequestCoordinatorLog.Info("Finnished inventory request in " + timer.ElapsedMilliseconds + "ms");
 
             //Verify that the selected tab has the correct name. If the tab was moved, the cached index will be wrong and needs correcting.
+            int newIndex = apiRequest.StashTabs.Single(x => x.Name == name).Index;
+            if (newIndex != tabIndex) {
+                int oldIndex = LeagueStashtabDictionary[fetchLeague].Single(x => x.Name == name).Index;
+                RequestCoordinatorLog.Info("Requesting stash tab " + name + " again. Index changed from " + oldIndex.ToString() + " to " + newIndex.ToString());
+                LeagueStashtabDictionary[fetchLeague] = apiRequest.StashTabs;
+                GetStashtab(name : name, league : fetchLeague);
+            }
 
             return apiRequest;
         }
@@ -162,7 +171,6 @@ namespace PathTracker_Backend
                 }
             }
 
-            RequestCoordinatorLog.Info("Finnished inventory request in " + timer.ElapsedMilliseconds + "ms");
             RequestCoordinatorLog.Info(rateLimit);
         }
 
