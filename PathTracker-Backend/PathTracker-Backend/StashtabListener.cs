@@ -25,9 +25,7 @@ namespace PathTracker_Backend {
             MsListenDelay = msListenDelay;
             Coordinator = coordinator;
             StashName = stashName;
-
-            //Toolbox.StartNewFile(StashtabLog, "Testlogging_" + stashName);
-
+            
             log4net.GlobalContext.Properties["StashtabLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//StashtabLog";
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
