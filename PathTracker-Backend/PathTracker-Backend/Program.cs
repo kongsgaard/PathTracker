@@ -13,7 +13,7 @@ namespace PathTracker_Backend {
 
         static void Main(string[] args) {
             
-            RequestCoordinator requestCoordinator = new RequestCoordinator();
+            //RequestCoordinator requestCoordinator = new RequestCoordinator();
 
             //StashtabListener inventoryListener = new StashtabListener("Ch",5000, requestCoordinator);
             //
@@ -22,7 +22,9 @@ namespace PathTracker_Backend {
             //tsk1.Start();
             //
             //tsk1.Wait();
-            
+
+            ClientTxtListener s = new ClientTxtListener(msListenDelay: default);
+
 
             ClientTxtListener clientTxtListener = new ClientTxtListener(1);
 

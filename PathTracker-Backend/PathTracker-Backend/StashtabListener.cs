@@ -11,9 +11,8 @@ using System.Linq;
 using System.Collections;
 
 namespace PathTracker_Backend {
-    public class StashtabListener {
-
-        private int MsListenDelay;
+    public class StashtabListener : IListener {
+        
         private Stopwatch ListenTimer = new Stopwatch();
         private RequestCoordinator Coordinator;
         private string StashName = "";
@@ -21,8 +20,7 @@ namespace PathTracker_Backend {
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog StashtabLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "StashtabLogger");
 
-        public StashtabListener(string stashName, int msListenDelay, RequestCoordinator coordinator) {
-            MsListenDelay = msListenDelay;
+        public StashtabListener(string stashName, RequestCoordinator coordinator) {
             Coordinator = coordinator;
             StashName = stashName;
             
@@ -35,33 +33,32 @@ namespace PathTracker_Backend {
 
             StashApiRequest currentStashTab = Coordinator.GetStashtab(StashName);
             CurrentStashItems = currentStashTab.Items;
+        }
 
-            ListenTimer.Start();
+        public void Listen() {
+            StashApiRequest newStashTab = Coordinator.GetStashtab(StashName);
 
-            while (true) {
+            (List<Item> added, List<Item> removed) = Toolbox.ItemDiffer(CurrentStashItems, newStashTab.Items);
 
-                if (ListenTimer.ElapsedMilliseconds >= MsListenDelay) {
-                    StashApiRequest newStashTab = Coordinator.GetStashtab(StashName);
-                    ListenTimer.Restart();
-                    
-                    (List<Item > added, List<Item > removed) = Toolbox.ItemDiffer(CurrentStashItems, newStashTab.Items);
+            string logAdded = "Added - ";
+            string logRemoved = "Removed - ";
 
-                    string logAdded = "Added - ";
-                    string logRemoved = "Removed - ";
-
-                    foreach (Item item in added) {
-                        logAdded = logAdded + item.Name + " " + item.TypeLine + " & ";
-                    }
-                    foreach (Item item in removed) {
-                        logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
-                    }
-
-                    StashtabLog.Info("Stash (account:" + Settings.GetValue("account")+ ",name:"+StashName + ", league:"+Settings.GetValue("league")+") changes: " + logAdded + "||" + logRemoved);
-                }
-                else {
-                    System.Threading.Thread.Sleep(MsListenDelay - (int)ListenTimer.ElapsedMilliseconds);
-                }
+            foreach (Item item in added) {
+                logAdded = logAdded + item.Name + " " + item.TypeLine + " & ";
             }
+            foreach (Item item in removed) {
+                logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
+            }
+
+            StashtabLog.Info("Stash (account:" + Settings.GetValue("account") + ",name:" + StashName + ", league:" + Settings.GetValue("league") + ") changes: " + logAdded + "||" + logRemoved);
+        }
+
+        public void NewZoneEntered(object sender, NewZoneArgs args) {
+            Listen();
+        }
+
+        public void StopListening() {
+            throw new NotImplementedException();
         }
 
     }

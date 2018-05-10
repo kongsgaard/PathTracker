@@ -9,25 +9,37 @@ using System.Text.RegularExpressions;
 using log4net.Config;
 
 namespace PathTracker_Backend {
-    public class ClientTxtListener {
+    public class ClientTxtListener : IListener {
 
-        private string ClientTxtPath = "";
-        private int MsListenDelay;
+        private string _clientTxtPath = "";
+        public string ClientTxtPath {
+            get { return _clientTxtPath; }
+            set {
+                if (!File.Exists(value)) {
+                    throw new Exception("When setting ClientTxtPath, could not find file:" + value);
+                }
+                _clientTxtPath = value;
+            }
+        }
+
+        public int MsListenDelay;
         private Stopwatch ListenTimer = new Stopwatch();
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog ClientTxtLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "ClientTxtLogger");
 
-        public ClientTxtListener(int msListenDelay, string clientTxtPath = "") {
-            MsListenDelay = msListenDelay;
+        public event EventHandler<NewZoneArgs> NewZoneEntered;
 
-            ClientTxtPath = clientTxtPath == "" ? Settings.GetValue("ClientTxtPath") : clientTxtPath;
+
+        public ClientTxtListener() {
+            MsListenDelay = 1000;
+            ClientTxtPath = Settings.GetValue("ClientTxtPath");
             ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);
 
             log4net.GlobalContext.Properties["ClientTxtLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//ClientTxtLog";
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
-
+        
         public void StartListening() {
             
             using (FileStream stream = File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
@@ -63,6 +75,10 @@ namespace PathTracker_Backend {
 
         }
 
+        public void StopListening() {
+            throw new NotImplementedException();
+        }
+
 
         private void ParseClientText(string newText) {
             string[] newLines = newText.Split('\n');
@@ -83,12 +99,20 @@ namespace PathTracker_Backend {
 
             if (zoneMatch.Success && zoneMatch.Groups.Count > 1) {
                 if (zoneMatch.Groups[1].Captures.Count > 0) {
-
-                    Console.WriteLine("Entered: " + zoneMatch.Groups[1].Captures[0]);
+                    string zoneName = zoneMatch.Groups[1].Captures[0].ToString();
+                    ClientTxtLog.Info("Entered: " + zoneName);
+                    NewZoneEntered.Invoke(this, new NewZoneArgs(zoneName));
                 }
             }
-            int k = 0;
         }
 
+    }
+
+    public class NewZoneArgs : EventArgs {
+        public string ZoneName;
+
+        public NewZoneArgs(string zoneName) {
+            ZoneName = zoneName;
+        }
     }
 }

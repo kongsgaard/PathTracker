@@ -12,9 +12,7 @@ using System.Collections;
 
 
 namespace PathTracker_Backend {
-    public class InventoryListener {
-
-        private int MsListenDelay;
+    public class InventoryListener : IListener {
         private Stopwatch ListenTimer = new Stopwatch();
         private RequestCoordinator Coordinator;
         private SettingsManager Settings = SettingsManager.Instance;
@@ -23,8 +21,7 @@ namespace PathTracker_Backend {
 
         private static readonly ILog InventoryLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "InventoryLogger");
 
-        public InventoryListener(int msListenDelay, RequestCoordinator coordinator) {
-            MsListenDelay = msListenDelay;
+        public InventoryListener(RequestCoordinator coordinator) {
             Coordinator = coordinator;
             
             log4net.GlobalContext.Properties["InventoryLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//InventoryLog";
@@ -33,40 +30,38 @@ namespace PathTracker_Backend {
         }
 
         public void StartListening() {
-
             Inventory current = Coordinator.GetInventory();
             CurrentInventory = current.Items.Where(x => x.InventoryId == "MainInventory").ToList();
             CurrentCharacter = current.Character;
-            
-            ListenTimer.Start();
+        }
 
-            while (true) {
+        public void Listen() {
+            Inventory newInventory = Coordinator.GetInventory();
 
-                if(ListenTimer.ElapsedMilliseconds >= MsListenDelay) {
-                    Inventory newInventory = Coordinator.GetInventory();
-                    ListenTimer.Restart();
+            List<Item> newFiltered = newInventory.Items.Where(x => x.InventoryId == "MainInventory").ToList();
+            (List<Item> added, List<Item> removed) = Toolbox.ItemDiffer(CurrentInventory, newInventory.Items);
 
-                    List<Item> newFiltered = newInventory.Items.Where(x => x.InventoryId == "MainInventory").ToList();
-                    (List<Item> added, List<Item> removed) = Toolbox.ItemDiffer(CurrentInventory, newInventory.Items);
+            CurrentInventory = newFiltered;
 
-                    CurrentInventory = newFiltered;
+            string logAdded = "Added - ";
+            string logRemoved = "Removed - ";
 
-                    string logAdded = "Added - "; 
-                    string logRemoved = "Removed - ";
-
-                    foreach (Item item in added) {
-                        logAdded = logAdded + item.Name + " " + item.TypeLine + " & ";
-                    }
-                    foreach (Item item in removed) {
-                        logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
-                    }
-
-                    InventoryLog.Info("Inventory (account:"+Settings.GetValue("Account")+",character:"+Settings.GetValue("CurrentCharacter")+") changes: " + logAdded + "||" + logRemoved);
-                }
-                else {
-                    System.Threading.Thread.Sleep(MsListenDelay - (int)ListenTimer.ElapsedMilliseconds);
-                }
+            foreach (Item item in added) {
+                logAdded = logAdded + item.Name + " " + item.TypeLine + " & ";
             }
+            foreach (Item item in removed) {
+                logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
+            }
+
+            InventoryLog.Info("Inventory (account:" + Settings.GetValue("Account") + ",character:" + Settings.GetValue("CurrentCharacter") + ") changes: " + logAdded + "||" + logRemoved);
+        }
+
+        public void NewZoneEntered(object sender, NewZoneArgs args) {
+            Listen();
+        }
+
+        public void StopListening() {
+            throw new NotImplementedException();
         }
     }
 }
