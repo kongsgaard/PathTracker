@@ -8,12 +8,13 @@ using System.IO;
 
 namespace PathTracker_Backend {
     public class EventManager {
-        private static readonly ILog EventManagerLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "ClientTxtLogger");
+        private static readonly ILog EventManagerLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "EventManagerLogger");
 
         InventoryListener inventoryListener = null;
         ClientTxtListener clientTxtListener = null;
         Dictionary<string, StashtabListener> stashtabListeners = new Dictionary<string, StashtabListener>();
         RequestCoordinator requestCoordinator = new RequestCoordinator();
+        ItemDeltaCalculator deltaCalculator = new ItemDeltaCalculator();
 
         public EventManager() {
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace PathTracker_Backend {
     public class Item {
@@ -73,8 +74,9 @@ namespace PathTracker_Backend {
 
         [JsonProperty("lockedToCharacter")]
         public bool LockedToCharacter { get; set; }
-
-        [JsonProperty("maxStackSize")]
+        
+        [DefaultValue(0)]
+        [JsonProperty("maxStackSize", DefaultValueHandling = DefaultValueHandling.Populate)]
         public int MaxStackSize { get; set; }
 
         [JsonProperty("name")]

@@ -54,6 +54,7 @@ namespace PathTracker_Backend {
         }
 
         public void NewZoneEntered(object sender, NewZoneArgs args) {
+            StashtabLog.Info("New zone entered event fired for stash:"+StashName+". Zone:" + args.ZoneName);
             Listen();
         }
 

@@ -39,7 +39,7 @@ namespace PathTracker_Backend {
             Inventory newInventory = Coordinator.GetInventory();
 
             List<Item> newFiltered = newInventory.Items.Where(x => x.InventoryId == "MainInventory").ToList();
-            (List<Item> added, List<Item> removed) = Toolbox.ItemDiffer(CurrentInventory, newInventory.Items);
+            (List<Item> added, List<Item> removed) = Toolbox.ItemDiffer(CurrentInventory, newFiltered);
 
             CurrentInventory = newFiltered;
 
@@ -57,6 +57,7 @@ namespace PathTracker_Backend {
         }
 
         public void NewZoneEntered(object sender, NewZoneArgs args) {
+            InventoryLog.Info("New zone entered event fired. Zone:" + args.ZoneName);
             Listen();
         }
 

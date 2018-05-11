@@ -7,6 +7,8 @@ using log4net;
 using System.IO;
 using System.Text.RegularExpressions;
 using log4net.Config;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace PathTracker_Backend {
     public class ClientTxtListener : IListener {
@@ -31,17 +33,19 @@ namespace PathTracker_Backend {
 
 
         public ClientTxtListener() {
-            MsListenDelay = 1000;
-            ClientTxtPath = Settings.GetValue("ClientTxtPath");
-            ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);
-
             log4net.GlobalContext.Properties["ClientTxtLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//ClientTxtLog";
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+
+            MsListenDelay = 1000;
+            ClientTxtPath = Settings.GetValue("ClientTxtPath");
+            ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);
         }
         
         public void StartListening() {
-            
+
+            ClientTxtLog.Info("Starting listener");
+            ListenTimer.Start();
             using (FileStream stream = File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                 long numBytes = stream.Length;
 
@@ -53,18 +57,21 @@ namespace PathTracker_Backend {
 
                         int numNewBytes = (int)(currentBytes - numBytes);
                         byte[] newBytes = new byte[numNewBytes];
-
                         string newText = "";
-                        if (currentBytes - numBytes > 0) {
+                        if (numNewBytes > 0) {
                             stream.Read(newBytes, 0, numNewBytes);
                             newText = System.Text.Encoding.Default.GetString(newBytes);
+                            ClientTxtLog.Info(newBytes.Length.ToString() + " new bytes in " + ClientTxtPath);
                         }
 
                         numBytes = stream.Length;
 
                         ListenTimer.Restart();
 
-                        ParseClientText(newText);
+                        if(numNewBytes > 0) {
+                            ParseClientText(newText);
+                        }
+                        
                     }
                     else {
                         System.Threading.Thread.Sleep(MsListenDelay - (int)ListenTimer.ElapsedMilliseconds);
@@ -92,7 +99,7 @@ namespace PathTracker_Backend {
         }
 
         //Matches pattern: 2018/05/07 17:22:04 113950185 9b0 [INFO Client 13026] : You have entered CAPTUREDZONE
-        private static string ZoneEnterPattern = @"^[0-9]{4}\/[0-9]{2}\/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]* [a-zA-Z0-9]* \[INFO Client [0-9]*\] : You have entered ([a-zA-Z0-9 ']*)";
+        private static string ZoneEnterPattern = @"^[0-9]{4}\/[0-9]{2}\/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]* [a-zA-Z0-9]* \[INFO Client [0-9]*\] : You have entered ([a-zA-Z0-9 '-]*)";
         private Regex ZoneRegex = new Regex(ZoneEnterPattern);
         private void ParseLine(string line) {
             Match zoneMatch = ZoneRegex.Match(line);
@@ -101,13 +108,44 @@ namespace PathTracker_Backend {
                 if (zoneMatch.Groups[1].Captures.Count > 0) {
                     string zoneName = zoneMatch.Groups[1].Captures[0].ToString();
                     ClientTxtLog.Info("Entered: " + zoneName);
-                    NewZoneEntered.Invoke(this, new NewZoneArgs(zoneName));
+
+                    Delegate[] delegates = NewZoneEntered.GetInvocationList();
+                    WaitHandle[] waitHandles = new WaitHandle[delegates.Length];
+                    NewZoneArgs newZone = new NewZoneArgs(zoneName);
+
+                    for(int i = 0; i < delegates.Length; i++) {
+                        int iparam = i;
+                        EventWaitHandle waitHandle = new EventWaitHandle(false, EventResetMode.ManualReset);
+                        Thread thread = new Thread(() => CallDelegate(delegates[iparam], waitHandle, waitHandles, iparam, newZone, this));
+                        thread.Start();
+                    }
+
+                    
+
+                    //Wait for all threads to start
+                    while(Interlocked.Read(ref threadStarted) < delegates.Length) {
+                        Thread.Sleep(100);
+                    }
+                    
+                    //Wait for all threads to finnish
+                    WaitHandle.WaitAll(waitHandles);
+                    ClientTxtLog.Info("All threads done after entering zone:" + zoneName);
+
+                    threadStarted = 0;
                 }
             }
         }
 
-    }
+        private long threadStarted = 0;
 
+        private void CallDelegate(Delegate del, EventWaitHandle waitHandle, WaitHandle[] waitHandles, int i, NewZoneArgs newZoneArgs, object sender) {
+            waitHandles[i] = waitHandle;
+            Interlocked.Increment(ref threadStarted);
+            del.DynamicInvoke(sender, newZoneArgs);
+            waitHandle.Set();
+        }
+    }
+    
     public class NewZoneArgs : EventArgs {
         public string ZoneName;
 
