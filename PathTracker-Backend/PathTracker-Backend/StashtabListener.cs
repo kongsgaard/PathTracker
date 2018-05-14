@@ -33,6 +33,9 @@ namespace PathTracker_Backend {
 
             StashApiRequest currentStashTab = Coordinator.GetStashtab(StashName);
             CurrentStashItems = currentStashTab.Items;
+
+            Zone newzone = new Zone("test");
+            newzone.AddItemsToJson(CurrentStashItems);
         }
 
         public void Listen() {
