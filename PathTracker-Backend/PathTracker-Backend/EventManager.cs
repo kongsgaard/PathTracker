@@ -14,7 +14,6 @@ namespace PathTracker_Backend {
         ClientTxtListener clientTxtListener = null;
         Dictionary<string, StashtabListener> stashtabListeners = new Dictionary<string, StashtabListener>();
         RequestCoordinator requestCoordinator = new RequestCoordinator();
-        ItemDeltaCalculator deltaCalculator = new ItemDeltaCalculator();
 
         public EventManager() {
 
@@ -26,7 +25,7 @@ namespace PathTracker_Backend {
         public void StartClientTxtListener() {
 
             if(clientTxtListener == null) {
-                clientTxtListener = new ClientTxtListener(deltaCalculator);
+                clientTxtListener = new ClientTxtListener();
                 clientTxtListener.StartListening();
                 EventManagerLog.Info("Starting new ClientTxtListener with ClientTxtPath:" + clientTxtListener.ClientTxtPath);
             }

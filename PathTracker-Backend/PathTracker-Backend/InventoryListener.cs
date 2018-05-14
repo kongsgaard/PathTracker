@@ -18,13 +18,11 @@ namespace PathTracker_Backend {
         private SettingsManager Settings = SettingsManager.Instance;
         private List<Item> CurrentInventory = null;
         private Character CurrentCharacter = null;
-        private ItemDeltaCalculator DeltaCalculator;
 
         private static readonly ILog InventoryLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "InventoryLogger");
 
-        public InventoryListener(RequestCoordinator coordinator, ItemDeltaCalculator itemDeltaCalculator) {
+        public InventoryListener(RequestCoordinator coordinator) {
             Coordinator = coordinator;
-            DeltaCalculator = itemDeltaCalculator;
             
             log4net.GlobalContext.Properties["InventoryLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//InventoryLog";
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
@@ -37,19 +35,19 @@ namespace PathTracker_Backend {
             CurrentCharacter = current.Character;
         }
 
-        public void Listen() {
+        public void Listen(ItemDeltaCalculator itemDeltaCalculator) {
             Inventory newInventory = Coordinator.GetInventory();
 
-            DeltaCalculator.ItemsUpdated(CurrentInventory, newInventory.Items);
+            itemDeltaCalculator.ItemsUpdated(CurrentInventory, newInventory.Items);
 
             CurrentInventory = newInventory.Items;
 
             InventoryLog.Info("Inventory (account:" + Settings.GetValue("Account") + ",character:" + Settings.GetValue("CurrentCharacter") + ") fetched");
         }
 
-        public void NewZoneEntered(object sender, NewZoneArgs args) {
+        public void NewZoneEntered(object sender, ZoneChangeArgs args) {
             InventoryLog.Info("New zone entered event fired. Zone:" + args.ZoneName);
-            Listen();
+            Listen(args.deltaCalculator);
         }
 
         public void StopListening() {

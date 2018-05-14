@@ -10,6 +10,7 @@ namespace PathTracker_Backend
     public class Zone
     {
         public string ZoneName { get; set; }
+        public ItemDeltaCalculator deltaCalculator { get; set; }
 
         public Zone(string zoneName) {
             ZoneName = zoneName;
@@ -18,7 +19,8 @@ namespace PathTracker_Backend
         public void AddItemsToJson(List<Item> items) {
             JArray itemArr = (JArray)zoneJson["itemDelta"];
             foreach (Item item in items) {
-                itemArr.Add(item);
+                itemArr.Add(JsonConvert.SerializeObject(item));
+                
             }
 
         }

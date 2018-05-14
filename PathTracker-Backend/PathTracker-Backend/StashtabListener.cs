@@ -15,15 +15,13 @@ namespace PathTracker_Backend {
         
         private Stopwatch ListenTimer = new Stopwatch();
         private RequestCoordinator Coordinator;
-        private ItemDeltaCalculator DeltaCalculator;
         private string StashName = "";
         private List<Item> CurrentStashItems = null;
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog StashtabLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "StashtabLogger");
 
-        public StashtabListener(string stashName, RequestCoordinator coordinator, ItemDeltaCalculator itemDeltaCalculator) {
+        public StashtabListener(string stashName, RequestCoordinator coordinator) {
             Coordinator = coordinator;
-            DeltaCalculator = itemDeltaCalculator;
             StashName = stashName;
             
             log4net.GlobalContext.Properties["StashtabLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//StashtabLog";
@@ -35,24 +33,21 @@ namespace PathTracker_Backend {
 
             StashApiRequest currentStashTab = Coordinator.GetStashtab(StashName);
             CurrentStashItems = currentStashTab.Items;
-
-            Zone newzone = new Zone("test");
-            newzone.AddItemsToJson(CurrentStashItems);
         }
 
-        public void Listen() {
+        public void Listen(ItemDeltaCalculator itemDeltaCalculator) {
             StashApiRequest newStashTab = Coordinator.GetStashtab(StashName);
 
-            DeltaCalculator.ItemsUpdated(CurrentStashItems, newStashTab.Items);
+            itemDeltaCalculator.ItemsUpdated(CurrentStashItems, newStashTab.Items);
 
             CurrentStashItems = newStashTab.Items;
 
             StashtabLog.Info("Stash (account:" + Settings.GetValue("account") + ",name:" + StashName + ", league:" + Settings.GetValue("league") + ") fetched");
         }
 
-        public void NewZoneEntered(object sender, NewZoneArgs args) {
+        public void NewZoneEntered(object sender, ZoneChangeArgs args) {
             StashtabLog.Info("New zone entered event fired for stash:"+StashName+". Zone:" + args.ZoneName);
-            Listen();
+            Listen(args.deltaCalculator);
         }
 
         public void StopListening() {
