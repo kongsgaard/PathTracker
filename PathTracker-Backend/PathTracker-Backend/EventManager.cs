@@ -26,7 +26,7 @@ namespace PathTracker_Backend {
         public void StartClientTxtListener() {
 
             if(clientTxtListener == null) {
-                clientTxtListener = new ClientTxtListener();
+                clientTxtListener = new ClientTxtListener(deltaCalculator);
                 clientTxtListener.StartListening();
                 EventManagerLog.Info("Starting new ClientTxtListener with ClientTxtPath:" + clientTxtListener.ClientTxtPath);
             }
@@ -41,7 +41,7 @@ namespace PathTracker_Backend {
             }
 
             if (inventoryListener == null) {
-                inventoryListener = new InventoryListener(requestCoordinator);
+                inventoryListener = new InventoryListener(requestCoordinator, deltaCalculator);
                 inventoryListener.StartListening();
                 EventManagerLog.Info("Starting new InventoryListener");
                 clientTxtListener.NewZoneEntered += inventoryListener.NewZoneEntered;
@@ -57,7 +57,7 @@ namespace PathTracker_Backend {
             }
 
             if (!stashtabListeners.ContainsKey(StashName)) {
-                stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator);
+                stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator, deltaCalculator);
                 stashtabListeners[StashName].StartListening();
                 EventManagerLog.Info("Starting new stashtabListeners for stash:" + StashName);
                 clientTxtListener.NewZoneEntered += stashtabListeners[StashName].NewZoneEntered;

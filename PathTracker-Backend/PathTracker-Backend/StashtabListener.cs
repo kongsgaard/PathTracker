@@ -15,13 +15,15 @@ namespace PathTracker_Backend {
         
         private Stopwatch ListenTimer = new Stopwatch();
         private RequestCoordinator Coordinator;
+        private ItemDeltaCalculator DeltaCalculator;
         private string StashName = "";
         private List<Item> CurrentStashItems = null;
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog StashtabLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "StashtabLogger");
 
-        public StashtabListener(string stashName, RequestCoordinator coordinator) {
+        public StashtabListener(string stashName, RequestCoordinator coordinator, ItemDeltaCalculator itemDeltaCalculator) {
             Coordinator = coordinator;
+            DeltaCalculator = itemDeltaCalculator;
             StashName = stashName;
             
             log4net.GlobalContext.Properties["StashtabLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//StashtabLog";
@@ -38,19 +40,11 @@ namespace PathTracker_Backend {
         public void Listen() {
             StashApiRequest newStashTab = Coordinator.GetStashtab(StashName);
 
-            (List<Item> added, List<Item> removed) = Toolbox.ItemDiffer(CurrentStashItems, newStashTab.Items);
+            DeltaCalculator.ItemsUpdated(CurrentStashItems, newStashTab.Items);
 
-            string logAdded = "Added - ";
-            string logRemoved = "Removed - ";
+            CurrentStashItems = newStashTab.Items;
 
-            foreach (Item item in added) {
-                logAdded = logAdded + item.Name + " " + item.TypeLine + " & ";
-            }
-            foreach (Item item in removed) {
-                logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
-            }
-
-            StashtabLog.Info("Stash (account:" + Settings.GetValue("account") + ",name:" + StashName + ", league:" + Settings.GetValue("league") + ") changes: " + logAdded + "||" + logRemoved);
+            StashtabLog.Info("Stash (account:" + Settings.GetValue("account") + ",name:" + StashName + ", league:" + Settings.GetValue("league") + ") fetched");
         }
 
         public void NewZoneEntered(object sender, NewZoneArgs args) {

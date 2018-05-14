@@ -23,6 +23,7 @@ namespace PathTracker_Backend {
                 _clientTxtPath = value;
             }
         }
+        private ItemDeltaCalculator DeltaCalculator;
 
         public int MsListenDelay;
         private Stopwatch ListenTimer = new Stopwatch();
@@ -32,10 +33,12 @@ namespace PathTracker_Backend {
         public event EventHandler<NewZoneArgs> NewZoneEntered;
 
 
-        public ClientTxtListener() {
+        public ClientTxtListener(ItemDeltaCalculator itemDeltaCalculator) {
             log4net.GlobalContext.Properties["ClientTxtLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//ClientTxtLog";
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+
+            DeltaCalculator = itemDeltaCalculator;
 
             MsListenDelay = 1000;
             ClientTxtPath = Settings.GetValue("ClientTxtPath");
@@ -130,6 +133,8 @@ namespace PathTracker_Backend {
                     //Wait for all threads to finnish
                     WaitHandle.WaitAll(waitHandles);
                     ClientTxtLog.Info("All threads done after entering zone:" + zoneName);
+
+                    DeltaCalculator.CalculateDelta(zoneName);
 
                     threadStarted = 0;
                 }

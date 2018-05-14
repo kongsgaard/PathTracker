@@ -18,11 +18,13 @@ namespace PathTracker_Backend {
         private SettingsManager Settings = SettingsManager.Instance;
         private List<Item> CurrentInventory = null;
         private Character CurrentCharacter = null;
+        private ItemDeltaCalculator DeltaCalculator;
 
         private static readonly ILog InventoryLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "InventoryLogger");
 
-        public InventoryListener(RequestCoordinator coordinator) {
+        public InventoryListener(RequestCoordinator coordinator, ItemDeltaCalculator itemDeltaCalculator) {
             Coordinator = coordinator;
+            DeltaCalculator = itemDeltaCalculator;
             
             log4net.GlobalContext.Properties["InventoryLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//InventoryLog";
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
@@ -31,29 +33,18 @@ namespace PathTracker_Backend {
 
         public void StartListening() {
             Inventory current = Coordinator.GetInventory();
-            CurrentInventory = current.Items.Where(x => x.InventoryId == "MainInventory").ToList();
+            CurrentInventory = current.Items;
             CurrentCharacter = current.Character;
         }
 
         public void Listen() {
             Inventory newInventory = Coordinator.GetInventory();
 
-            List<Item> newFiltered = newInventory.Items.Where(x => x.InventoryId == "MainInventory").ToList();
-            (List<Item> added, List<Item> removed) = Toolbox.ItemDiffer(CurrentInventory, newFiltered);
+            DeltaCalculator.ItemsUpdated(CurrentInventory, newInventory.Items);
 
-            CurrentInventory = newFiltered;
+            CurrentInventory = newInventory.Items;
 
-            string logAdded = "Added - ";
-            string logRemoved = "Removed - ";
-
-            foreach (Item item in added) {
-                logAdded = logAdded + item.Name + " " + item.TypeLine + " & ";
-            }
-            foreach (Item item in removed) {
-                logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
-            }
-
-            InventoryLog.Info("Inventory (account:" + Settings.GetValue("Account") + ",character:" + Settings.GetValue("CurrentCharacter") + ") changes: " + logAdded + "||" + logRemoved);
+            InventoryLog.Info("Inventory (account:" + Settings.GetValue("Account") + ",character:" + Settings.GetValue("CurrentCharacter") + ") fetched");
         }
 
         public void NewZoneEntered(object sender, NewZoneArgs args) {
