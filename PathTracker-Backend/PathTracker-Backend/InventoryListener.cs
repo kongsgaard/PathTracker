@@ -16,8 +16,6 @@ namespace PathTracker_Backend {
         private Stopwatch ListenTimer = new Stopwatch();
         private RequestCoordinator Coordinator;
         private SettingsManager Settings = SettingsManager.Instance;
-        private List<Item> CurrentInventory = null;
-        private Character CurrentCharacter = null;
 
         private static readonly ILog InventoryLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "InventoryLogger");
 
@@ -30,24 +28,21 @@ namespace PathTracker_Backend {
         }
 
         public void StartListening() {
-            Inventory current = Coordinator.GetInventory();
-            CurrentInventory = current.Items;
-            CurrentCharacter = current.Character;
         }
 
-        public void Listen(ItemDeltaCalculator itemDeltaCalculator) {
+        public void Listen(ItemDeltaCalculator fromZoneDeltaCalculator, ItemDeltaCalculator enteredZoneDeltaCalculator) {
             Inventory newInventory = Coordinator.GetInventory();
-
-            itemDeltaCalculator.ItemsUpdated(CurrentInventory, newInventory.Items);
-
-            CurrentInventory = newInventory.Items;
-
+            if(fromZoneDeltaCalculator != null) {
+                fromZoneDeltaCalculator.UpdateLeftZoneWithItems(newInventory.Items);
+            }
+            enteredZoneDeltaCalculator.UpdateEnteredZoneWithItems(newInventory.Items);
+            
             InventoryLog.Info("Inventory (account:" + Settings.GetValue("Account") + ",character:" + Settings.GetValue("CurrentCharacter") + ") fetched");
         }
 
         public void NewZoneEntered(object sender, ZoneChangeArgs args) {
             InventoryLog.Info("New zone entered event fired. Zone:" + args.ZoneName);
-            Listen(args.deltaCalculator);
+            Listen(args.FromZoneDeltaCalculator,args.EnteredZoneDeltaCalculator);
         }
 
         public void StopListening() {

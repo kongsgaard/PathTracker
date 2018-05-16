@@ -28,11 +28,9 @@ namespace PathTracker_Backend {
         private Stopwatch ListenTimer = new Stopwatch();
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog ClientTxtLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "ClientTxtLogger");
-
-        public event EventHandler<ZoneChangeArgs> NewZoneEntered;
-
-
-        public ClientTxtListener() {
+        private ZoneManager zoneManager;
+        
+        public ClientTxtListener(ZoneManager paramZoneManager) {
             log4net.GlobalContext.Properties["ClientTxtLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//ClientTxtLog";
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
@@ -40,6 +38,8 @@ namespace PathTracker_Backend {
             MsListenDelay = 1000;
             ClientTxtPath = Settings.GetValue("ClientTxtPath");
             ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);
+
+            zoneManager = paramZoneManager;
         }
         
         public void StartListening() {
@@ -109,55 +109,11 @@ namespace PathTracker_Backend {
                     string zoneName = zoneMatch.Groups[1].Captures[0].ToString();
                     ClientTxtLog.Info("Entered: " + zoneName);
 
-                    Delegate[] delegates = NewZoneEntered.GetInvocationList();
-                    WaitHandle[] waitHandles = new WaitHandle[delegates.Length];
-                    ItemDeltaCalculator deltaCalculator = new ItemDeltaCalculator();
-                    ZoneChangeArgs newZone = new ZoneChangeArgs(zoneName, deltaCalculator);
-
-                    for(int i = 0; i < delegates.Length; i++) {
-                        int iparam = i;
-                        EventWaitHandle waitHandle = new EventWaitHandle(false, EventResetMode.ManualReset);
-                        Thread thread = new Thread(() => CallDelegate(delegates[iparam], waitHandle, waitHandles, iparam, newZone, this));
-                        thread.Start();
-                    }
-
-                    
-
-                    //Wait for all threads to start
-                    while(Interlocked.Read(ref threadStarted) < delegates.Length) {
-                        Thread.Sleep(100);
-                    }
-                    
-
-
-                    //Wait for all threads to finnish
-                    WaitHandle.WaitAll(waitHandles);
-                    ClientTxtLog.Info("All threads done after entering zone:" + zoneName);
-
-                    deltaCalculator.CalculateDelta(zoneName);
-
-                    threadStarted = 0;
+                    zoneManager.ZoneEntered(zoneName);
                 }
             }
         }
-
-        private long threadStarted = 0;
-
-        private void CallDelegate(Delegate del, EventWaitHandle waitHandle, WaitHandle[] waitHandles, int i, ZoneChangeArgs newZoneArgs, object sender) {
-            waitHandles[i] = waitHandle;
-            Interlocked.Increment(ref threadStarted);
-            del.DynamicInvoke(sender, newZoneArgs);
-            waitHandle.Set();
-        }
     }
     
-    public class ZoneChangeArgs : EventArgs {
-        public string ZoneName;
-        public ItemDeltaCalculator deltaCalculator;
 
-        public ZoneChangeArgs(string zoneName, ItemDeltaCalculator calculator) {
-            ZoneName = zoneName;
-            deltaCalculator = calculator;
-        }
-    }
 }

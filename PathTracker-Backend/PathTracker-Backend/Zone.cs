@@ -9,11 +9,19 @@ namespace PathTracker_Backend
 {
     public class Zone
     {
+        public string ZoneID { get; set; }
         public string ZoneName { get; set; }
+        public ZoneType Type { get; set; }
+        public DateTime LastExitedZone { get; set; }
         public ItemDeltaCalculator deltaCalculator { get; set; }
+
+        public List<Item> AddedNonStackableItems = new List<Item>();
+        public List<Item> RemovedNonStackableItems = new List<Item>();
+        public Dictionary<string, int> DeltaStackableItems = new Dictionary<string, int>();
 
         public Zone(string zoneName) {
             ZoneName = zoneName;
+            deltaCalculator = new ItemDeltaCalculator();
         }
 
         public void AddItemsToJson(List<Item> items) {
@@ -23,6 +31,25 @@ namespace PathTracker_Backend
                 
             }
 
+        }
+
+        public void CalculateAndAddToDelta() {
+            List<Item> addedNonStackableItems = new List<Item>();
+            List<Item> removedNonStackableItems = new List<Item>();
+            Dictionary<string, int> deltaStackableItems = new Dictionary<string, int>();
+            (deltaStackableItems, addedNonStackableItems, removedNonStackableItems) = deltaCalculator.CalculateDelta(ZoneName);
+
+            AddedNonStackableItems.AddRange(addedNonStackableItems);
+            RemovedNonStackableItems.AddRange(removedNonStackableItems);
+
+            foreach(var kvp in deltaStackableItems) {
+                if (DeltaStackableItems.ContainsKey(kvp.Key)) {
+                    DeltaStackableItems[kvp.Key] += deltaStackableItems[kvp.Key];
+                }
+                else {
+                    DeltaStackableItems[kvp.Key] = deltaStackableItems[kvp.Key];
+                }
+            }
         }
 
         public void AddStackableItemsToJson(Dictionary<string, int> StackableCountDictionary) {
@@ -58,8 +85,39 @@ namespace PathTracker_Backend
                     new JArray()));
                                 
 
+        public void MergeZoneIntoThis(Zone zone) {
+            LastExitedZone = zone.LastExitedZone;
 
+            //Merge stackable items
+            foreach (var kvp in zone.DeltaStackableItems) {
+                if (DeltaStackableItems.ContainsKey(kvp.Key)) {
+                    DeltaStackableItems[kvp.Key] += zone.DeltaStackableItems[kvp.Key];
+                }
+                else {
+                    DeltaStackableItems[kvp.Key] = zone.DeltaStackableItems[kvp.Key];
+                }
+            }
+
+            //Merge added and removed
+            var nullifiedWasAdded = new List<Item>(AddedNonStackableItems.Intersect(zone.RemovedNonStackableItems, new ItemComparer()));
+            foreach(var nowRemoved in nullifiedWasAdded) {
+                AddedNonStackableItems.Remove(nowRemoved);
+            }
+
+            var nullifiedWasRemoved = new List<Item>(RemovedNonStackableItems.Intersect(zone.AddedNonStackableItems, new ItemComparer()));
+            foreach(var nowAdded in nullifiedWasRemoved) {
+                RemovedNonStackableItems.Remove(nowAdded);
+            }
+
+            var newAdded = zone.AddedNonStackableItems.Except(AddedNonStackableItems, new ItemComparer()).Except(RemovedNonStackableItems, new ItemComparer());
+            var newRemoved = zone.RemovedNonStackableItems.Except(RemovedNonStackableItems, new ItemComparer()).Except(AddedNonStackableItems, new ItemComparer());
+
+            AddedNonStackableItems.AddRange(newAdded);
+            RemovedNonStackableItems.AddRange(newRemoved);
+        }
         
+
+
     }
 
     public enum ZoneType { MonsterZone, SubZone, TownZone}

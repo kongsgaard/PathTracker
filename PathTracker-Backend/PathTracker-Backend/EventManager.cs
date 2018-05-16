@@ -14,6 +14,7 @@ namespace PathTracker_Backend {
         ClientTxtListener clientTxtListener = null;
         Dictionary<string, StashtabListener> stashtabListeners = new Dictionary<string, StashtabListener>();
         RequestCoordinator requestCoordinator = new RequestCoordinator();
+        ZoneManager zoneManager = new ZoneManager();
 
         public EventManager() {
 
@@ -25,7 +26,7 @@ namespace PathTracker_Backend {
         public void StartClientTxtListener() {
 
             if(clientTxtListener == null) {
-                clientTxtListener = new ClientTxtListener();
+                clientTxtListener = new ClientTxtListener(zoneManager);
                 clientTxtListener.StartListening();
                 EventManagerLog.Info("Starting new ClientTxtListener with ClientTxtPath:" + clientTxtListener.ClientTxtPath);
             }
@@ -40,10 +41,10 @@ namespace PathTracker_Backend {
             }
 
             if (inventoryListener == null) {
-                inventoryListener = new InventoryListener(requestCoordinator, deltaCalculator);
+                inventoryListener = new InventoryListener(requestCoordinator);
                 inventoryListener.StartListening();
                 EventManagerLog.Info("Starting new InventoryListener");
-                clientTxtListener.NewZoneEntered += inventoryListener.NewZoneEntered;
+                zoneManager.NewZoneEntered += inventoryListener.NewZoneEntered;
             }
             else {
                 EventManagerLog.Info("InventoryListener listener already started");
@@ -56,10 +57,10 @@ namespace PathTracker_Backend {
             }
 
             if (!stashtabListeners.ContainsKey(StashName)) {
-                stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator, deltaCalculator);
+                stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator);
                 stashtabListeners[StashName].StartListening();
                 EventManagerLog.Info("Starting new stashtabListeners for stash:" + StashName);
-                clientTxtListener.NewZoneEntered += stashtabListeners[StashName].NewZoneEntered;
+                zoneManager.NewZoneEntered += stashtabListeners[StashName].NewZoneEntered;
             }
             else {
                 EventManagerLog.Info("stashtabListeners listener already started for StashName:" + StashName);

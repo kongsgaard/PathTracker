@@ -16,7 +16,6 @@ namespace PathTracker_Backend {
         private Stopwatch ListenTimer = new Stopwatch();
         private RequestCoordinator Coordinator;
         private string StashName = "";
-        private List<Item> CurrentStashItems = null;
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog StashtabLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "StashtabLogger");
 
@@ -30,24 +29,22 @@ namespace PathTracker_Backend {
         }
 
         public void StartListening() {
-
-            StashApiRequest currentStashTab = Coordinator.GetStashtab(StashName);
-            CurrentStashItems = currentStashTab.Items;
         }
 
-        public void Listen(ItemDeltaCalculator itemDeltaCalculator) {
+        public void Listen(ItemDeltaCalculator fromZoneDeltaCalculator, ItemDeltaCalculator enteredZoneDeltaCalculator) {
             StashApiRequest newStashTab = Coordinator.GetStashtab(StashName);
 
-            itemDeltaCalculator.ItemsUpdated(CurrentStashItems, newStashTab.Items);
-
-            CurrentStashItems = newStashTab.Items;
-
+            if(fromZoneDeltaCalculator != null) {
+                fromZoneDeltaCalculator.UpdateLeftZoneWithItems(newStashTab.Items);
+            }
+            enteredZoneDeltaCalculator.UpdateEnteredZoneWithItems(newStashTab.Items);
+            
             StashtabLog.Info("Stash (account:" + Settings.GetValue("account") + ",name:" + StashName + ", league:" + Settings.GetValue("league") + ") fetched");
         }
 
         public void NewZoneEntered(object sender, ZoneChangeArgs args) {
             StashtabLog.Info("New zone entered event fired for stash:"+StashName+". Zone:" + args.ZoneName);
-            Listen(args.deltaCalculator);
+            Listen(args.FromZoneDeltaCalculator, args.EnteredZoneDeltaCalculator);
         }
 
         public void StopListening() {

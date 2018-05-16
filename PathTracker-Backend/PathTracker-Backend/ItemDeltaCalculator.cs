@@ -10,17 +10,16 @@ using log4net.Config;
 
 namespace PathTracker_Backend
 {
-    public class ItemDeltaCalculator
-    {
+    public class ItemDeltaCalculator {
 
         private static readonly ILog ItemDeltaLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "ItemDeltaLogger");
 
         //Track old/new inventories
-        Dictionary<string, int> OldStackableCountDictionary = new Dictionary<string, int>();
-        Dictionary<string, int> NewStackableCountDictionary = new Dictionary<string, int>();
+        Dictionary<string, int> enteredWithStackableCountDictionary = new Dictionary<string, int>();
+        Dictionary<string, int> leftWithStackableCountDictionary = new Dictionary<string, int>();
 
-        List<Item> OldNonStackableItems = new List<Item>();
-        List<Item> NewNonStackableItems = new List<Item>();
+        List<Item> enteredWithNonStackableItems = new List<Item>();
+        List<Item> leftWithNonStackableItems = new List<Item>();
 
 
         //For delta
@@ -34,22 +33,22 @@ namespace PathTracker_Backend
         }
 
         Dictionary<string, int> DeltaStackableCountDictionary = new Dictionary<string, int>();
-        
-        public void CalculateDelta(string ZoneName) {
-            OldStackableCountDictionary = new Dictionary<string, int>();
-            NewStackableCountDictionary = new Dictionary<string, int>();
-            OldNonStackableItems = new List<Item>();
-            NewNonStackableItems = new List<Item>();
+
+        public (Dictionary<string,int>, List<Item>, List<Item>) CalculateDelta(string zoneName) {
+            enteredWithStackableCountDictionary = new Dictionary<string, int>();
+            leftWithStackableCountDictionary = new Dictionary<string, int>();
+            enteredWithNonStackableItems = new List<Item>();
+            leftWithNonStackableItems = new List<Item>();
 
             DeltaStackableCountDictionary = new Dictionary<string, int>();
             AddedNonStackables = new List<Item>();
             RemovedNonStackables = new List<Item>();
 
-            IterateItemList(OldItems, OldStackableCountDictionary, OldNonStackableItems);
-            IterateItemList(NewItems, NewStackableCountDictionary, NewNonStackableItems);
+            IterateItemList(enteredZoneWithItems, enteredWithStackableCountDictionary, enteredWithNonStackableItems);
+            IterateItemList(leftZoneWithItems, leftWithStackableCountDictionary, leftWithNonStackableItems);
 
-            DeltaStackableCountDictionary = CalculateStackableDelta(OldStackableCountDictionary, NewStackableCountDictionary);
-            (AddedNonStackables, RemovedNonStackables) = CalculateNonStackableDelta(NewNonStackableItems, OldNonStackableItems);
+            DeltaStackableCountDictionary = CalculateStackableDelta(enteredWithStackableCountDictionary, leftWithStackableCountDictionary);
+            (AddedNonStackables, RemovedNonStackables) = CalculateNonStackableDelta(leftWithNonStackableItems, enteredWithNonStackableItems);
 
             string logAdded = "Added - ";
             string logRemoved = "Removed - ";
@@ -61,45 +60,42 @@ namespace PathTracker_Backend
             foreach (Item item in RemovedNonStackables) {
                 logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
             }
-            foreach(var v in DeltaStackableCountDictionary) {
+            foreach (var v in DeltaStackableCountDictionary) {
                 logStackableDelta = logStackableDelta + v.Key + ":" + v.Value + " & ";
             }
 
             ItemDeltaLog.Info("DeltaCalculator for ZoneName changes: " + logAdded + "||" + logRemoved + "||" + logStackableDelta);
 
-
-            //Reset for next delta calculation
-            OldItems = new List<Item>();
-            NewItems = new List<Item>();
+            return (DeltaStackableCountDictionary, AddedNonStackables, RemovedNonStackables);
         }
 
-        private Dictionary<string, int> CalculateStackableDelta(Dictionary<string, int> OldCount, Dictionary<string, int> NewCount) {
+        private Dictionary<string, int> CalculateStackableDelta(Dictionary<string, int> enteredWithCount, Dictionary<string, int> leftWithCount) {
             List<string> typeLines = new List<string>();
 
-            var typeLinesOld =
-                from x in OldCount
+            var typeLinesEnteredWith =
+                from x in enteredWithCount
                 select x.Key;
 
-            var typeLinesNew =
-                from x in NewCount
+            var typeLinesLeftWith =
+                from x in leftWithCount
                 select x.Key;
 
-            var typeLinesDelta = typeLinesNew.Union(typeLinesOld);
+            var typeLinesDelta = typeLinesLeftWith.Union(typeLinesEnteredWith);
 
             Dictionary<string, int> DeltaCount = new Dictionary<string, int>();
 
             foreach (string typeline in typeLinesDelta) {
-                if(OldCount.ContainsKey(typeline) && NewCount.ContainsKey(typeline)) {
+                if (enteredWithCount.ContainsKey(typeline) && leftWithCount.ContainsKey(typeline)) {
                     //Only add if there is a delta
-                    if(NewCount[typeline] - OldCount[typeline] != 0) {
-                        DeltaCount[typeline] = NewCount[typeline] - OldCount[typeline];
+                    if (leftWithCount[typeline] - enteredWithCount[typeline] != 0) {
+                        DeltaCount[typeline] = leftWithCount[typeline] - enteredWithCount[typeline];
                     }
                 }
-                else if (NewCount.ContainsKey(typeline) && !OldCount.ContainsKey(typeline)) {
-                    DeltaCount[typeline] = NewCount[typeline] - 0;
+                else if (leftWithCount.ContainsKey(typeline) && !enteredWithCount.ContainsKey(typeline)) {
+                    DeltaCount[typeline] = leftWithCount[typeline] - 0;
                 }
-                else if (OldCount.ContainsKey(typeline) && !NewCount.ContainsKey(typeline)) {
-                    DeltaCount[typeline] = 0 - OldCount[typeline];
+                else if (enteredWithCount.ContainsKey(typeline) && !leftWithCount.ContainsKey(typeline)) {
+                    DeltaCount[typeline] = 0 - enteredWithCount[typeline];
                 }
                 else {
                     throw new Exception("Dang, should never happen. Detected stackable type:" + typeline + " failed to calculate delta");
@@ -110,17 +106,17 @@ namespace PathTracker_Backend
 
         }
 
-        private (List<Item>, List<Item>) CalculateNonStackableDelta(List<Item> newNonStackables, List<Item> oldNonStackables) {
+        private (List<Item>, List<Item>) CalculateNonStackableDelta(List<Item> leftWithNonStackables, List<Item> enteredWithNonStackables) {
 
-            var added = newNonStackables.Except(oldNonStackables, new ItemComparer()).ToList();
-            var removed = oldNonStackables.Except(newNonStackables, new ItemComparer()).ToList();
+            var added = leftWithNonStackables.Except(enteredWithNonStackables, new ItemComparer()).ToList();
+            var removed = enteredWithNonStackables.Except(leftWithNonStackables, new ItemComparer()).ToList();
 
             return (added, removed);
         }
 
         private void IterateItemList(List<Item> itemList, Dictionary<string, int> stackableCountDictionary, List<Item> nonStackableItems) {
 
-            foreach(Item item in itemList) {
+            foreach (Item item in itemList) {
                 if (item.MaxStackSize == 0) {
                     nonStackableItems.Add(item);
                 }
@@ -135,17 +131,47 @@ namespace PathTracker_Backend
             }
 
         }
+        
 
-        private List<Item> OldItems = new List<Item>();
-        private List<Item> NewItems = new List<Item>();
-        private Mutex AddItemsMutex = new Mutex();
-        public void ItemsUpdated(List<Item> oldItems, List<Item> newItems) {
-            AddItemsMutex.WaitOne();
+        private Mutex addEnteredZoneWithItems = new Mutex();
+        private Mutex addLeftZoneWithItems = new Mutex();
 
-            OldItems.AddRange(oldItems);
-            NewItems.AddRange(newItems);
-
-            AddItemsMutex.ReleaseMutex();
+        private List<Item> _enteredZoneWithItems = new List<Item>();
+        private List<Item> enteredZoneWithItems {
+            get {
+                List<Item> rtItems;
+                addEnteredZoneWithItems.WaitOne();
+                rtItems = new List<Item>(_enteredZoneWithItems);
+                addEnteredZoneWithItems.ReleaseMutex();
+                return rtItems;
+            }
         }
+
+        private List<Item> _leftZoneWithItems = new List<Item>();
+        private List<Item> leftZoneWithItems {
+            get {
+                List<Item> rtItems;
+                addLeftZoneWithItems.WaitOne();
+                rtItems = new List<Item>(_leftZoneWithItems);
+                addLeftZoneWithItems.ReleaseMutex();
+                return rtItems;
+            }
+        }
+
+        public void UpdateLeftZoneWithItems(List<Item> items) {
+            addLeftZoneWithItems.WaitOne();
+            _leftZoneWithItems.AddRange(items);
+            addLeftZoneWithItems.ReleaseMutex();
+        }
+
+        public void UpdateEnteredZoneWithItems(List<Item> items) {
+            addEnteredZoneWithItems.WaitOne();
+            _enteredZoneWithItems.AddRange(items);
+            addEnteredZoneWithItems.ReleaseMutex();
+        }
+
+
+
+
     }
 }
