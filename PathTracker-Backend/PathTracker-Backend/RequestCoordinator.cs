@@ -16,16 +16,9 @@ namespace PathTracker_Backend
     public class RequestCoordinator {
 
         private SettingsManager Settings = SettingsManager.Instance;
-        private static readonly ILog RequestCoordinatorLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "RequestCoordinatorLogger");
+        private static readonly ILog RequestCoordinatorLog = LogCreator.CreateLog("RequestCoordinator");
         private Dictionary<string, List<StashTab>> LeagueStashtabDictionary = new Dictionary<string, List<StashTab>>();
-
-        public RequestCoordinator() {
-
-            log4net.GlobalContext.Properties["RequestCoordinatorLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//RequestCoordinatorLog";
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-        }
-
+        
         /// <summary>
         /// Return a JSON string representing the Inventory object 
         /// </summary>

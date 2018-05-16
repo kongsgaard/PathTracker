@@ -18,7 +18,7 @@ namespace PathTracker_Backend
         private SettingsManager Settings = SettingsManager.Instance;
         public event EventHandler<ZoneChangeArgs> NewZoneEntered;
         List<Zone> ZoneList = new List<Zone>();
-        private static readonly ILog ZoneManagerLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "ZoneManagerLogger");
+        private static readonly ILog ZoneManagerLog = LogCreator.CreateLog("ZoneManager");
 
         Dictionary<string, Zone> ZoneDict = new Dictionary<string, Zone>();
         Dictionary<string, FileInfo> MinimapFiles = new Dictionary<string, FileInfo>();
@@ -26,10 +26,6 @@ namespace PathTracker_Backend
         public Zone currentZone = null;
 
         public ZoneManager() {
-            log4net.GlobalContext.Properties["ZoneManagerLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//ZoneManagerLog";
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-
             PopulateMinimapFiles();
         }
 

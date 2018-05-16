@@ -8,21 +8,14 @@ using System.IO;
 
 namespace PathTracker_Backend {
     public class EventManager {
-        private static readonly ILog EventManagerLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "EventManagerLogger");
+        private static readonly ILog EventManagerLog = LogCreator.CreateLog("EventManager");
 
         InventoryListener inventoryListener = null;
         ClientTxtListener clientTxtListener = null;
         Dictionary<string, StashtabListener> stashtabListeners = new Dictionary<string, StashtabListener>();
         RequestCoordinator requestCoordinator = new RequestCoordinator();
         ZoneManager zoneManager = new ZoneManager();
-
-        public EventManager() {
-
-            log4net.GlobalContext.Properties["EventManagerLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//EventManagerLog";
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-        }
-
+        
         public void StartClientTxtListener() {
 
             if(clientTxtListener == null) {

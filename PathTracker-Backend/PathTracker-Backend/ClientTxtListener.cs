@@ -27,14 +27,10 @@ namespace PathTracker_Backend {
         public int MsListenDelay;
         private Stopwatch ListenTimer = new Stopwatch();
         private SettingsManager Settings = SettingsManager.Instance;
-        private static readonly ILog ClientTxtLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "ClientTxtLogger");
+        private static readonly ILog ClientTxtLog = LogCreator.CreateLog("ClientTxtListener");
         private ZoneManager zoneManager;
         
         public ClientTxtListener(ZoneManager paramZoneManager) {
-            log4net.GlobalContext.Properties["ClientTxtLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//ClientTxtLog";
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-            
             MsListenDelay = 1000;
             ClientTxtPath = Settings.GetValue("ClientTxtPath");
             ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);

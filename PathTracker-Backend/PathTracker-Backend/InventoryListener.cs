@@ -17,14 +17,10 @@ namespace PathTracker_Backend {
         private RequestCoordinator Coordinator;
         private SettingsManager Settings = SettingsManager.Instance;
 
-        private static readonly ILog InventoryLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "InventoryLogger");
+        private static readonly ILog InventoryLog = LogCreator.CreateLog("InventoryListener");
 
         public InventoryListener(RequestCoordinator coordinator) {
             Coordinator = coordinator;
-            
-            log4net.GlobalContext.Properties["InventoryLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//InventoryLog";
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
 
         public void StartListening() {

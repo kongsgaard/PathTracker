@@ -60,47 +60,6 @@ namespace PathTracker_Backend {
             //    watch.Restart();
             //}
 
-            PatternLayout patternLayout = new PatternLayout();
-            patternLayout.ConversionPattern = "%date [%thread] %-5level %logger - %message%newline";
-            patternLayout.ActivateOptions();
-
-            RollingFileAppender roller = new RollingFileAppender();
-            roller.AppendToFile = true;
-            roller.File = "C:\\Logs\\Test.txt";
-            roller.Layout = patternLayout;
-            roller.MaxSizeRollBackups = 5;
-            roller.MaximumFileSize = "1GB";
-            roller.RollingStyle = RollingFileAppender.RollingMode.Size;
-            roller.StaticLogFileName = true;
-            roller.ActivateOptions();
-
-            
-            var repository = LoggerManager.CreateRepository("MyLogger");
-
-            BasicConfigurator.Configure(repository, roller);
-
-            var mylog = LogManager.GetLogger("MyLogger","MainLogger");
-
-            mylog.Info("sick test");
-
-            RollingFileAppender roller1 = new RollingFileAppender();
-            roller1.AppendToFile = true;
-            roller1.File = "C:\\Logs\\Test.txt";
-            roller1.Layout = patternLayout;
-            roller1.MaxSizeRollBackups = 5;
-            roller1.MaximumFileSize = "1GB";
-            roller1.RollingStyle = RollingFileAppender.RollingMode.Size;
-            roller1.StaticLogFileName = true;
-            roller1.ActivateOptions();
-
-            BasicConfigurator.Configure(repository, roller1);
-            var mylog1 = LogManager.GetLogger("MyLogger", "MainLogger1");
-
-            mylog1.Info("sick test");
-
-            mylog.Info("still works");
-
-            int k = 0;
 
             EventManager manager = new EventManager();
             

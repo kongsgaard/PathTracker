@@ -17,15 +17,11 @@ namespace PathTracker_Backend {
         private RequestCoordinator Coordinator;
         private string StashName = "";
         private SettingsManager Settings = SettingsManager.Instance;
-        private static readonly ILog StashtabLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "StashtabLogger");
+        private static readonly ILog StashtabLog = LogCreator.CreateLog("StashtabListener");
 
         public StashtabListener(string stashName, RequestCoordinator coordinator) {
             Coordinator = coordinator;
             StashName = stashName;
-            
-            log4net.GlobalContext.Properties["StashtabLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//StashtabLog";
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
 
         public void StartListening() {

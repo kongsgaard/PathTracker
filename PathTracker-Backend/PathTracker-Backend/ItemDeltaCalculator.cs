@@ -12,7 +12,7 @@ namespace PathTracker_Backend
 {
     public class ItemDeltaCalculator {
 
-        private static readonly ILog ItemDeltaLog = log4net.LogManager.GetLogger(LogManager.GetRepository(Assembly.GetEntryAssembly()).Name, "ItemDeltaLogger");
+        private static readonly ILog ItemDeltaLog = LogCreator.CreateLog("ItemDeltaCalculator");
 
         //Track old/new inventories
         Dictionary<string, int> enteredWithStackableCountDictionary = new Dictionary<string, int>();
@@ -25,13 +25,7 @@ namespace PathTracker_Backend
         //For delta
         List<Item> AddedNonStackables = new List<Item>();
         List<Item> RemovedNonStackables = new List<Item>();
-
-        public ItemDeltaCalculator() {
-            log4net.GlobalContext.Properties["ItemDeltaLogFileName"] = Directory.GetCurrentDirectory() + "//Logs//ItemDeltaLog";
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-        }
-
+        
         Dictionary<string, int> DeltaStackableCountDictionary = new Dictionary<string, int>();
 
         public (Dictionary<string,int>, List<Item>, List<Item>) CalculateDelta(string zoneName) {
