@@ -23,16 +23,7 @@ namespace PathTracker_Backend
             ZoneName = zoneName;
             deltaCalculator = new ItemDeltaCalculator();
         }
-
-        public void AddItemsToJson(List<Item> items) {
-            JArray itemArr = (JArray)zoneJson["itemDelta"];
-            foreach (Item item in items) {
-                itemArr.Add(JsonConvert.SerializeObject(item));
-                
-            }
-
-        }
-
+        
         public void CalculateAndAddToDelta() {
             List<Item> addedNonStackableItems = new List<Item>();
             List<Item> removedNonStackableItems = new List<Item>();
@@ -49,6 +40,13 @@ namespace PathTracker_Backend
                 else {
                     DeltaStackableItems[kvp.Key] = deltaStackableItems[kvp.Key];
                 }
+            }
+        }
+
+        public void AddItemsToJson(List<Item> items) {
+            JArray itemArr = (JArray)zoneJson["itemDelta"];
+            foreach (Item item in items) {
+                itemArr.Add(JsonConvert.SerializeObject(item));
             }
         }
 
@@ -84,6 +82,26 @@ namespace PathTracker_Backend
                 new JProperty("mods",
                     new JArray()));
                                 
+
+        public string ToJSON() {
+            JObject zoneJson =
+            new JObject(
+                new JProperty("itemsAdded",
+                    new JArray(AddedNonStackableItems)),
+                new JProperty("itemsRemoved",
+                    new JArray(RemovedNonStackableItems)),
+                new JProperty("stackableItemDelta",
+                    new JArray(DeltaStackableItems)),
+                new JProperty("experience", 0),
+                new JProperty("zoneName", ZoneName),
+                new JProperty("zoneID", ZoneID),
+                new JProperty("mods",
+                    new JArray()));
+
+
+
+            return "";
+        }
 
         public void MergeZoneIntoThis(Zone zone) {
             LastExitedZone = zone.LastExitedZone;
