@@ -32,5 +32,6 @@ namespace PathTracker_Backend {
 
         [JsonProperty("experience")]
         public int Experience { get; set; }
+        
     }
 }
