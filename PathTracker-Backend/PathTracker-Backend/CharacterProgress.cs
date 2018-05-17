@@ -6,7 +6,7 @@ namespace PathTracker_Backend
 {
     public class CharacterProgress
     {
-        List<Item> EquippedItems = new List<Item>();
+        public List<Item> EquippedItems = new List<Item>();
         
         public string Name { get; set; }
 
@@ -17,6 +17,8 @@ namespace PathTracker_Backend
         public Dictionary<int, double> LevelProgress = new Dictionary<int, double>();
 
         public int ExperienceProgress { get; set; }
-        
+
+        public int TotalExperienceNonPenalized { get; set; }
+
     }
 }

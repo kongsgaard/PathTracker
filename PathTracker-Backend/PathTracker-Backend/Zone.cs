@@ -14,14 +14,20 @@ namespace PathTracker_Backend
         public ZoneType Type { get; set; }
         public DateTime LastExitedZone { get; set; }
         public ItemDeltaCalculator deltaCalculator { get; set; }
+        public ExperienceDeltaCalculator experienceCalculator { get; set; }
 
         public List<Item> AddedNonStackableItems = new List<Item>();
         public List<Item> RemovedNonStackableItems = new List<Item>();
+        
         public Dictionary<string, int> DeltaStackableItems = new Dictionary<string, int>();
+
+        //Character name, Character progress dictionary. Enables multiple character deltas from same map
+        public Dictionary<string,CharacterProgress> characterProgress;
 
         public Zone(string zoneName) {
             ZoneName = zoneName;
             deltaCalculator = new ItemDeltaCalculator();
+            experienceCalculator = new ExperienceDeltaCalculator();
         }
         
         public void CalculateAndAddToDelta() {
@@ -41,48 +47,11 @@ namespace PathTracker_Backend
                     DeltaStackableItems[kvp.Key] = deltaStackableItems[kvp.Key];
                 }
             }
+
+            CharacterProgress progress = experienceCalculator.CalculateDelta();
+            characterProgress[progress.Name] = progress;
         }
-
-        public void AddItemsToJson(List<Item> items) {
-            JArray itemArr = (JArray)zoneJson["itemDelta"];
-            foreach (Item item in items) {
-                itemArr.Add(JsonConvert.SerializeObject(item));
-            }
-        }
-
-        public void AddStackableItemsToJson(Dictionary<string, int> StackableCountDictionary) {
-            JArray stackableArr = (JArray)zoneJson["stackableItemDelta"];
-            var currentDict = stackableArr.ToObject<Dictionary<string, int>>();
-
-            foreach(var kvp in StackableCountDictionary) {
-                if (currentDict.ContainsKey(kvp.Key)) {
-                    currentDict[kvp.Key] = currentDict[kvp.Key] + StackableCountDictionary[kvp.Key];
-                }
-                else {
-                    currentDict[kvp.Key] = StackableCountDictionary[kvp.Key];
-                }
-            }
-
-            JProperty updatedProperty = 
-                new JProperty("stackableItemDelta",
-                    new JArray(currentDict));
-            
-            zoneJson["stackableItemDelta"].Replace(updatedProperty);
-        }
-
-        JObject zoneJson = 
-            new JObject(
-                new JProperty("itemDelta",
-                    new JArray()),
-                new JProperty("stackableItemDelta",
-                    new JArray()),
-                new JProperty("experience",0),
-                new JProperty("zoneName",""),
-                new JProperty("zoneID"),
-                new JProperty("mods",
-                    new JArray()));
-                                
-
+        
         public string ToJSON() {
             JObject zoneJson =
             new JObject(
@@ -92,15 +61,14 @@ namespace PathTracker_Backend
                     new JArray(RemovedNonStackableItems)),
                 new JProperty("stackableItemDelta",
                     new JArray(DeltaStackableItems)),
-                new JProperty("experience", 0),
+                new JProperty("characterProgres", 
+                    new JArray(characterProgress)),
                 new JProperty("zoneName", ZoneName),
                 new JProperty("zoneID", ZoneID),
                 new JProperty("mods",
                     new JArray()));
-
-
-
-            return "";
+            
+            return zoneJson.ToString();
         }
 
         public void MergeZoneIntoThis(Zone zone) {
@@ -132,6 +100,17 @@ namespace PathTracker_Backend
 
             AddedNonStackableItems.AddRange(newAdded);
             RemovedNonStackableItems.AddRange(newRemoved);
+
+
+            string newZoneCharacterName = zone.characterProgress.Single(x => true).Key;
+            if (characterProgress.ContainsKey(newZoneCharacterName)) {
+                characterProgress[newZoneCharacterName].ExperienceProgress = characterProgress[newZoneCharacterName].ExperienceProgress + zone.characterProgress[newZoneCharacterName].ExperienceProgress;
+                characterProgress[newZoneCharacterName].TotalExperienceNonPenalized = characterProgress[newZoneCharacterName].TotalExperienceNonPenalized + zone.characterProgress[newZoneCharacterName].TotalExperienceNonPenalized;
+                characterProgress[newZoneCharacterName].EquippedItems = zone.characterProgress[newZoneCharacterName].EquippedItems;
+            }
+            else {
+                characterProgress[newZoneCharacterName] = zone.characterProgress[newZoneCharacterName];
+            }
         }
         
 

@@ -91,12 +91,17 @@ namespace PathTracker_Backend
             ItemDeltaCalculator fromZoneDeltaCalculator = null;
             ItemDeltaCalculator enteredZoneDeltaCalculator = enteredZone.deltaCalculator;
 
+            ExperienceDeltaCalculator fromZoneExperienceDeltaCalculator = null;
+            ExperienceDeltaCalculator enteredZoneExperienceDeltaCalculator = enteredZone.experienceCalculator;
+
+
             if (currentZone != null) {
                 fromZone = currentZone;
                 fromZoneDeltaCalculator = fromZone.deltaCalculator;
+                fromZoneExperienceDeltaCalculator = fromZone.experienceCalculator;
             }
 
-            ZoneChangeArgs newZone = new ZoneChangeArgs(zoneName, fromZoneDeltaCalculator, enteredZoneDeltaCalculator);
+            ZoneChangeArgs newZone = new ZoneChangeArgs(zoneName, fromZoneDeltaCalculator, enteredZoneDeltaCalculator, fromZoneExperienceDeltaCalculator, enteredZoneExperienceDeltaCalculator);
             
             for (int i = 0; i < delegates.Length; i++) {
                 int iparam = i;
@@ -164,10 +169,18 @@ namespace PathTracker_Backend
         public string ZoneName;
         public ItemDeltaCalculator FromZoneDeltaCalculator;
         public ItemDeltaCalculator EnteredZoneDeltaCalculator;
-        public ZoneChangeArgs(string zoneName, ItemDeltaCalculator fromZoneDeltaCalculator, ItemDeltaCalculator enteredZoneDeltaCalculator) {
+
+        public ExperienceDeltaCalculator FromZoneExperienceDeltaCalculator;
+        public ExperienceDeltaCalculator EnteredZoneExperienceDeltaCalculator;
+
+        public ZoneChangeArgs(string zoneName, ItemDeltaCalculator fromZoneDeltaCalculator, ItemDeltaCalculator enteredZoneDeltaCalculator,
+                            ExperienceDeltaCalculator fromZoneExperienceDeltaCalculator, ExperienceDeltaCalculator enteredZoneExperienceDeltaCalculator) {
             ZoneName = zoneName;
             FromZoneDeltaCalculator = fromZoneDeltaCalculator;
             EnteredZoneDeltaCalculator = enteredZoneDeltaCalculator;
+
+            FromZoneExperienceDeltaCalculator = fromZoneExperienceDeltaCalculator;
+            EnteredZoneExperienceDeltaCalculator = enteredZoneExperienceDeltaCalculator;
         }
     }
 }

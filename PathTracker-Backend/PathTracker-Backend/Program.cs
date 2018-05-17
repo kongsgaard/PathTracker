@@ -60,16 +60,17 @@ namespace PathTracker_Backend {
             //    watch.Restart();
             //}
 
+            LogCreator.Setup();
 
-            //EventManager manager = new EventManager();
-            //
-            //Task t = new Task(manager.StartClientTxtListener);
-            //t.Start();
-            //System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
-            //manager.StartInventoryListener();
-            //manager.StartStashtabListener("C");
-            //
-            //t.Wait();
+            EventManager manager = new EventManager();
+            
+            Task t = new Task(manager.StartClientTxtListener);
+            t.Start();
+            System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
+            manager.StartInventoryListener();
+            manager.StartStashtabListener("C");
+            
+            t.Wait();
 
             Console.WriteLine("Done!");
             Console.ReadLine();
