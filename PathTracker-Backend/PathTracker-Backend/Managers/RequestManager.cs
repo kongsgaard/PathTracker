@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace PathTracker_Backend
 {
-    public class RequestCoordinator {
+    public class RequestManager {
 
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog RequestCoordinatorLog = LogCreator.CreateLog("RequestCoordinator");

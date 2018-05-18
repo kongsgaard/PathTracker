@@ -14,12 +14,12 @@ using System.Collections;
 namespace PathTracker_Backend {
     public class InventoryListener : IListener {
         private Stopwatch ListenTimer = new Stopwatch();
-        private RequestCoordinator Coordinator;
+        private RequestManager Coordinator;
         private SettingsManager Settings = SettingsManager.Instance;
 
         private static readonly ILog InventoryLog = LogCreator.CreateLog("InventoryListener");
 
-        public InventoryListener(RequestCoordinator coordinator) {
+        public InventoryListener(RequestManager coordinator) {
             Coordinator = coordinator;
         }
 

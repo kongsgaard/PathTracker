@@ -80,6 +80,7 @@ namespace PathTracker_Backend
             return mostRecent;
         }
 
+
         public void ZoneEntered(string zoneName) {
 
             Delegate[] delegates = NewZoneEntered.GetInvocationList();
@@ -153,8 +154,10 @@ namespace PathTracker_Backend
                 }
             }
             currentZone = enteredZone;
-        }
 
+
+        }
+        
         private long threadStarted = 0;
 
         private void CallDelegate(Delegate del, EventWaitHandle waitHandle, WaitHandle[] waitHandles, int i, ZoneChangeArgs newZoneArgs, object sender) {

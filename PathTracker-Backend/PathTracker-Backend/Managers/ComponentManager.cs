@@ -7,13 +7,13 @@ using System.Reflection;
 using System.IO;
 
 namespace PathTracker_Backend {
-    public class EventManager {
+    public class ComponentManager {
         private static readonly ILog EventManagerLog = LogCreator.CreateLog("EventManager");
 
         InventoryListener inventoryListener = null;
         ClientTxtListener clientTxtListener = null;
         Dictionary<string, StashtabListener> stashtabListeners = new Dictionary<string, StashtabListener>();
-        RequestCoordinator requestCoordinator = new RequestCoordinator();
+        RequestManager requestCoordinator = new RequestManager();
         ZoneManager zoneManager = new ZoneManager();
         
         public void StartClientTxtListener() {
