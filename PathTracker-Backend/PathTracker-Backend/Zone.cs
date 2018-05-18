@@ -39,15 +39,8 @@ namespace PathTracker_Backend
             AddedNonStackableItems.AddRange(addedNonStackableItems);
             RemovedNonStackableItems.AddRange(removedNonStackableItems);
 
-            foreach(var kvp in deltaStackableItems) {
-                if (DeltaStackableItems.ContainsKey(kvp.Key)) {
-                    DeltaStackableItems[kvp.Key] += deltaStackableItems[kvp.Key];
-                }
-                else {
-                    DeltaStackableItems[kvp.Key] = deltaStackableItems[kvp.Key];
-                }
-            }
-
+            DeltaStackableItems = Toolbox.AddDictionaries(DeltaStackableItems, deltaStackableItems);
+            
             CharacterProgress progress = experienceCalculator.CalculateDelta();
             characterProgress[progress.Name] = progress;
         }
@@ -71,45 +64,50 @@ namespace PathTracker_Backend
             return zoneJson.ToString();
         }
 
+        /// <summary>
+        /// Merges the values from the input zone into this.
+        /// Used when the same zone is entered multiple times.
+        /// Using "this" notation to make it more clear when refering to fields on this object
+        /// </summary>
+        /// <param name="zone"></param>
         public void MergeZoneIntoThis(Zone zone) {
-            LastExitedZone = zone.LastExitedZone;
+            this.LastExitedZone = zone.LastExitedZone;
 
             //Merge stackable items
-            foreach (var kvp in zone.DeltaStackableItems) {
-                if (DeltaStackableItems.ContainsKey(kvp.Key)) {
-                    DeltaStackableItems[kvp.Key] += zone.DeltaStackableItems[kvp.Key];
-                }
-                else {
-                    DeltaStackableItems[kvp.Key] = zone.DeltaStackableItems[kvp.Key];
-                }
-            }
+            this.DeltaStackableItems = Toolbox.AddDictionaries(this.DeltaStackableItems, zone.DeltaStackableItems);
+            
 
-            //Merge added and removed
-            var nullifiedWasAdded = new List<Item>(AddedNonStackableItems.Intersect(zone.RemovedNonStackableItems, new ItemComparer()));
+            /* Merge added and removed
+             * Special case here is when an added item form the previous zone is now removed, and the other way around.
+             * In this case we do not want both items to appear on the Removed and Added list, so it becomes nullified instead (i.e) removed from the appropriate list 
+             */
+            var nullifiedWasAdded = new List<Item>(this.AddedNonStackableItems.Intersect(zone.RemovedNonStackableItems, new ItemComparer()));
             foreach(var nowRemoved in nullifiedWasAdded) {
-                AddedNonStackableItems.Remove(nowRemoved);
+                this.AddedNonStackableItems.Remove(nowRemoved);
             }
 
-            var nullifiedWasRemoved = new List<Item>(RemovedNonStackableItems.Intersect(zone.AddedNonStackableItems, new ItemComparer()));
+            var nullifiedWasRemoved = new List<Item>(this.RemovedNonStackableItems.Intersect(zone.AddedNonStackableItems, new ItemComparer()));
             foreach(var nowAdded in nullifiedWasRemoved) {
-                RemovedNonStackableItems.Remove(nowAdded);
+                this.RemovedNonStackableItems.Remove(nowAdded);
             }
 
-            var newAdded = zone.AddedNonStackableItems.Except(AddedNonStackableItems, new ItemComparer()).Except(RemovedNonStackableItems, new ItemComparer());
-            var newRemoved = zone.RemovedNonStackableItems.Except(RemovedNonStackableItems, new ItemComparer()).Except(AddedNonStackableItems, new ItemComparer());
+            var newAdded = zone.AddedNonStackableItems.Except(this.AddedNonStackableItems, new ItemComparer()).Except(this.RemovedNonStackableItems, new ItemComparer());
+            var newRemoved = zone.RemovedNonStackableItems.Except(this.RemovedNonStackableItems, new ItemComparer()).Except(this.AddedNonStackableItems, new ItemComparer());
 
-            AddedNonStackableItems.AddRange(newAdded);
-            RemovedNonStackableItems.AddRange(newRemoved);
+            this.AddedNonStackableItems.AddRange(newAdded);
+            this.RemovedNonStackableItems.AddRange(newRemoved);
 
-
+            //Merge the character progress into the zone
             string newZoneCharacterName = zone.characterProgress.Single(x => true).Key;
-            if (characterProgress.ContainsKey(newZoneCharacterName)) {
-                characterProgress[newZoneCharacterName].ExperienceProgress = characterProgress[newZoneCharacterName].ExperienceProgress + zone.characterProgress[newZoneCharacterName].ExperienceProgress;
-                characterProgress[newZoneCharacterName].TotalExperienceNonPenalized = characterProgress[newZoneCharacterName].TotalExperienceNonPenalized + zone.characterProgress[newZoneCharacterName].TotalExperienceNonPenalized;
-                characterProgress[newZoneCharacterName].EquippedItems = zone.characterProgress[newZoneCharacterName].EquippedItems;
+            if (this.characterProgress.ContainsKey(newZoneCharacterName)) {
+                this.characterProgress[newZoneCharacterName].ExperienceProgress = this.characterProgress[newZoneCharacterName].ExperienceProgress + zone.characterProgress[newZoneCharacterName].ExperienceProgress;
+                this.characterProgress[newZoneCharacterName].TotalExperienceNonPenalized = this.characterProgress[newZoneCharacterName].TotalExperienceNonPenalized + zone.characterProgress[newZoneCharacterName].TotalExperienceNonPenalized;
+                this.characterProgress[newZoneCharacterName].EquippedItems = zone.characterProgress[newZoneCharacterName].EquippedItems;
+
+                this.characterProgress[newZoneCharacterName].LevelProgress = Toolbox.AddDictionaries(this.characterProgress[newZoneCharacterName].LevelProgress, zone.characterProgress[newZoneCharacterName].LevelProgress);
             }
             else {
-                characterProgress[newZoneCharacterName] = zone.characterProgress[newZoneCharacterName];
+                this.characterProgress[newZoneCharacterName] = zone.characterProgress[newZoneCharacterName];
             }
         }
         

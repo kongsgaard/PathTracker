@@ -31,7 +31,7 @@ namespace PathTracker_Backend {
         public int Level { get; set; }
 
         [JsonProperty("experience")]
-        public int Experience { get; set; }
+        public long Experience { get; set; }
         
     }
 }

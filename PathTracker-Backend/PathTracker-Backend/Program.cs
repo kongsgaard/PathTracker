@@ -10,11 +10,12 @@ using log4net.Appender;
 using log4net.Repository.Hierarchy;
 using log4net.Config;
 using log4net.Layout;
-
+using System.IO;
+using System.Reflection;
 
 namespace PathTracker_Backend {
     class Program {
-        
+
 
         static void Main(string[] args) {
 
@@ -59,9 +60,9 @@ namespace PathTracker_Backend {
             //    System.Threading.Thread.Sleep(1000);
             //    watch.Restart();
             //}
-
+            
             LogCreator.Setup();
-
+            
             EventManager manager = new EventManager();
             
             Task t = new Task(manager.StartClientTxtListener);

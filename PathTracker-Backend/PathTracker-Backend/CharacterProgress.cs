@@ -16,9 +16,9 @@ namespace PathTracker_Backend
 
         public Dictionary<int, double> LevelProgress = new Dictionary<int, double>();
 
-        public int ExperienceProgress { get; set; }
+        public long ExperienceProgress { get; set; }
 
-        public int TotalExperienceNonPenalized { get; set; }
+        public long TotalExperienceNonPenalized { get; set; }
 
     }
 }

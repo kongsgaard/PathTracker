@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.IO;
+using System.Reflection;
 
 namespace PathTracker_Backend
 {
@@ -25,8 +27,37 @@ namespace PathTracker_Backend
 
             characterProgress.TotalExperienceNonPenalized = CalculateTotalExperience();
             characterProgress.EquippedItems = ExitedWithItems;
+            characterProgress.LevelProgress = CalculateLevelProgress();
 
             return characterProgress;
+        }
+
+        private Dictionary<int, double> CalculateLevelProgress() {
+
+            Dictionary<int, double> LevelProgress = new Dictionary<int, double>();
+
+            var ExperienceDictionary = ResourceManager.Instance.ExperienceDictionary;
+
+            int EnteredLevel = EnteredWithCharacter.Level;
+            long EnteredXp = EnteredWithCharacter.Experience;
+
+            int ExitedLevel = ExitedWithCharacter.Level;
+            long ExitedXp = ExitedWithCharacter.Experience;
+
+            //Iterates all gained levels in the Delta
+            for(int lvl = EnteredLevel; lvl <= ExitedLevel; lvl++) {
+                var XpReqsForLevel = ExperienceDictionary[lvl];
+                
+                //Initial level percentage progress as: (EnteredXp - AccumelatedXpToThatLevel) / XpNeededToLevel
+                double EnteredProgress = (EnteredXp - XpReqsForLevel.Item1) / XpReqsForLevel.Item2;
+
+                //Exited level percentage progress as: (Max(ExitedXp,AccumelatedXpToThatLevel+XpNeededToLevel) - AccumelatedXpToThatLevel) / XpNeededToLevel
+                double ExitedProgress = (Math.Max(ExitedXp, XpReqsForLevel.Item1+XpReqsForLevel.Item2) - XpReqsForLevel.Item1) / XpReqsForLevel.Item2;
+
+                LevelProgress[lvl] = ExitedProgress - EnteredProgress;
+            }
+
+            return LevelProgress;
         }
 
         private int CalculateTotalExperience() {

@@ -10,13 +10,34 @@ namespace PathTracker_Backend
 {
     public static class Toolbox {
 
-        public static (List<Item>, List<Item>) ItemDiffer(List<Item> previous, List<Item> current) {
+        public static Dictionary<T, double> AddDictionaries<T>(Dictionary<T, double> Dict1, Dictionary<T, double> Dict2) {
 
-            var added = current.Except(previous, new ItemComparer()).ToList();
-            var removed = previous.Except(current, new ItemComparer()).ToList();
-            
-            return (added, removed);
+            foreach (var kvp in Dict2) {
+                if (Dict1.ContainsKey(kvp.Key)) {
+                    Dict1[kvp.Key] = Dict2[kvp.Key] + Dict1[kvp.Key];
+                }
+                else {
+                    Dict1[kvp.Key] = Dict2[kvp.Key];
+                }
+            }
+
+            return null;
         }
+
+        public static Dictionary<T, int> AddDictionaries<T>(Dictionary<T, int> Dict1, Dictionary<T, int> Dict2) {
+
+            foreach (var kvp in Dict2) {
+                if (Dict1.ContainsKey(kvp.Key)) {
+                    Dict1[kvp.Key] = Dict2[kvp.Key] + Dict1[kvp.Key];
+                }
+                else {
+                    Dict1[kvp.Key] = Dict2[kvp.Key];
+                }
+            }
+
+            return Dict1;
+        }
+        
     }
 
 
