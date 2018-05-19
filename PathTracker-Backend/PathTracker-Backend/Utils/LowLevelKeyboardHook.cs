@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using log4net;
+using log4net.Config;
 
 namespace PathTracker_Backend {
     public class LowLevelKeyboardHook {
@@ -10,6 +12,7 @@ namespace PathTracker_Backend {
         private const int WM_SYSKEYDOWN = 0x0104;
         private const int WM_KEYUP = 0x101;
         private const int WM_SYSKEYUP = 0x105;
+        
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
@@ -65,33 +68,21 @@ namespace PathTracker_Backend {
 
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
+        
+        [STAThread]
+        public static void KeyboardHook() {
 
-        bool lctrlKeyPressed;
-        bool f1KeyPressed;
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-        public void kbh_OnKeyPressed(object sender, Keys e) {
-            if (e == Keys.LControlKey) {
-                lctrlKeyPressed = true;
-            }
-            else if (e == Keys.F1) {
-                f1KeyPressed = true;
-            }
-            CheckKeyCombo();
-        }
+            LowLevelKeyboardHook kbh = Program.keyboardHook;
+            //kbh.OnKeyPressed += kbh.kbh_OnKeyPressed;
+            //kbh.OnKeyUnpressed += kbh.kbh_OnKeyUnPressed;
+            kbh.HookKeyboard();
 
-        public void kbh_OnKeyUnPressed(object sender, Keys e) {
-            if (e == Keys.LControlKey) {
-                lctrlKeyPressed = false;
-            }
-            else if (e == Keys.F1) {
-                f1KeyPressed = false;
-            }
-        }
+            Application.Run();
 
-        void CheckKeyCombo() {
-            if (lctrlKeyPressed && f1KeyPressed) {
-                Console.WriteLine("Tst");
-            }
+            kbh.UnHookKeyboard();
         }
 
 

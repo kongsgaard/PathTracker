@@ -13,91 +13,47 @@ using log4net.Layout;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace PathTracker_Backend {
     class Program {
+        
+        static void Main(string[] args) {
 
-        //[STAThread]
-        //static void Main(string[] args) {
-        //
-        //    //ZoneManager man = new ZoneManager();
-        //    //
-        //    //System.Threading.Thread.Sleep(5000);
-        //    //var procs = Process.GetProcessesByName("PathOfExile_x64");
-        //    //
-        //    //string s = User32Wrapper.GetActiveWindowTitle();
-        //    //
-        //    ////var lst = Process.GetProcessesByName("Discord");
-        //    //int k = 0;
-        //    //
-        //    //var rect = new User32Wrapper.Rect();
-        //    //int width = 0;
-        //    //int height = 0;
-        //    //foreach (Process proc in procs) {
-        //    //    User32Wrapper.GetWindowRect(proc.MainWindowHandle, ref rect);
-        //    //    width = rect.right - rect.left;
-        //    //    height = rect.bottom - rect.top;
-        //    //    
-        //    //    // break foreach if an realistic rectangle found => main process found
-        //    //    if (width != 0 && height != 0) {
-        //    //        break;
-        //    //    }
-        //    //}
-        //    //
-        //    //Stopwatch watch = new Stopwatch();
-        //    //watch.Start();
-        //    //
-        //    //for(int i = 0; i < 20; i++) {
-        //    //    
-        //    //    var bmp = new Bitmap(width, height);
-        //    //    Graphics graphics = Graphics.FromImage(bmp);
-        //    //    graphics.CopyFromScreen(rect.left, rect.top, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
-        //    //
-        //    //    Console.WriteLine("Captured: " + watch.ElapsedMilliseconds);
-        //    //
-        //    //    bmp.Save("c:\\tmp\\poe"+i.ToString()+".png");
-        //    //
-        //    //    Console.WriteLine(i + ":" + watch.ElapsedMilliseconds);
-        //    //    System.Threading.Thread.Sleep(1000);
-        //    //    watch.Restart();
-        //    //}
-        //    //
-        //    //LogCreator.Setup();
-        //    //
-        //    //ComponentManager manager = new ComponentManager();
-        //    //
-        //    //Task t = new Task(manager.StartClientTxtListener);
-        //    //t.Start();
-        //    //System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
-        //    //manager.StartInventoryListener();
-        //    //manager.StartStashtabListener("C");
-        //    //
-        //    //t.Wait();
-        //
-        //    var kh = new KeyboardHook(true);
-        //    kh.KeyDown += Kh_KeyDown;
-        //    Application.Run();
-        //
-        //    //Console.WriteLine("Done!");
-        //    Console.ReadLine();
-        //}
 
-        [STAThread]
-        static void Main() {
+            //
+            //LogCreator.Setup();
+            //
+            //ComponentManager manager = new ComponentManager();
+            //
+            //Task t = new Task(manager.StartClientTxtListener);
+            //t.Start();
+            //System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
+            //manager.StartInventoryListener();
+            //manager.StartStashtabListener("C");
+            //
+            //t.Wait();
+            //211 to 252
+            //float f = ZonePropertyExtractor.CalculateHue(108, 81, 218);
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
 
-            LowLevelKeyboardHook kbh = new LowLevelKeyboardHook();
-            kbh.OnKeyPressed += kbh.kbh_OnKeyPressed;
-            kbh.OnKeyUnpressed += kbh.kbh_OnKeyUnPressed;
-            kbh.HookKeyboard();
+            Thread thread = new Thread(() => LowLevelKeyboardHook.KeyboardHook());
+            thread.IsBackground = true;
+            thread.Priority = ThreadPriority.BelowNormal;
+            thread.Start();
 
-            Application.Run();
+            //Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
+            //Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
 
-            kbh.UnHookKeyboard();
+            LogCreator.Setup();
 
+            ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor();
+
+            //Console.WriteLine("Done!");
+            Console.ReadLine();
         }
 
+        public static LowLevelKeyboardHook keyboardHook = new LowLevelKeyboardHook();
+        
     }
 }

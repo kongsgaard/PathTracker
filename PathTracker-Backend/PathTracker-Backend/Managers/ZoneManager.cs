@@ -108,7 +108,10 @@ namespace PathTracker_Backend
                 int iparam = i;
                 EventWaitHandle waitHandle = new EventWaitHandle(false, EventResetMode.ManualReset);
                 Thread thread = new Thread(() => CallDelegate(delegates[iparam], waitHandle, waitHandles, iparam, newZone, this));
+                thread.IsBackground = true;
                 thread.Start();
+
+                
             }
             
             //Wait for all threads to start
