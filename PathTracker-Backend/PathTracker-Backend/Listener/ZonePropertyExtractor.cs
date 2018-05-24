@@ -232,7 +232,8 @@ namespace PathTracker_Backend {
             Process p = new Process();
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "cmd.exe";
-            psi.Arguments = "/K " + tesseractDict + "\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedOCRFile + "";
+            psi.Arguments = "/K " + tesseractDict + "\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedOCRFile + " & exit";
+            //psi.CreateNoWindow = true;
 
             p.StartInfo = psi;
 
@@ -241,11 +242,13 @@ namespace PathTracker_Backend {
 
             Console.WriteLine("Writeing hocr to " + generatedOCRFile);
 
-            return generatedOCRFile;
+            return generatedOCRFile + ".txt";
         }
 
         private void ParseOCRFile(string ocrFile) {
             var modLines = File.ReadAllLines(ocrFile);
+
+            int k = 0;
         }
     }
 }

@@ -1,0 +1,5 @@
+﻿# Lines starting with # are ignored
+# CSV file formatted as ModLine;ModIdentifier;ModType
+# ModLine = The actual text to be recognized. Numbers are indicated with &
+# ModIdentifier = An identifier to group Modes with multiple lines. Will also be appended to json object
+# ModType = Where the mod comes from (map affix, sextant ect)
