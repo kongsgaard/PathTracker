@@ -1,5 +1,52 @@
 ﻿# Lines starting with # are ignored
 # CSV file formatted as ModLine;ModIdentifier;ModType
-# ModLine = The actual text to be recognized. Numbers are indicated with &
+# ModLine = The actual text to be recognized. Numbers are indicated with \d
 # ModIdentifier = An identifier to group Modes with multiple lines. Will also be appended to json object
 # ModType = Where the mod comes from (map affix, sextant ect)
+
+Area is inhabited by \d+ additional Rogue Exiles
+Area has increased monster variety
+
+#Area is inhabited by
+Area is inhabited by beasts
+
+Monsters deal \d+% extra Damage as Fire
+Monsters deal \d+% extra Damage as Cold
+Monsters deal \d+% extra Damage as Lightning
+
+Monsters reflect \d+% of Elemental Damage
+Monsters reflect \d+% of Physical Damage
++\d+% Monster Physical Damage Reduction
+\d+% less effect of Curses on Monsters
+Monsters have a \d+% chance to avoid Poison, Blind, and Bleed
+Monsters have a \d+% chance to cause Elemental Ailments on Hit
+\d+% increased Monster Damage
+Area contains many Totems
+Monsters' skills Chain 2 additional times
+All Monster Damage from Hits always Ignites
+Slaying Enemies close together can attract monsters from Beyond
+Area contains two Unique Bosses
+Monsters are Hexproof
+Monsters fire 2 additional Projectiles
+Players are Cursed with Elemental Weakness
+Players are Cursed with Enfeeble
+Players are Cursed with Temporal Chains
+Players are Cursed with Vulnerability
+Area has patches of burning ground
+Area has patches of chilled ground
+Area has patches of shocking ground
+Area has patches of desecrated ground
+Players gain \d+% reduced Flask Charges
+Monsters have \d+% increased Area of Effect
+Players have \d+% less Area of Effect
+Monsters have \d+% chance to Avoid Elemental Ailments
+Players have \d+% less Recovery Rate of Life and Energy Shield
+Monsters take \d+% reduced Extra Damage from Critical Strikes
+-\d+% maximum Player Resistances
+Players have Elemental Equilibrium
+Players have Point Blank
+Monsters Poison on Hit
+Players cannot Regenerate Life, Mana or Energy Shield
+Monsters gain an Endurance Charge on Hit
+Monsters gain a Frenzy Charge on Hit
+Monsters gain a Power Charge on Hit
