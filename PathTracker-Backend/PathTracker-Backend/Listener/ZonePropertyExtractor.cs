@@ -51,7 +51,7 @@ namespace PathTracker_Backend {
 
             //Give the minimap a little time to set
             System.Threading.Thread.Sleep(100);
-
+            
             var procs = Process.GetProcessesByName("PathOfExile_x64");
 
             string s = User32Wrapper.GetActiveWindowTitle();
@@ -102,7 +102,8 @@ namespace PathTracker_Backend {
             }
             Console.WriteLine("Waited for dir creation ms:" + watch.ElapsedMilliseconds);
 
-            Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
+            string baseFileName = zone.ZoneID + "_" + unixTimestamp;
 
             Rectangle mapModRect = new Rectangle(1280, 0, 640, 880);
             System.Drawing.Imaging.PixelFormat format = bmp.PixelFormat;
@@ -125,20 +126,22 @@ namespace PathTracker_Backend {
 
             //colored.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMODColored.png");
 
-
+            
 
             //Console.WriteLine("Took ms :" + watch.ElapsedMilliseconds);
 
             watch.Restart();
-            zoomed.Save(currentDir + "\\tmp\\" + unixTimestamp + "jpeg.jpeg", ImageFormat.Jpeg);
+            bmp.Save(currentDir + "\\tmp\\" + baseFileName + "_original.jpeg", ImageFormat.Jpeg);
             Console.WriteLine("zoomed written ms:" + watch.ElapsedMilliseconds);
 
 
             watch.Restart();
-            colored.Save(currentDir + "\\tmp\\" + unixTimestamp + "white.jpeg", ImageFormat.Jpeg);
+            colored.Save(currentDir + "\\tmp\\" + baseFileName + "_filteredZoomed.jpeg", ImageFormat.Jpeg);
             Console.WriteLine("white written ms:" + watch.ElapsedMilliseconds);
 
             //bmp.Save(currentDir + "\\tmp\\" + unixTimestamp + "png.png", ImageFormat.Png);
+
+            generateHOCR(currentDir, baseFileName);
 
 
         }
@@ -206,6 +209,23 @@ namespace PathTracker_Backend {
             }
 
             return target;
+        }
+
+        private void generateHOCR(string currentDir, string baseFileName) {
+
+            int maxTimeoutMs = 60000;
+
+            string generatedHOCRFile = currentDir + "\\tmp\\" + baseFileName + "_hocrOutput";
+
+            Process p = new Process();
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = "cmd.exe";
+            psi.Arguments = currentDir+"\\Tesseract\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedHOCRFile + " hocr";
+
+            p.Start();
+            p.WaitForExit(maxTimeoutMs);
+
+
         }
     }
 }
