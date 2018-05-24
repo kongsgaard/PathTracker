@@ -13,6 +13,10 @@ namespace PathTracker_Backend {
         public ZonePropertyExtractor() {
             Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
             Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
+
+            zone = new Zone("Testzone");
+            zone.ZoneID = "SOMETESTZONE";
+            
         }
 
         private bool MapmodsShown = false;
@@ -50,7 +54,7 @@ namespace PathTracker_Backend {
         public void GetMapMods(bool mapmodsShown) {
 
             //Give the minimap a little time to set
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(1000);
             
             var procs = Process.GetProcessesByName("PathOfExile_x64");
 
@@ -102,7 +106,7 @@ namespace PathTracker_Backend {
             }
             Console.WriteLine("Waited for dir creation ms:" + watch.ElapsedMilliseconds);
 
-            Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
+            long unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
             string baseFileName = zone.ZoneID + "_" + unixTimestamp;
 
             Rectangle mapModRect = new Rectangle(1280, 0, 640, 880);
@@ -141,9 +145,9 @@ namespace PathTracker_Backend {
 
             //bmp.Save(currentDir + "\\tmp\\" + unixTimestamp + "png.png", ImageFormat.Png);
 
-            generateHOCR(currentDir, baseFileName);
+            string hocrFile = generateOCR(currentDir, baseFileName);
 
-
+            ParseOCRFile(hocrFile);
         }
 
         private static unsafe Bitmap ReplaceColor(Bitmap source,
@@ -181,11 +185,13 @@ namespace PathTracker_Backend {
                         var lumi = c.GetBrightness();
                         var hue = c.GetHue();
                         var sat = c.GetSaturation();
+
+                        
                         
                         if (hue >= minHue && hue <= maxHue && lumi >= minLumi && lumi <= maxLumi && sat <= maxSat && sat >= minSat) {
-                            r = replacementWithinThreshold.R;
-                            g = replacementWithinThreshold.G;
-                            b = replacementWithinThreshold.B;
+                            //r = replacementWithinThreshold.R;
+                            //g = replacementWithinThreshold.G;
+                            //b = replacementWithinThreshold.B;
                         }
                         else {
                             r = replacementOutsideThreshold.R;
@@ -211,21 +217,35 @@ namespace PathTracker_Backend {
             return target;
         }
 
-        private void generateHOCR(string currentDir, string baseFileName) {
+        private string generateOCR(string currentDir, string baseFileName) {
 
             int maxTimeoutMs = 60000;
 
-            string generatedHOCRFile = currentDir + "\\tmp\\" + baseFileName + "_hocrOutput";
+            string generatedOCRFile = currentDir + "\\tmp\\" + baseFileName + "_hocrOutput";
+
+            string tesseractDict = SettingsManager.Instance.GetValue("TesseractDict");
+
+            if(tesseractDict == null) {
+                throw new Exception("Tried to OCR with tesseract when TesseractDict was not set in the settings");
+            }
 
             Process p = new Process();
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "cmd.exe";
-            psi.Arguments = currentDir+"\\Tesseract\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedHOCRFile + " hocr";
+            psi.Arguments = "/K " + tesseractDict + "\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedOCRFile + "";
+
+            p.StartInfo = psi;
 
             p.Start();
             p.WaitForExit(maxTimeoutMs);
 
+            Console.WriteLine("Writeing hocr to " + generatedOCRFile);
 
+            return generatedOCRFile;
+        }
+
+        private void ParseOCRFile(string ocrFile) {
+            var modLines = File.ReadAllLines(ocrFile);
         }
     }
 }

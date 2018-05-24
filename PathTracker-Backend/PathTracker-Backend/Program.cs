@@ -48,7 +48,7 @@ namespace PathTracker_Backend {
             LogCreator.Setup();
 
             ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor();
-
+            
             //Console.WriteLine("Done!");
             Console.ReadLine();
         }
