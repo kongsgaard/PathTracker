@@ -15,10 +15,14 @@
 
   <ItemGroup>
     <None Remove="Resources\ExperienceToLevel.txt" />
+    <None Remove="Resources\MapMods.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\ExperienceToLevel.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MapMods.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

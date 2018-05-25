@@ -1,52 +1,415 @@
 ﻿# Lines starting with # are ignored
-# CSV file formatted as ModLine;ModIdentifier;ModType
-# ModLine = The actual text to be recognized. Numbers are indicated with \d
-# ModIdentifier = An identifier to group Modes with multiple lines. Will also be appended to json object
-# ModType = Where the mod comes from (map affix, sextant ect)
+# CSV file formatted as ModLine;IIQ;PackSize;IIR;ModSource
 
-Area is inhabited by \d+ additional Rogue Exiles
-Area has increased monster variety
+#-----------------------------------Prefixes-----------------------------------
 
-#Area is inhabited by
-Area is inhabited by beasts
+#AllMaps
+Area contains many Totems;10%;4%;6%;MapAffix
 
-Monsters deal \d+% extra Damage as Fire
-Monsters deal \d+% extra Damage as Cold
-Monsters deal \d+% extra Damage as Lightning
+Rare Monsters each have a Nemesis Mod
+(20-30)% more Rare Monsters;13%;5%;8%;MapAffix
 
-Monsters reflect \d+% of Elemental Damage
-Monsters reflect \d+% of Physical Damage
-+\d+% Monster Physical Damage Reduction
-\d+% less effect of Curses on Monsters
-Monsters have a \d+% chance to avoid Poison, Blind, and Bleed
-Monsters have a \d+% chance to cause Elemental Ailments on Hit
-\d+% increased Monster Damage
-Area contains many Totems
-Monsters' skills Chain 2 additional times
-All Monster Damage from Hits always Ignites
-Slaying Enemies close together can attract monsters from Beyond
-Area contains two Unique Bosses
-Monsters are Hexproof
-Monsters fire 2 additional Projectiles
-Players are Cursed with Elemental Weakness
-Players are Cursed with Enfeeble
-Players are Cursed with Temporal Chains
-Players are Cursed with Vulnerability
-Area has patches of burning ground
-Area has patches of chilled ground
-Area has patches of shocking ground
-Area has patches of desecrated ground
-Players gain \d+% reduced Flask Charges
-Monsters have \d+% increased Area of Effect
-Players have \d+% less Area of Effect
-Monsters have \d+% chance to Avoid Elemental Ailments
-Players have \d+% less Recovery Rate of Life and Energy Shield
-Monsters take \d+% reduced Extra Damage from Critical Strikes
--\d+% maximum Player Resistances
-Players have Elemental Equilibrium
-Players have Point Blank
-Monsters Poison on Hit
-Players cannot Regenerate Life, Mana or Energy Shield
-Monsters gain an Endurance Charge on Hit
-Monsters gain a Frenzy Charge on Hit
-Monsters gain a Power Charge on Hit
+Area is inhabited by 2 additional Rogue Exiles;10%;4%;6%;MapAffix
+
+Area is inhabited by Skeletons;13%;5%;8%;MapAffix
+
+Area is inhabited by Goatmen;13%;5%;8%;MapAffix
+
+Area is inhabited by Sea Witches and their Spawn;13%;5%;8%;MapAffix
+
+Area is inhabited by Undead;13%;5%;8%;MapAffix
+
+Area is inhabited by ranged monsters;13%;5%;8%;MapAffix
+
+Area is inhabited by Animals;16%;6%;9%;MapAffix
+
+Area is inhabited by Demons;13%;5%;8%;MapAffix
+
+Area is inhabited by Humanoids;13%;5%;8%;MapAffix
+
+Area is inhabited by Solaris fanatics;13%;5%;8%;MapAffix
+Area is inhabited by Lunaris fanatics;13%;5%;8%;Area is inhabited by Ghosts;13%;5%;8%;MapAffix
+
+Area is inhabited by Cultists of Kitava;16%;6%;9%;MapAffix
+
+Area has increased monster variety;10%;4%;6%;MapAffix
+
+Monsters' skills Chain 2 additional times;16%;6%;9%;MapAffix
+
+Enemies close together can attract monsters from Beyond;10%;4%;6%;MapAffix
+
+Area contains two Unique Bosses;19%;7%;11%;cannot_be_twinned 0
+
+Monsters fire 2 additional Projectiles;19%;7%;11%;MapAffix
+
+Area is inhabited by Abominations;16%;6%;9%;MapAffix
+
+Monsters cannot be slowed below base speed
+Monsters cannot be Taunted;10%;4%;6%;MapAffix
+
+All Monster Damage from Hits always Ignites;10%;4%;6%;MapAffix
+
+#Low Tier Maps
+
+Monsters cannot be Stunned
+(15-19)% more Monster Life;13%;5%;8%;MapAffix
+
++20% Monster Physical Damage Reduction;13%;5%;8%;MapAffix
+
+(20-29)% more Monster Life;13%;5%;8%;MapAffix
+
+(14-17)% increased Monster Damage;19%;7%;11%;MapAffix
+
+Monsters deal (50-69)% extra Damage as Fire;16%;6%;9%;MapAffix
+
+Monsters deal (50-69)% extra Damage as Cold;16%;6%;9%;MapAffix
+
+Monsters deal (50-69)% extra Damage as Lightning;16%;6%;9%;MapAffix
+
+(15-20)% increased Monster Movement Speed
+(20-25)% increased Monster Attack Speed
+(20-25)% increased Monster Cast Speed;19%;7%;11%;MapAffix
+
+Monsters reflect 13% of Physical Damage;10%;4%;6%;MapAffix
+
+Monsters reflect 13% of Elemental Damage;10%;4%;6%;MapAffix
+
+Unique Boss deals 15% increased Damage
+Unique Boss has 20% increased Attack and Cast Speed;16%;6%;9%;MapAffix
+
+Unique Boss has 25% increased Life
+Unique Boss has 45% increased Area of Effect;13%;5%;8%;MapAffix
+
+25% less effect of Curses on Monsters;13%;5%;8%;MapAffix
+
++15% Monster Chaos Resistance
++20% Monster Elemental Resistance;13%;5%;8%;MapAffix
+
+Monsters have a 25% chance to avoid Poison, Blind, and Bleeding;10%;4%;6%;MapAffix
+
+#Mid Tier Maps
+
+Monsters cannot be Stunned
+(20-24)% more Monster Life;13%;5%;8%;MapAffix
+
++30% Monster Physical Damage Reduction;13%;5%;8%;MapAffix
+
+(30-39)% more Monster Life;13%;5%;8%;MapAffix
+
+(18-21)% increased Monster Damage;19%;7%;11%;MapAffix
+
+Monsters deal (70-89)% extra Damage as Fire;16%;6%;9%;MapAffix
+
+Monsters deal (70-89)% extra Damage as Cold;16%;6%;9%;MapAffix
+
+Monsters deal (70-89)% extra Damage as Lightning;16%;6%;9%;MapAffix
+
+(20-25)% increased Monster Movement Speed
+(25-35)% increased Monster Attack Speed
+(25-35)% increased Monster Cast Speed;19%;7%;11%;MapAffix
+
+Monsters reflect 15% of Physical Damage;10%;4%;6%;MapAffix
+
+Monsters reflect 15% of Elemental Damage;10%;4%;6%;MapAffix
+
+Unique Boss deals 20% increased Damage
+Unique Boss has 25% increased Attack and Cast Speed;16%;6%;9%;MapAffix
+
+Unique Boss has 30% increased Life
+Unique Boss has 55% increased Area of Effect;13%;5%;8%;MapAffix
+
+40% less effect of Curses on Monsters;13%;5%;8%;MapAffix
+
+Monsters have a 15% chance to cause Elemental Ailments on Hit;13%;5%;8%;MapAffix
+
++20% Monster Chaos Resistance
++30% Monster Elemental Resistance;13%;5%;8%;MapAffix
+
+Monsters have a 45% chance to avoid Poison, Blind, and Bleeding;10%;4%;6%;MapAffix
+
+#Top Tier Maps
+Monsters are Hexproof;16%;6%;9%;MapAffix
+
+Monsters cannot be Stunned
+(25-30)% more Monster Life;13%;5%;8%;MapAffix
+
++40% Monster Physical Damage Reduction;13%;5%;8%;MapAffix
+
+(40-49)% more Monster Life;13%;5%;8%;MapAffix
+
+(22-25)% increased Monster Damage;19%;7%;11%;MapAffix
+
+Monsters deal (90-110)% extra Damage as Fire;16%;6%;9%;MapAffix
+
+Monsters deal (90-110)% extra Damage as Cold;16%;6%;9%;MapAffix
+
+Monsters deal (90-110)% extra Damage as Lightning;16%;6%;9%;MapAffix
+
+(25-30)% increased Monster Movement Speed
+(35-45)% increased Monster Attack Speed
+(35-45)% increased Monster Cast Speed;19%;7%;11%;MapAffix
+
+Monsters reflect 18% of Physical Damage;10%;4%;6%;MapAffix
+
+Monsters reflect 18% of Elemental Damage;10%;4%;6%;MapAffix
+
+Unique Boss deals 25% increased Damage
+Unique Boss has 30% increased Attack and Cast Speed;16%;6%;9%;MapAffix
+
+Unique Boss has 35% increased Life
+Unique Boss has 70% increased Area of Effect;13%;5%;8%;MapAffix
+
+60% less effect of Curses on Monsters;13%;5%;8%;MapAffix
+
+Monsters have a 20% chance to cause Elemental Ailments on Hit;13%;5%;8%;MapAffix
+
++25% Monster Chaos Resistance
++40% Monster Elemental Resistance;13%;5%;8%;MapAffix
+
+Monsters have a 65% chance to avoid Poison, Blind, and Bleeding;10%;4%;6%;MapAffix
+
+#------------------------------------Affix: Suffix-------------------------------------------
+
+#All Maps
+Magic Monster Packs each have a Bloodline Mod
+(20-30)% more Magic Monsters;10%;4%;6%;MapAffix
+
+Monsters gain a Frenzy Charge on Hit;13%;5%;8%;MapAffix
+
+Monsters gain a Power Charge on Hit;13%;5%;8%;MapAffix
+
+Monsters gain an Endurance Charge on Hit;13%;5%;8%;MapAffix
+
+Monsters Poison on Hit;16%;6%;9%;MapAffix
+
+Players have Elemental Equilibrium;10%;4%;6%;MapAffix
+
+Players have Point Blank;10%;4%;6%;MapAffix
+
+#Low tier maps
+Monsters have 45% increased Area of Effect;13%;5%;8%;MapAffix
+
+Monsters have (160-200)% increased Critical Strike Chance
++(30-35)% to Monster Critical Strike Multiplier;16%;6%;9%;MapAffix
+
+Players have 20% less Recovery Rate of Life and Energy Shield;16%;6%;9%;MapAffix
+
+Area has patches of burning ground 10%;4%;6%;MapAffix
+
+Area has patches of chilled ground 10%;4%;6%;MapAffix
+
+Area has patches of shocking ground 10%;4%;6%;MapAffix
+
+Area has patches of desecrated ground 10%;4%;6%;MapAffix
+
+Monsters have 30% chance to Avoid Elemental Ailments;10%;4%;6%;MapAffix
+
+Monsters take (25-30)% reduced Extra Damage from Critical Strikes;10%;4%;6%;MapAffix
+
+Players gain 30% reduced Flask Charges;13%;5%;8%;MapAffix
+
+Players have 20% reduced Block Chance
+Players have 20% less Armour;13%;5%;8%;MapAffix
+
+Player Dodge chance is Unlucky
+Monsters have 30% increased Accuracy Rating;13%;5%;8%;MapAffix
+
+Players have 15% less Area of Effect;13%;5%;8%;MapAffix
+
+#Mid Tier maps
+Monsters have 70% increased Area of Effect;13%;5%;8%;MapAffix
+
+Monsters have (260-300)% increased Critical Strike Chance
++(36-40)% to Monster Critical Strike Multiplier;16%;6%;9%;MapAffix
+
+Players have 40% less Recovery Rate of Life and Energy Shield;16%;6%;9%;MapAffix
+
+Area has patches of burning ground 10%;4%;6%;MapAffix
+
+Area has patches of chilled ground 10%;4%;6%;MapAffix
+
+Area has patches of shocking ground 10%;4%;6%;MapAffix
+
+Area has patches of desecrated ground 10%;4%;6%;MapAffix
+
+Players are Cursed with Elemental Weakness;13%;5%;8%;MapAffix
+
+Players are Cursed with Vulnerability;13%;5%;8%;MapAffix
+
+Players are Cursed with Enfeeble;13%;5%;8%;MapAffix
+
+Players are Cursed with Temporal Chains;13%;5%;8%;MapAffix
+
+Players cannot Regenerate Life, Mana or Energy Shield;16%;6%;9%;MapAffix
+
+-(8-5)% maximum Player Resistances;19%;7%;11%;MapAffix
+
+Monsters have 60% chance to Avoid Elemental Ailments;10%;4%;6%;MapAffix
+
+Monsters take (31-35)% reduced Extra Damage from Critical Strikes;10%;4%;6%;MapAffix
+
+Players gain 40% reduced Flask Charges;13%;5%;8%;MapAffix
+
+Players have 30% reduced Block Chance
+Players have 25% less Armour;13%;5%;8%;MapAffix
+
+Player Dodge chance is Unlucky
+Monsters have 40% increased Accuracy Rating;13%;5%;8%;MapAffix
+
+Players have 20% less Area of Effect;13%;5%;8%;MapAffix
+
+#Top Tier maps
+Monsters have 100% increased Area of Effect;13%;5%;8%;MapAffix
+
+Monsters have (360-400)% increased Critical Strike Chance
++(41-45)% to Monster Critical Strike Multiplier;16%;6%;9%;MapAffix
+
+Players have 60% less Recovery Rate of Life and Energy Shield;16%;6%;9%;MapAffix
+
+Area has patches of burning ground 10%;4%;6%;MapAffix
+
+Area has patches of chilled ground 10%;4%;6%;MapAffix
+
+Area has patches of shocking ground 10%;4%;6%;MapAffix
+
+Area has patches of desecrated ground 10%;4%;6%;MapAffix
+
+Players are Cursed with Elemental Weakness;13%;5%;8%;MapAffix
+
+Players are Cursed with Vulnerability;13%;5%;8%;MapAffix
+
+Players are Cursed with Enfeeble;13%;5%;8%;MapAffix
+
+Players are Cursed with Temporal Chains;13%;5%;8%;MapAffix
+
+Players cannot Regenerate Life, Mana or Energy Shield;16%;6%;9%;MapAffix
+
+-(12-9)% maximum Player Resistances;19%;7%;11%;MapAffix
+
+Cannot Leech Life from Monsters
+Cannot Leech Mana from Monsters;16%;6%;9%;MapAffix
+
+Monsters have 90% chance to Avoid Elemental Ailments;10%;4%;6%;MapAffix
+
+Monsters take (36-40)% reduced Extra Damage from Critical Strikes;10%;4%;6%;MapAffix
+
+Players gain 50% reduced Flask Charges;13%;5%;8%;MapAffix
+
+Players have 40% reduced Block Chance
+Players have 30% less Armour;13%;5%;8%;MapAffix
+
+Player Dodge chance is Unlucky
+Monsters have 50% increased Accuracy Rating;13%;5%;8%;MapAffix
+
+Players have 25% less Area of Effect;13%;5%;8%;MapAffix
+
+
+#------------------------------Sextants------------------------------------
+
+#White+
+Unique Boss drops 1 additional Unique Item; ; ; ;Sextant
+
+30% increased Quantity of Items found in Unidentified Maps
+Found Items drop Identified in Identified Maps
+15% increased Pack Size in Unidentified Maps; ; ; ;Sextant
+
+Area is inhabited by an additional Invasion Boss; ; ; ;Sextant
+
+20% increased Player and Monster Movement Speed
+20% increased Monster Attack Speed
+20% increased Monster Cast Speed; ; ; ;Sextant
+
+Area contains additional Monsters that deal Fire Damage
+Players and Monsters take 10% increased Fire Damage; ; ; ;Sextant
+
+Area contains additional Monsters that deal Cold Damage
+Players and Monsters take 10% increased Cold Damage; ; ; ;Sextant
+
+Area contains additional Monsters that deal Lightning Damage
+Players and Monsters take 10% increased Lightning Damage; ; ; ;Sextant
+
+Area contains additional Monsters that deal Physical Damage
+Players and Monsters take 10% increased Physical Damage; ; ; ;Sextant
+
+Area contains Slipstreams; ; ; ;Sextant
+
+Map has 20% Quality
+Unique Boss deals 20% increased Damage; ; ; ;Sextant
+
+Players deal 100% increased Damage while stationary
+Players take 10% increased Damage while stationary; ; ; ;Sextant
+
+Players and Monsters have Onslaught if they have been Hit Recently
+100% increased effect of Onslaught on Players and Monsters; ; ; ;Sextant
+
+30% increased Magic Pack Size; ; ; ;Sextant
+
+Rogue Exiles deal 20% increased Damage
+Rogue Exiles have 20% increased Maximum Life
+Rogue Exiles drop 2 additional Jewels
+Area is inhabited by 1 additional Rogue Exile; ; ; ;Sextant
+
+Magic Maps contain additional Magic Monsters
+Rare Maps contain additional Rare Monsters
+Normal Maps contain additional Normal Monsters; ; ; ;Sextant
+
+Players cannot take Reflected Damage
+Area contains additional Packs with Mirrored Rare Monsters; ; ; ;Sextant
+
+Area contains 30 additional Clusters of Mysterious Barrels; ; ; ;Sextant
+
+Strongbox Monsters have 500% increased Item Quantity
+Strongbox Monsters are Enraged
+Area contains an extra Strongbox; ; ; ;Sextant
+
+Players deal 10% increased Damage for each Poison on them
+Players have 5% increased Movement Speed for each Poison on them
+Area contains additional Poisonous Monsters; ; ; ;Sextant
+
+Area contains hunted traitors; ; ; ;Sextant
+
+Area contains additional Monsters that Convert when Killed; ; ; ;Sextant
+
+Player's Life and Mana Recovery from Flasks are instant
+Area contains additional Monsters that Heal; ; ; ;Sextant
+
+Unique Boss is accompanied by Bodyguards
+An additional Map drops on Completing Area; ; ; ;Sextant
+
+Area contains an additional Breach
+Area can contain Breaches; ; ; ;Sextant
+
+Areas can contain Abysses
+Area contains an additional Abyss; ; ; ;Sextant
+
+20% increased Quantity of Items dropped by Unique Boss; ; ; ;Sextant
+
+Area contains a Forsaken Master; ; ; ;Sextant
+
+#Yellow+
+
+Area contains additional Monsters that deal Chaos Damage
+Players and Monsters take 10% increased Chaos Damage; ; ; ;Sextant
+
+Unique Monsters drop Corrupted Items; ; ; ;Sextant
+
+This Map's Quality also applies to Rarity of Items found
+Unique Boss has 20% increased Life; ; ; ;Sextant
+
+Area contains Zana; ; ; ;Sextant
+
+Strongboxes in Area are Corrupted
+Area contains an extra Strongbox
+Strongboxes in Area are at least Rare Rarity; ; ; ;Sextant
+
+20% reduced Effect of Curses on Monsters
+60% reduced Effect of Curses on Players; ; ; ;Sextant
+
+Unique Boss drops Corrupted Items; ; ; ;Sextant
+
+Nemesis Monsters drop 3 additional Currency Items; ; ; ;Sextant
+
+Area is Alluring; ; ; ;Sextant
+
+Unique Bosses of Corrupted Maps drop an additional Vaal Item
+Found Items have a 5% chance to drop Corrupted in Area; ; ; ;Sextant

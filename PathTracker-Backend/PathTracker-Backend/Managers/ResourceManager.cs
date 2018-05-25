@@ -44,9 +44,30 @@ namespace PathTracker_Backend
             }
 
         }
-        
+
+        public List<MapMod> PossibleMapMods = new List<MapMod>();
+        private void LoadMapMods() {
+            var assembly = Assembly.GetEntryAssembly();
+
+            var rsStream = assembly.GetManifestResourceStream("PathTracker-Backend.Resources.MapMods.txt");
+
+            string fileContent = null;
+            using (var reader = new StreamReader(rsStream)) {
+                fileContent = reader.ReadToEnd();
+            }
+
+            if (fileContent == null) {
+                throw new Exception("Could not load ExperienceToLevel.txt resource");
+            }
+
+            var fileLines = fileContent.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).ToList();
+
+            int k = 0;
+        }
+
         private ResourceManager() {
             CalculateExperienceDictionary();
+            LoadMapMods();
         }
 
         private static ResourceManager Manager = new ResourceManager();
