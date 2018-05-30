@@ -1,5 +1,6 @@
 ﻿# Lines starting with # are ignored
-# CSV file formatted as ModLine;IIQ;PackSize;IIR;ModSource
+# Format for map mods. An empty line indicates a new map mod. A newline without an empty line indicates the mod is multi-lined
+# After the last line, a semi-colon list with IIQ;PackSize;IIR;ModType appears
 
 #-----------------------------------Prefixes-----------------------------------
 

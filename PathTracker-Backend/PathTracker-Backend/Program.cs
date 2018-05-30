@@ -36,7 +36,11 @@ namespace PathTracker_Backend {
             //211 to 252
             //float f = ZonePropertyExtractor.CalculateHue(108, 81, 218);
 
-            ResourceManager resource = ResourceManager.Instance;
+
+
+            ResourceManager resource = new ResourceManager();
+            resource.LoadMapMods();
+
 
             Thread thread = new Thread(() => LowLevelKeyboardHook.KeyboardHook());
             thread.IsBackground = true;

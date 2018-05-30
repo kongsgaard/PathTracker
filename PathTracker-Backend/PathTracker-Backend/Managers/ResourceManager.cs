@@ -46,7 +46,7 @@ namespace PathTracker_Backend
         }
 
         public List<MapMod> PossibleMapMods = new List<MapMod>();
-        private void LoadMapMods() {
+        public void LoadMapMods() {
             var assembly = Assembly.GetEntryAssembly();
 
             var rsStream = assembly.GetManifestResourceStream("PathTracker-Backend.Resources.MapMods.txt");
@@ -62,12 +62,61 @@ namespace PathTracker_Backend
 
             var fileLines = fileContent.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).ToList();
 
+
+            MapMod mapMod = null;
+            foreach(string line in fileLines) {
+                if(line.Length > 0 && line.Substring(0, 1) == "#") {
+                    continue;
+                }
+                else if(line == "") {
+                    if(mapMod != null) {
+                        PossibleMapMods.Add(mapMod);
+                        mapMod = null;
+                    }
+                }
+                else {
+                    string[] splitLines = line.Split(';');
+
+                    if(mapMod == null) {
+                        mapMod = new MapMod();
+                    }
+
+                    if(splitLines.Length == 5) {
+                        int iiq; int iir; int packsize;
+
+                        if(!int.TryParse(splitLines[1].Trim('%'), out iiq)) {
+                            iiq = 0;
+                        }
+                        if (!int.TryParse(splitLines[2].Trim('%'), out packsize)) {
+                            packsize = 0;
+                        }
+                        if (!int.TryParse(splitLines[3].Trim('%'), out iir)) {
+                            iir = 0;
+                        }
+
+
+                        mapMod.IIQ = iiq;
+                        mapMod.PackSize = packsize;
+                        mapMod.IIR = iir;
+                        mapMod.ModSource = splitLines[4];
+                        mapMod.ModLines.Add(splitLines[0]);
+                    }
+                    else {
+                        mapMod.ModLines.Add(line);
+                    }
+
+                }
+
+
+            }
+
+
             int k = 0;
         }
 
-        private ResourceManager() {
+        public ResourceManager() {
             CalculateExperienceDictionary();
-            LoadMapMods();
+            //LoadMapMods();
         }
 
         private static ResourceManager Manager = new ResourceManager();

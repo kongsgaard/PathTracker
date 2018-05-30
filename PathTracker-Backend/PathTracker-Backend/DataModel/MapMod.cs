@@ -21,5 +21,21 @@ namespace PathTracker_Backend
             PackSize = packsize;
             ModSource = modsource;
         }
+
+        public MapMod() {
+            ModLines = new List<string>();
+            IIQ = 0;
+            IIR = 0;
+            PackSize = 0;
+            ModSource = "None";
+        }
+
+        public MapMod(MapMod mapMod) {
+            ModLines = new List<string>(mapMod.ModLines);
+            IIQ = mapMod.IIQ;
+            IIQ = mapMod.IIR;
+            PackSize = mapMod.PackSize;
+            ModSource = mapMod.ModSource;
+        }
     }
 }
