@@ -14,6 +14,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace PathTracker_Backend {
     class Program {
@@ -35,13 +36,7 @@ namespace PathTracker_Backend {
             //t.Wait();
             //211 to 252
             //float f = ZonePropertyExtractor.CalculateHue(108, 81, 218);
-
-
-
-            ResourceManager resource = new ResourceManager();
-            resource.LoadMapMods();
-
-
+            
             Thread thread = new Thread(() => LowLevelKeyboardHook.KeyboardHook());
             thread.IsBackground = true;
             thread.Priority = ThreadPriority.BelowNormal;
@@ -50,10 +45,14 @@ namespace PathTracker_Backend {
             //Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
             //Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
 
+
+
             LogCreator.Setup();
 
             ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor();
-            
+
+            zonePropertyExtractor.WatchForMinimapTab();
+
             //Console.WriteLine("Done!");
             Console.ReadLine();
         }

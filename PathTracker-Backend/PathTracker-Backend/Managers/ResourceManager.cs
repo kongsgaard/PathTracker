@@ -4,6 +4,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace PathTracker_Backend
 {
@@ -44,8 +45,10 @@ namespace PathTracker_Backend
             }
 
         }
-
-        public List<MapMod> PossibleMapMods = new List<MapMod>();
+        
+        public MapMods PossibleMapModsList;
+        public List<string> PossibleMapModLines = new List<string>();
+        public Dictionary<string, List<MapMod>> LineToMapModsDict = new Dictionary<string, List<MapMod>>();
         public void LoadMapMods() {
             var assembly = Assembly.GetEntryAssembly();
 
@@ -56,10 +59,32 @@ namespace PathTracker_Backend
                 fileContent = reader.ReadToEnd();
             }
 
+            
             if (fileContent == null) {
                 throw new Exception("Could not load ExperienceToLevel.txt resource");
             }
 
+            PossibleMapModsList = JsonConvert.DeserializeObject<MapMods>(fileContent);
+
+            var modLines = PossibleMapModsList.MapModsList.SelectMany(x => x.ModLines, (x, y) => y.LineText).ToList();
+
+            PossibleMapModLines = modLines.Distinct().ToList();
+
+            foreach(var mod in PossibleMapModsList.MapModsList) {
+                foreach(var line in mod.ModLines) {
+                    if (LineToMapModsDict.ContainsKey(line.LineText)) {
+                        LineToMapModsDict[line.LineText].Add(mod);
+                    }
+                    else {
+                        List<MapMod> lineList = new List<MapMod>();
+                        lineList.Add(mod);
+                        LineToMapModsDict[line.LineText] = lineList;
+                    }
+                }
+            }
+
+
+            /*
             var fileLines = fileContent.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).ToList();
 
 
@@ -98,11 +123,11 @@ namespace PathTracker_Backend
                         mapMod.IIQ = iiq;
                         mapMod.PackSize = packsize;
                         mapMod.IIR = iir;
-                        mapMod.ModSource = splitLines[4];
-                        mapMod.ModLines.Add(splitLines[0]);
+                        //mapMod.ModSource = splitLines[4];
+                        //mapMod.ModLines.Add(splitLines[0]);
                     }
                     else {
-                        mapMod.ModLines.Add(line);
+                        //mapMod.ModLines.Add(line);
                     }
 
                 }
@@ -110,13 +135,17 @@ namespace PathTracker_Backend
 
             }
 
-
-            int k = 0;
+            if(mapMod != null) {
+                if (!PossibleMapMods.Contains(mapMod)) {
+                    PossibleMapMods.Add(mapMod);
+                }
+            }
+            */
         }
 
         public ResourceManager() {
             CalculateExperienceDictionary();
-            //LoadMapMods();
+            LoadMapMods();
         }
 
         private static ResourceManager Manager = new ResourceManager();

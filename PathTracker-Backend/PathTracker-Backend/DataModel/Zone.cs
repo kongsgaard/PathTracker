@@ -16,6 +16,8 @@ namespace PathTracker_Backend
         public ItemDeltaCalculator deltaCalculator { get; set; }
         public ExperienceDeltaCalculator experienceCalculator { get; set; }
 
+        public List<MapMod> mapMods = new List<MapMod>();
+
         public List<Item> AddedNonStackableItems = new List<Item>();
         public List<Item> RemovedNonStackableItems = new List<Item>();
         

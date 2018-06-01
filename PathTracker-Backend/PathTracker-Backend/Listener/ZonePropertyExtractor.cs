@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace PathTracker_Backend {
     public class ZonePropertyExtractor {
@@ -19,10 +20,11 @@ namespace PathTracker_Backend {
             
         }
 
-        private bool MapmodsShown = false;
-        private bool MapmodChangeQueued = false;
+        private bool MapmodsShown = true;
+        private bool CheckForMapMods = true;
         private bool LMenuDown = false;
         private bool InventoryOpen = false;
+
 
         public void kbh_OnKeyPressed(object sender, Keys e) {
 
@@ -31,7 +33,8 @@ namespace PathTracker_Backend {
             }
             else if (e == Keys.Tab) {
                 if (LMenuDown == false) {
-                    MapmodChangeQueued = true;
+                    CheckForMapMods = true;
+                    Console.WriteLine("Checking for mods!");
                 }
             }
         }
@@ -41,24 +44,80 @@ namespace PathTracker_Backend {
             if (e == Keys.LMenu) {
                 LMenuDown = false;
             }
-            else if (e == Keys.Tab) {
-                if (MapmodChangeQueued == true) {
-                    MapmodsShown = !MapmodsShown;
-                    Console.WriteLine("MapmodShown changed to:" + MapmodsShown);
-                    GetMapMods(MapmodsShown);
+        }
+
+        private Stopwatch keepWatchingWatch = new Stopwatch();
+        public bool keepWatching = true;
+        public int watchingDelay = 500;
+        public void WatchForMinimapTab() {
+            keepWatchingWatch.Start();
+
+            //Initial 2sec wait when watcher starts.
+            System.Threading.Thread.Sleep(2000);
+
+            while (keepWatching) {
+
+                if(keepWatchingWatch.ElapsedMilliseconds >= watchingDelay && CheckForMapMods) {
+                    CheckForMapMods = false;
+
+                    Console.WriteLine("Entered parse check");
+
+                    (List<MapMod> parsedMods, MapModParseStatus status) = GetMapMods();
+
+                    switch (status) {
+                        case MapModParseStatus.NotPresent:
+                            Console.WriteLine("ModsNotPresent!");
+                                break;
+                        case MapModParseStatus.PresentNotParsedCorrectly:
+                            CheckForMapMods = true;
+                            break;
+                        case MapModParseStatus.ModsParsed:
+                            zone.mapMods = parsedMods;
+                            keepWatching = false;
+                            Console.WriteLine("ModsFound! Stop watching");
+                            break;
+                            
+                    }
+
+                    if(status == MapModParseStatus.NotPresent) {
+                        
+                    }
+
+                    keepWatchingWatch.Restart();
                 }
-                MapmodChangeQueued = false;
+                else {
+                    Console.WriteLine("Sleeping 500");
+                    System.Threading.Thread.Sleep(watchingDelay - (int)keepWatchingWatch.ElapsedMilliseconds);
+                }
+
             }
         }
 
-        public void GetMapMods(bool mapmodsShown) {
+        public enum MapModParseStatus { ModsParsed, PresentNotParsedCorrectly, NotPresent}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        /// List<MapMod>: the parsed mods
+        /// MapModParseStatus: Value indicating whether the mapmod parsing was sucessful
+        /// </returns>
+        public (List<MapMod>, MapModParseStatus) GetMapMods() {
+
+            List<MapMod> returnMods = new List<MapMod>();
+            MapModParseStatus modsCorrectlyParsed = MapModParseStatus.NotPresent;
 
             //Give the minimap a little time to set
             System.Threading.Thread.Sleep(1000);
             
             var procs = Process.GetProcessesByName("PathOfExile_x64");
 
-            string s = User32Wrapper.GetActiveWindowTitle();
+            string activeTitle = User32Wrapper.GetActiveWindowTitle();
+
+            if(activeTitle != "Path of Exile") {
+                Console.WriteLine(activeTitle);
+                return (null, MapModParseStatus.PresentNotParsedCorrectly);
+            }
 
             int k = 0;
 
@@ -147,7 +206,9 @@ namespace PathTracker_Backend {
 
             string hocrFile = generateOCR(currentDir, baseFileName);
 
-            ParseOCRFile(hocrFile);
+            (returnMods, modsCorrectlyParsed) = ParseOCRFile(hocrFile);
+
+            return (returnMods, modsCorrectlyParsed);
         }
 
         private static unsafe Bitmap ReplaceColor(Bitmap source,
@@ -233,7 +294,7 @@ namespace PathTracker_Backend {
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "cmd.exe";
             psi.Arguments = "/K " + tesseractDict + "\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedOCRFile + " & exit";
-            //psi.CreateNoWindow = true;
+            psi.CreateNoWindow = true;
 
             p.StartInfo = psi;
 
@@ -245,10 +306,97 @@ namespace PathTracker_Backend {
             return generatedOCRFile + ".txt";
         }
 
-        private void ParseOCRFile(string ocrFile) {
+        private (List<MapMod>, MapModParseStatus) ParseOCRFile(string ocrFile) {
             var modLines = File.ReadAllLines(ocrFile);
 
-            int k = 0;
+            MapMods possibleMapMods = ResourceManager.Instance.PossibleMapModsList;
+
+            var possibleLines = ResourceManager.Instance.PossibleMapModLines;
+            var PossibleModsDict = ResourceManager.Instance.LineToMapModsDict;
+
+            Dictionary<string, MapMod> ChosenCandidateMods = new Dictionary<string, MapMod>();
+
+            List<Tuple<string, string, int>> chosenLines = new List<Tuple<string, string, int>>();
+            List<MapMod> ActualChosenMods = new List<MapMod>();
+
+            int LinesWithContent = 0;
+
+            foreach(var actualLine in modLines) {
+
+                var actualLineLower = actualLine.ToLower();
+
+                if(actualLine.Length < 3) {
+                    continue;
+                }
+                else {
+                    LinesWithContent++;
+                }
+
+                List<Tuple<int, string>> distances = new List<Tuple<int, string>>();
+                foreach(var possibleLine in possibleLines) {
+
+                    var possibleLinesLower = possibleLine.ToLower();
+
+                    int levDist = Toolbox.LevenshteinDistance(actualLineLower, possibleLinesLower);
+                    distances.Add(new Tuple<int, string>(levDist, possibleLine));
+                }
+
+                int minDist = int.MaxValue;
+                string chosenLine = null;
+                foreach(var kvp in distances) {
+                    if(kvp.Item1 < minDist) {
+                        minDist = kvp.Item1;
+                        chosenLine = kvp.Item2;
+                    }
+                }
+
+                var possibleMods = PossibleModsDict[chosenLine];
+
+                foreach(var mod in possibleMods) {
+                    if (ChosenCandidateMods.ContainsKey(mod.Name)) {
+                        MapMod currentMultiLineMod = ChosenCandidateMods[mod.Name];
+
+                        foreach(var line in currentMultiLineMod.ModLines) {
+                            if(line.LineText == chosenLine) {
+                                line.IsFound = true;
+                            }
+                        }
+                    }
+                    else {
+                        ChosenCandidateMods[mod.Name] = MapMod.CopyObject(mod);
+
+                        foreach (var line in ChosenCandidateMods[mod.Name].ModLines) {
+                            if (line.LineText == chosenLine) {
+                                line.IsFound = true;
+                            }
+                        }
+                    }
+                }
+
+                
+            }
+
+            foreach(var kvp in ChosenCandidateMods) {
+                bool allFound = true;
+                foreach(var line in kvp.Value.ModLines) {
+                    allFound = allFound && line.IsFound;
+                }
+
+                if (allFound) {
+                    ActualChosenMods.Add(kvp.Value);
+                }
+            }
+
+
+            MapModParseStatus status;
+            if (LinesWithContent > 0) {
+                status = MapModParseStatus.ModsParsed;
+            }
+            else {
+                status = MapModParseStatus.NotPresent;
+            }
+
+            return (ActualChosenMods, status);
         }
     }
 }

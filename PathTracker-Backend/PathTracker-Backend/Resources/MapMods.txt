@@ -1,416 +1,2379 @@
-﻿# Lines starting with # are ignored
-# Format for map mods. An empty line indicates a new map mod. A newline without an empty line indicates the mod is multi-lined
-# After the last line, a semi-colon list with IIQ;PackSize;IIR;ModType appears
-
-#-----------------------------------Prefixes-----------------------------------
-
-#AllMaps
-Area contains many Totems;10%;4%;6%;MapAffix
-
-Rare Monsters each have a Nemesis Mod
-(20-30)% more Rare Monsters;13%;5%;8%;MapAffix
-
-Area is inhabited by 2 additional Rogue Exiles;10%;4%;6%;MapAffix
-
-Area is inhabited by Skeletons;13%;5%;8%;MapAffix
-
-Area is inhabited by Goatmen;13%;5%;8%;MapAffix
-
-Area is inhabited by Sea Witches and their Spawn;13%;5%;8%;MapAffix
-
-Area is inhabited by Undead;13%;5%;8%;MapAffix
-
-Area is inhabited by ranged monsters;13%;5%;8%;MapAffix
-
-Area is inhabited by Animals;16%;6%;9%;MapAffix
-
-Area is inhabited by Demons;13%;5%;8%;MapAffix
-
-Area is inhabited by Humanoids;13%;5%;8%;MapAffix
-
-Area is inhabited by Solaris fanatics;13%;5%;8%;MapAffix
-Area is inhabited by Lunaris fanatics;13%;5%;8%;Area is inhabited by Ghosts;13%;5%;8%;MapAffix
-
-Area is inhabited by Cultists of Kitava;16%;6%;9%;MapAffix
-
-Area has increased monster variety;10%;4%;6%;MapAffix
-
-Monsters' skills Chain 2 additional times;16%;6%;9%;MapAffix
-
-Enemies close together can attract monsters from Beyond;10%;4%;6%;MapAffix
-
-Area contains two Unique Bosses;19%;7%;11%;cannot_be_twinned 0
-
-Monsters fire 2 additional Projectiles;19%;7%;11%;MapAffix
-
-Area is inhabited by Abominations;16%;6%;9%;MapAffix
-
-Monsters cannot be slowed below base speed
-Monsters cannot be Taunted;10%;4%;6%;MapAffix
-
-All Monster Damage from Hits always Ignites;10%;4%;6%;MapAffix
-
-#Low Tier Maps
-
-Monsters cannot be Stunned
-(15-19)% more Monster Life;13%;5%;8%;MapAffix
-
-+20% Monster Physical Damage Reduction;13%;5%;8%;MapAffix
-
-(20-29)% more Monster Life;13%;5%;8%;MapAffix
-
-(14-17)% increased Monster Damage;19%;7%;11%;MapAffix
-
-Monsters deal (50-69)% extra Damage as Fire;16%;6%;9%;MapAffix
-
-Monsters deal (50-69)% extra Damage as Cold;16%;6%;9%;MapAffix
-
-Monsters deal (50-69)% extra Damage as Lightning;16%;6%;9%;MapAffix
-
-(15-20)% increased Monster Movement Speed
-(20-25)% increased Monster Attack Speed
-(20-25)% increased Monster Cast Speed;19%;7%;11%;MapAffix
-
-Monsters reflect 13% of Physical Damage;10%;4%;6%;MapAffix
-
-Monsters reflect 13% of Elemental Damage;10%;4%;6%;MapAffix
-
-Unique Boss deals 15% increased Damage
-Unique Boss has 20% increased Attack and Cast Speed;16%;6%;9%;MapAffix
-
-Unique Boss has 25% increased Life
-Unique Boss has 45% increased Area of Effect;13%;5%;8%;MapAffix
-
-25% less effect of Curses on Monsters;13%;5%;8%;MapAffix
-
-+15% Monster Chaos Resistance
-+20% Monster Elemental Resistance;13%;5%;8%;MapAffix
-
-Monsters have a 25% chance to avoid Poison, Blind, and Bleeding;10%;4%;6%;MapAffix
-
-#Mid Tier Maps
-
-Monsters cannot be Stunned
-(20-24)% more Monster Life;13%;5%;8%;MapAffix
-
-+30% Monster Physical Damage Reduction;13%;5%;8%;MapAffix
-
-(30-39)% more Monster Life;13%;5%;8%;MapAffix
-
-(18-21)% increased Monster Damage;19%;7%;11%;MapAffix
-
-Monsters deal (70-89)% extra Damage as Fire;16%;6%;9%;MapAffix
-
-Monsters deal (70-89)% extra Damage as Cold;16%;6%;9%;MapAffix
-
-Monsters deal (70-89)% extra Damage as Lightning;16%;6%;9%;MapAffix
-
-(20-25)% increased Monster Movement Speed
-(25-35)% increased Monster Attack Speed
-(25-35)% increased Monster Cast Speed;19%;7%;11%;MapAffix
-
-Monsters reflect 15% of Physical Damage;10%;4%;6%;MapAffix
-
-Monsters reflect 15% of Elemental Damage;10%;4%;6%;MapAffix
-
-Unique Boss deals 20% increased Damage
-Unique Boss has 25% increased Attack and Cast Speed;16%;6%;9%;MapAffix
-
-Unique Boss has 30% increased Life
-Unique Boss has 55% increased Area of Effect;13%;5%;8%;MapAffix
-
-40% less effect of Curses on Monsters;13%;5%;8%;MapAffix
-
-Monsters have a 15% chance to cause Elemental Ailments on Hit;13%;5%;8%;MapAffix
-
-+20% Monster Chaos Resistance
-+30% Monster Elemental Resistance;13%;5%;8%;MapAffix
-
-Monsters have a 45% chance to avoid Poison, Blind, and Bleeding;10%;4%;6%;MapAffix
-
-#Top Tier Maps
-Monsters are Hexproof;16%;6%;9%;MapAffix
-
-Monsters cannot be Stunned
-(25-30)% more Monster Life;13%;5%;8%;MapAffix
-
-+40% Monster Physical Damage Reduction;13%;5%;8%;MapAffix
-
-(40-49)% more Monster Life;13%;5%;8%;MapAffix
-
-(22-25)% increased Monster Damage;19%;7%;11%;MapAffix
-
-Monsters deal (90-110)% extra Damage as Fire;16%;6%;9%;MapAffix
-
-Monsters deal (90-110)% extra Damage as Cold;16%;6%;9%;MapAffix
-
-Monsters deal (90-110)% extra Damage as Lightning;16%;6%;9%;MapAffix
-
-(25-30)% increased Monster Movement Speed
-(35-45)% increased Monster Attack Speed
-(35-45)% increased Monster Cast Speed;19%;7%;11%;MapAffix
-
-Monsters reflect 18% of Physical Damage;10%;4%;6%;MapAffix
-
-Monsters reflect 18% of Elemental Damage;10%;4%;6%;MapAffix
-
-Unique Boss deals 25% increased Damage
-Unique Boss has 30% increased Attack and Cast Speed;16%;6%;9%;MapAffix
-
-Unique Boss has 35% increased Life
-Unique Boss has 70% increased Area of Effect;13%;5%;8%;MapAffix
-
-60% less effect of Curses on Monsters;13%;5%;8%;MapAffix
-
-Monsters have a 20% chance to cause Elemental Ailments on Hit;13%;5%;8%;MapAffix
-
-+25% Monster Chaos Resistance
-+40% Monster Elemental Resistance;13%;5%;8%;MapAffix
-
-Monsters have a 65% chance to avoid Poison, Blind, and Bleeding;10%;4%;6%;MapAffix
-
-#------------------------------------Affix: Suffix-------------------------------------------
-
-#All Maps
-Magic Monster Packs each have a Bloodline Mod
-(20-30)% more Magic Monsters;10%;4%;6%;MapAffix
-
-Monsters gain a Frenzy Charge on Hit;13%;5%;8%;MapAffix
-
-Monsters gain a Power Charge on Hit;13%;5%;8%;MapAffix
-
-Monsters gain an Endurance Charge on Hit;13%;5%;8%;MapAffix
-
-Monsters Poison on Hit;16%;6%;9%;MapAffix
-
-Players have Elemental Equilibrium;10%;4%;6%;MapAffix
-
-Players have Point Blank;10%;4%;6%;MapAffix
-
-#Low tier maps
-Monsters have 45% increased Area of Effect;13%;5%;8%;MapAffix
-
-Monsters have (160-200)% increased Critical Strike Chance
-+(30-35)% to Monster Critical Strike Multiplier;16%;6%;9%;MapAffix
-
-Players have 20% less Recovery Rate of Life and Energy Shield;16%;6%;9%;MapAffix
-
-Area has patches of burning ground 10%;4%;6%;MapAffix
-
-Area has patches of chilled ground 10%;4%;6%;MapAffix
-
-Area has patches of shocking ground 10%;4%;6%;MapAffix
-
-Area has patches of desecrated ground 10%;4%;6%;MapAffix
-
-Monsters have 30% chance to Avoid Elemental Ailments;10%;4%;6%;MapAffix
-
-Monsters take (25-30)% reduced Extra Damage from Critical Strikes;10%;4%;6%;MapAffix
-
-Players gain 30% reduced Flask Charges;13%;5%;8%;MapAffix
-
-Players have 20% reduced Block Chance
-Players have 20% less Armour;13%;5%;8%;MapAffix
-
-Player Dodge chance is Unlucky
-Monsters have 30% increased Accuracy Rating;13%;5%;8%;MapAffix
-
-Players have 15% less Area of Effect;13%;5%;8%;MapAffix
-
-#Mid Tier maps
-Monsters have 70% increased Area of Effect;13%;5%;8%;MapAffix
-
-Monsters have (260-300)% increased Critical Strike Chance
-+(36-40)% to Monster Critical Strike Multiplier;16%;6%;9%;MapAffix
-
-Players have 40% less Recovery Rate of Life and Energy Shield;16%;6%;9%;MapAffix
-
-Area has patches of burning ground 10%;4%;6%;MapAffix
-
-Area has patches of chilled ground 10%;4%;6%;MapAffix
-
-Area has patches of shocking ground 10%;4%;6%;MapAffix
-
-Area has patches of desecrated ground 10%;4%;6%;MapAffix
-
-Players are Cursed with Elemental Weakness;13%;5%;8%;MapAffix
-
-Players are Cursed with Vulnerability;13%;5%;8%;MapAffix
-
-Players are Cursed with Enfeeble;13%;5%;8%;MapAffix
-
-Players are Cursed with Temporal Chains;13%;5%;8%;MapAffix
-
-Players cannot Regenerate Life, Mana or Energy Shield;16%;6%;9%;MapAffix
-
--(8-5)% maximum Player Resistances;19%;7%;11%;MapAffix
-
-Monsters have 60% chance to Avoid Elemental Ailments;10%;4%;6%;MapAffix
-
-Monsters take (31-35)% reduced Extra Damage from Critical Strikes;10%;4%;6%;MapAffix
-
-Players gain 40% reduced Flask Charges;13%;5%;8%;MapAffix
-
-Players have 30% reduced Block Chance
-Players have 25% less Armour;13%;5%;8%;MapAffix
-
-Player Dodge chance is Unlucky
-Monsters have 40% increased Accuracy Rating;13%;5%;8%;MapAffix
-
-Players have 20% less Area of Effect;13%;5%;8%;MapAffix
-
-#Top Tier maps
-Monsters have 100% increased Area of Effect;13%;5%;8%;MapAffix
-
-Monsters have (360-400)% increased Critical Strike Chance
-+(41-45)% to Monster Critical Strike Multiplier;16%;6%;9%;MapAffix
-
-Players have 60% less Recovery Rate of Life and Energy Shield;16%;6%;9%;MapAffix
-
-Area has patches of burning ground 10%;4%;6%;MapAffix
-
-Area has patches of chilled ground 10%;4%;6%;MapAffix
-
-Area has patches of shocking ground 10%;4%;6%;MapAffix
-
-Area has patches of desecrated ground 10%;4%;6%;MapAffix
-
-Players are Cursed with Elemental Weakness;13%;5%;8%;MapAffix
-
-Players are Cursed with Vulnerability;13%;5%;8%;MapAffix
-
-Players are Cursed with Enfeeble;13%;5%;8%;MapAffix
-
-Players are Cursed with Temporal Chains;13%;5%;8%;MapAffix
-
-Players cannot Regenerate Life, Mana or Energy Shield;16%;6%;9%;MapAffix
-
--(12-9)% maximum Player Resistances;19%;7%;11%;MapAffix
-
-Cannot Leech Life from Monsters
-Cannot Leech Mana from Monsters;16%;6%;9%;MapAffix
-
-Monsters have 90% chance to Avoid Elemental Ailments;10%;4%;6%;MapAffix
-
-Monsters take (36-40)% reduced Extra Damage from Critical Strikes;10%;4%;6%;MapAffix
-
-Players gain 50% reduced Flask Charges;13%;5%;8%;MapAffix
-
-Players have 40% reduced Block Chance
-Players have 30% less Armour;13%;5%;8%;MapAffix
-
-Player Dodge chance is Unlucky
-Monsters have 50% increased Accuracy Rating;13%;5%;8%;MapAffix
-
-Players have 25% less Area of Effect;13%;5%;8%;MapAffix
-
-
-#------------------------------Sextants------------------------------------
-
-#White+
-Unique Boss drops 1 additional Unique Item; ; ; ;Sextant
-
-30% increased Quantity of Items found in Unidentified Maps
-Found Items drop Identified in Identified Maps
-15% increased Pack Size in Unidentified Maps; ; ; ;Sextant
-
-Area is inhabited by an additional Invasion Boss; ; ; ;Sextant
-
-20% increased Player and Monster Movement Speed
-20% increased Monster Attack Speed
-20% increased Monster Cast Speed; ; ; ;Sextant
-
-Area contains additional Monsters that deal Fire Damage
-Players and Monsters take 10% increased Fire Damage; ; ; ;Sextant
-
-Area contains additional Monsters that deal Cold Damage
-Players and Monsters take 10% increased Cold Damage; ; ; ;Sextant
-
-Area contains additional Monsters that deal Lightning Damage
-Players and Monsters take 10% increased Lightning Damage; ; ; ;Sextant
-
-Area contains additional Monsters that deal Physical Damage
-Players and Monsters take 10% increased Physical Damage; ; ; ;Sextant
-
-Area contains Slipstreams; ; ; ;Sextant
-
-Map has 20% Quality
-Unique Boss deals 20% increased Damage; ; ; ;Sextant
-
-Players deal 100% increased Damage while stationary
-Players take 10% increased Damage while stationary; ; ; ;Sextant
-
-Players and Monsters have Onslaught if they have been Hit Recently
-100% increased effect of Onslaught on Players and Monsters; ; ; ;Sextant
-
-30% increased Magic Pack Size; ; ; ;Sextant
-
-Rogue Exiles deal 20% increased Damage
-Rogue Exiles have 20% increased Maximum Life
-Rogue Exiles drop 2 additional Jewels
-Area is inhabited by 1 additional Rogue Exile; ; ; ;Sextant
-
-Magic Maps contain additional Magic Monsters
-Rare Maps contain additional Rare Monsters
-Normal Maps contain additional Normal Monsters; ; ; ;Sextant
-
-Players cannot take Reflected Damage
-Area contains additional Packs with Mirrored Rare Monsters; ; ; ;Sextant
-
-Area contains 30 additional Clusters of Mysterious Barrels; ; ; ;Sextant
-
-Strongbox Monsters have 500% increased Item Quantity
-Strongbox Monsters are Enraged
-Area contains an extra Strongbox; ; ; ;Sextant
-
-Players deal 10% increased Damage for each Poison on them
-Players have 5% increased Movement Speed for each Poison on them
-Area contains additional Poisonous Monsters; ; ; ;Sextant
-
-Area contains hunted traitors; ; ; ;Sextant
-
-Area contains additional Monsters that Convert when Killed; ; ; ;Sextant
-
-Player's Life and Mana Recovery from Flasks are instant
-Area contains additional Monsters that Heal; ; ; ;Sextant
-
-Unique Boss is accompanied by Bodyguards
-An additional Map drops on Completing Area; ; ; ;Sextant
-
-Area contains an additional Breach
-Area can contain Breaches; ; ; ;Sextant
-
-Areas can contain Abysses
-Area contains an additional Abyss; ; ; ;Sextant
-
-20% increased Quantity of Items dropped by Unique Boss; ; ; ;Sextant
-
-Area contains a Forsaken Master; ; ; ;Sextant
-
-#Yellow+
-
-Area contains additional Monsters that deal Chaos Damage
-Players and Monsters take 10% increased Chaos Damage; ; ; ;Sextant
-
-Unique Monsters drop Corrupted Items; ; ; ;Sextant
-
-This Map's Quality also applies to Rarity of Items found
-Unique Boss has 20% increased Life; ; ; ;Sextant
-
-Area contains Zana; ; ; ;Sextant
-
-Strongboxes in Area are Corrupted
-Area contains an extra Strongbox
-Strongboxes in Area are at least Rare Rarity; ; ; ;Sextant
-
-20% reduced Effect of Curses on Monsters
-60% reduced Effect of Curses on Players; ; ; ;Sextant
-
-Unique Boss drops Corrupted Items; ; ; ;Sextant
-
-Nemesis Monsters drop 3 additional Currency Items; ; ; ;Sextant
-
-Area is Alluring; ; ; ;Sextant
-
-Unique Bosses of Corrupted Maps drop an additional Vaal Item
-Found Items have a 5% chance to drop Corrupted in Area; ; ; ;Sextant
+﻿{
+  "MapMods": [
+    {
+      "Lines": [
+        {
+          "Line": "Area contains many Totems"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Ceremonial",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Rare Monsters each have a Nemesis Mod",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% more Rare Monsters",
+          "MaxRoll": "30",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Antagonist's",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by # additional Rogue Exiles",
+          "MaxRoll": "2",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Anarchic",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Skeletons",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Skeletal",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Goatmen",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Capricious",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Sea Witches and their Spawn",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Slithering",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Undead",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "",
+          "MinRoll": "5"
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Undead",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by ranged monsters",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Emanant",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Animals",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Feral",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Demons",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Demonic",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Humanoids",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Bipedal",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Solaris fanatics",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Solar",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Lunaris fanatics",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Lunar",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Ghosts",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Haunting",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Cultists of Kitava",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Feasting",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area has increased monster variety",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Multifarious",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters' skills Chain # additional times",
+          "MaxRoll": "2",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Chaining",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Enemies close together can attract monsters from Beyond",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Otherworldly",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains two Unique Bosses",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "19",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "7",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#%increased Rarity of Items found in this Area",
+          "MaxRoll": "11",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Twinned",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters fire # additional Projectiles",
+          "MaxRoll": "2",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "19",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "7",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#%increased Rarity of Items found in this Area",
+          "MaxRoll": "11",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Splitting",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by Abominations",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Abhorrent",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters cannot be slowed below base speed",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Monsters cannot be Taunted",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Unstoppable",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "All Monster Damage from Hits always Ignites",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Conflagrating",
+      "Type": "MapAffix"
+    },
+
+    {
+      "Lines": [
+        {
+          "Line": "Monsters cannot be Stunned",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% more Monster Life",
+          "MaxRoll": "30",
+          "MinRoll": "15"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Unwavering",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "+#% Monster Physical Damage Reduction",
+          "MaxRoll": "40",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Armoured",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "#% more Monster Life",
+          "MaxRoll": "49",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Fecund",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "#% increased Monster Damage",
+          "MaxRoll": "25",
+          "MinRoll": "14"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "19",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "7",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "11",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Savage",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters deal #% extra Damage as Fire",
+          "MaxRoll": "110",
+          "MinRoll": "50"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Burning",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters deal #% extra Damage as Cold",
+          "MaxRoll": "110",
+          "MinRoll": "50"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Freezing",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters deal #% extra Damage as Lightning",
+          "MaxRoll": "110",
+          "MinRoll": "50"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Shocking",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "#% increased Monster Movement Speed",
+          "MaxRoll": "30",
+          "MinRoll": "15"
+        },
+        {
+          "Line": "#% increased Monster Attack Speed",
+          "MaxRoll": "45",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Monster Cast Speed",
+          "MaxRoll": "45",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "19",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "7",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "11",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Fleet",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters reflect #% of Physical Damage",
+          "MaxRoll": "18",
+          "MinRoll": "13"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Punishing",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters reflect #% of Elemental Damage",
+          "MaxRoll": "18",
+          "MinRoll": "13"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Mirrored",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Unique Boss deals #% increased Damage",
+          "MaxRoll": "25",
+          "MinRoll": "15"
+        },
+        {
+          "Line": "Unique Boss has #% increased Attack and Cast Speed",
+          "MaxRoll": "30",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Overlord's",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Unique Boss has #% increased Life",
+          "MaxRoll": "35",
+          "MinRoll": "25"
+        },
+        {
+          "Line": "Unique Boss has #% increased Area of Effect",
+          "MaxRoll": "70",
+          "MinRoll": "45"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Titan's",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "#% less effect of Curses on Monsters",
+          "MaxRoll": "60",
+          "MinRoll": "25"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Hexwarded",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "+#% Monster Chaos Resistance",
+          "MaxRoll": "25",
+          "MinRoll": "15"
+        },
+        {
+          "Line": "+#% Monster Elemental Resistance",
+          "MaxRoll": "40",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Resistant",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters have a #% chance to avoid Poison, Blind, and Bleeding",
+          "MaxRoll": "65",
+          "MinRoll": "25"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Impervious",
+      "Type": "MapAffix"
+    },
+    
+   
+    
+    
+    {
+      "Lines": [
+        {
+          "Line": "Monsters have a #% chance to cause Elemental Ailments on Hit",
+          "MaxRoll": "20",
+          "MinRoll": "15"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Empowered",
+      "Type": "MapAffix"
+    },
+    
+    {
+      "Lines": [
+        {
+          "Line": "Monsters are Hexproof",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "Hexproof",
+      "Type": "MapAffix"
+    },
+   
+    
+    
+   
+    {
+      "Lines": [
+        {
+          "Line": "Magic Monster Packs each have a Bloodline Mod",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% more Magic Monsters",
+          "MaxRoll": "30",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Bloodlines",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters gain a Frenzy Charge on Hit",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Frenzy",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters gain a Power Charge on Hit",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Power",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters gain an Endurance Charge on Hit",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Endurance",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters Poison on Hit",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Venom",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players have Elemental Equilibrium",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Balance",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players have Point Blank",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Skirmishing",
+      "Type": "MapAffix"
+    },
+
+
+    {
+      "Lines": [
+        {
+          "Line": "Monsters have #% increased Area of Effect",
+          "MaxRoll": "100",
+          "MinRoll": "45"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Giants",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters have #% increased Critical Strike Chance",
+          "MaxRoll": "400",
+          "MinRoll": "160"
+        },
+        {
+          "Line": "+#% to Monster Critical Strike Multiplier",
+          "MaxRoll": "45",
+          "MinRoll": "30"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Deadliness",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players have #% less Recovery Rate of Life and Energy Shield",
+          "MaxRoll": "60",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Smothering",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area has patches of burning ground ",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Flames",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area has patches of chilled ground ",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Ice",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area has patches of shocking ground ",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Lightning",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area has patches of desecrated ground ",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Desecration",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters have #% chance to Avoid Elemental Ailments",
+          "MaxRoll": "90",
+          "MinRoll": "30"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Insulation",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Monsters take #% reduced Extra Damage from Critical Strikes",
+          "MaxRoll": "40",
+          "MinRoll": "25"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "4",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Toughness",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players gain #% reduced Flask Charges",
+          "MaxRoll": "50",
+          "MinRoll": "30"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Drought",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players have #% reduced Block Chance",
+          "MaxRoll": "40",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "Players have #% less Armour",
+          "MaxRoll": "30",
+          "MinRoll": "20"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Rust",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Player Dodge chance is Unlucky",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Monsters have #% increased Accuracy Rating",
+          "MaxRoll": "50",
+          "MinRoll": "30"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Miring",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players have #% less Area of Effect",
+          "MaxRoll": "25",
+          "MinRoll": "15"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Impotence",
+      "Type": "MapAffix"
+    },
+   
+    {
+      "Lines": [
+        {
+          "Line": "Players are Cursed with Elemental Weakness",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Elemental Weakness",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players are Cursed with Vulnerability",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Vulnerability",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players are Cursed with Enfeeble",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Enfeeblement",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players are Cursed with Temporal Chains",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "13",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "8",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Temporal Chains",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players cannot Regenerate Life, Mana or Energy Shield",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Stasis",
+      "Type": "MapAffix"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "-#% maximum Player Resistances",
+          "MaxRoll": "-5",
+          "MinRoll": "-12"
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "19",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "7",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "11",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Exposure",
+      "Type": "MapAffix"
+    },
+    
+    {
+      "Lines": [
+        {
+          "Line": "Cannot Leech Life from Monsters",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Cannot Leech Mana from Monsters",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "16",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% Monster pack size",
+          "MaxRoll": "6",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Rarity of Items found in this Area",
+          "MaxRoll": "9",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "of Congealment",
+      "Type": "MapAffix"
+    },
+
+
+
+
+    {
+      "Lines": [
+        {
+          "Line": "Unique Boss drops # additional Unique Item",
+          "MaxRoll": "1",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasBossAdditionalUnique",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "#% increased Quantity of Items found in Unidentified Maps",
+          "MaxRoll": "30",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Found Items drop Identified in Identified Maps",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Pack Size in Unidentified Maps",
+          "MaxRoll": "15",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasUnIDedMapsGrantQuantity",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is inhabited by an additional Invasion Boss",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasContainsAdditionalRandomBoss",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "#% increased Player and Monster Movement Speed",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Monster Attack Speed",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased Monster Cast Speed",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasMoveAttackCastSpeed",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains additional Monsters that deal Fire Damage",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Players and Monsters take #% increased Fire Damage",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasFireDamageAndPacks",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains additional Monsters that deal Cold Damage",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Players and Monsters take #% increased Cold Damage",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasColdDamageAndPacks",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains additional Monsters that deal Lightning Damage",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Players and Monsters take #% increased Lightning Damage",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasLightningDamageAndPacks",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains additional Monsters that deal Physical Damage",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Players and Monsters take #% increased Physical Damage",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasPhysicalDamageAndPacks_",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains Slipstreams",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasGroundHaste",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Map has #% Quality",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Unique Boss deals #% increased Damage",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasMapsHave20PercentQuality",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players deal #% increased Damage while stationary",
+          "MaxRoll": "100",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Players take #% increased Damage while stationary",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasPlayersDamageDealtAndTakenWhileStationary_",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players and Monsters have Onslaught if they have been Hit Recently",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% increased effect of Onslaught on Players and Monsters",
+          "MaxRoll": "100",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasOnslaughtWhenHitAndOnslaughtEffect",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "#% increased Magic Pack Size",
+          "MaxRoll": "30",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasMagicPackSize",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Rogue Exiles deal #% increased Damage",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Rogue Exiles have #% increased Maximum Life",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Rogue Exiles drop # additional Jewels",
+          "MaxRoll": "2",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Area is inhabited by # additional Rogue Exile",
+          "MaxRoll": "1",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasRogueExilesDamageAndDropAdditionalJewels",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Magic Maps contain additional Magic Monsters",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Rare Maps contain additional Rare Monsters",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Normal Maps contain additional Normal Monsters",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasMagicAndRareMapsHaveAdditionalPacks",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players cannot take Reflected Damage",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Area contains additional Packs with Mirrored Rare Monsters",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasReducedReflectedDamageTakenMirroredRares",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains # additional Clusters of Mysterious Barrels",
+          "MaxRoll": "30",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasClustersOfBarrels",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Strongbox Monsters have #% increased Item Quantity",
+          "MaxRoll": "500",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Strongbox Monsters are Enraged",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Area contains an extra Strongbox",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasStrongboxMonstersEnrageAndDrops",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Players deal #% increased Damage for each Poison on them",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Players have #% increased Movement Speed for each Poison on them",
+          "MaxRoll": "5",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Area contains additional Poisonous Monsters",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasPoisonEffectsAndParasites",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains hunted traitors",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasHighValueEnemiesOnOwnTeam",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains additional Monsters that Convert when Killed",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasMontersThatConvertOnDeath",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Player's Life and Mana Recovery from Flasks are instant",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Area contains additional Monsters that Heal",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasInstantFlasksAndHealingMonsters",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Unique Boss is accompanied by Bodyguards",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "An additional Map drops on Completing Area",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasBodyguardsAndBossMapDrops",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains an additional Breach",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Area can contain Breaches",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasAdditionalBreaches",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Areas can contain Abysses",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Area contains an additional Abyss",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasAdditionalAbysses",
+      "Type": "Sextant"
+    },
+
+    {
+      "Lines": [
+        {
+          "Line": "Area contains a Forsaken Master",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasContainsMaster",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains additional Monsters that deal Chaos Damage",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Players and Monsters take #% increased Chaos Damage",
+          "MaxRoll": "10",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasChaosDamageAndPacks",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Unique Monsters drop Corrupted Items",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasUniqueMonstersDropCorruptedItems",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Quality also applies to Rarity of Items found",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Unique Boss has #% increased Life",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasMapQualityBonusAlsoAppliesToRarity",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area contains Zana",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasContainsZanaMission",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Strongboxes in Area are Corrupted",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Area contains an extra Strongbox",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Strongboxes in Area are at least Rare Rarity",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasStrongboxesAreCorruptedAndUnided",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "#% reduced Effect of Curses on Monsters",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        },
+        {
+          "Line": "#% reduced Effect of Curses on Players",
+          "MaxRoll": "60",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasCurseEffectOnPlayersAndMonsters",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Unique Boss drops Corrupted Items",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasUniqueMonstersDropCorruptedItems",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Nemesis Monsters drop # additional Currency Items",
+          "MaxRoll": "3",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasBloodlinesDropAdditionalCurrency",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Area is Alluring",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasFishy",
+      "Type": "Sextant"
+    },
+    {
+      "Lines": [
+        {
+          "Line": "Unique Bosses of Corrupted Maps drop an additional Vaal Item",
+          "MaxRoll": "",
+          "MinRoll": ""
+        },
+        {
+          "Line": "Found Items have a #% chance to drop Corrupted in Area",
+          "MaxRoll": "",
+          "MinRoll": ""
+        }
+      ],
+      "Name": "MapAtlasCorruptedMapBossesDropAdditionalVaalItems",
+      "Type": "Sextant"
+    }
+  ]
+}
