@@ -14,10 +14,8 @@ namespace PathTracker_Backend {
         public ZonePropertyExtractor() {
             Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
             Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
-
-            zone = new Zone("Testzone");
-            zone.ZoneID = "SOMETESTZONE";
             
+
         }
 
         private bool MapmodsShown = true;

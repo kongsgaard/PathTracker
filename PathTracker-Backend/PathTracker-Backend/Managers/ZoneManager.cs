@@ -23,6 +23,9 @@ namespace PathTracker_Backend
         Dictionary<string, Zone> ZoneDict = new Dictionary<string, Zone>();
         Dictionary<string, FileInfo> MinimapFiles = new Dictionary<string, FileInfo>();
 
+        Thread extractMods = null;
+        ZonePropertyExtractor modExtractor = new ZonePropertyExtractor();
+
         public Zone currentZone = null;
 
         public ZoneManager() {
@@ -158,6 +161,20 @@ namespace PathTracker_Backend
             }
             currentZone = enteredZone;
 
+            if(extractMods != null) {
+                if (extractMods.ThreadState == System.Threading.ThreadState.Running) {
+                    modExtractor.keepWatching = false;
+
+                    System.Threading.Thread.Sleep(2500);
+                    extractMods.Abort();
+                }
+            }
+            
+
+            modExtractor.zone = currentZone;
+            extractMods = new Thread(modExtractor.WatchForMinimapTab);
+
+            extractMods.Start();
 
         }
         
