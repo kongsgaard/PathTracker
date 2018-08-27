@@ -44,10 +44,13 @@ namespace PathTracker_Backend {
             }
         }
 
+
+
         private Stopwatch keepWatchingWatch = new Stopwatch();
         public bool keepWatching = true;
         public int watchingDelay = 500;
         public void WatchForMinimapTab() {
+            keepWatching = true;
             keepWatchingWatch.Start();
 
             //Initial 2sec wait when watcher starts.
@@ -85,14 +88,15 @@ namespace PathTracker_Backend {
                 }
                 else {
                     Console.WriteLine("Sleeping 500");
-                    System.Threading.Thread.Sleep(watchingDelay - (int)keepWatchingWatch.ElapsedMilliseconds);
+                    System.Threading.Thread.Sleep(watchingDelay);
                 }
 
             }
         }
 
-        public enum MapModParseStatus { ModsParsed, PresentNotParsedCorrectly, NotPresent}
 
+        public enum MapModParseStatus { ModsParsed, PresentNotParsedCorrectly, NotPresent}
+        
         /// <summary>
         /// 
         /// </summary>

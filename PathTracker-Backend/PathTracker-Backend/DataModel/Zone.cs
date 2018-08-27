@@ -24,7 +24,7 @@ namespace PathTracker_Backend
         public Dictionary<string, int> DeltaStackableItems = new Dictionary<string, int>();
 
         //Character name, Character progress dictionary. Enables multiple character deltas from same map
-        public Dictionary<string,CharacterProgress> characterProgress;
+        public Dictionary<string,CharacterProgress> characterProgress = new Dictionary<string, CharacterProgress>();
 
         public Zone(string zoneName) {
             ZoneName = zoneName;
@@ -61,7 +61,7 @@ namespace PathTracker_Backend
                 new JProperty("zoneName", ZoneName),
                 new JProperty("zoneID", ZoneID),
                 new JProperty("mods",
-                    new JArray()));
+                    new JArray(mapMods)));
             
             return zoneJson.ToString();
         }

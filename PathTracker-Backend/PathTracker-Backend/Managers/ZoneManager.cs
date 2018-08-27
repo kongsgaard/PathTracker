@@ -56,7 +56,7 @@ namespace PathTracker_Backend
                 
                 if(file.LastWriteTime < deleteThreshold && deleteOld == "true") {
                     File.Delete(file.FullName);
-                    break;
+                    continue;
                 }
 
                 if (MinimapFiles.ContainsKey(file.Name)) {
@@ -91,11 +91,11 @@ namespace PathTracker_Backend
 
 
             Zone fromZone = null;
-            Zone enteredZone = new Zone(zoneName);
             ItemDeltaCalculator fromZoneDeltaCalculator = null;
-            ItemDeltaCalculator enteredZoneDeltaCalculator = enteredZone.deltaCalculator;
-
             ExperienceDeltaCalculator fromZoneExperienceDeltaCalculator = null;
+            
+            Zone enteredZone = new Zone(zoneName);
+            ItemDeltaCalculator enteredZoneDeltaCalculator = enteredZone.deltaCalculator;
             ExperienceDeltaCalculator enteredZoneExperienceDeltaCalculator = enteredZone.experienceCalculator;
 
 
@@ -159,9 +159,8 @@ namespace PathTracker_Backend
                     }
                 }
             }
-            currentZone = enteredZone;
 
-            if(extractMods != null) {
+            if (extractMods != null) {
                 if (extractMods.ThreadState == System.Threading.ThreadState.Running) {
                     modExtractor.keepWatching = false;
 
@@ -169,15 +168,34 @@ namespace PathTracker_Backend
                     extractMods.Abort();
                 }
             }
-            
 
-            modExtractor.zone = currentZone;
+            if(fromZone != null) {
+                writeZoneDisk(fromZone);
+            }
+
+            
+            modExtractor.zone = enteredZone;
             extractMods = new Thread(modExtractor.WatchForMinimapTab);
 
             extractMods.Start();
 
+            currentZone = enteredZone;
+            
         }
         
+        private void writeZoneDisk(Zone zone) {
+
+            string currentDir = Directory.GetCurrentDirectory();
+
+            if (!Directory.Exists(currentDir + "\\tmp\\")) {
+                Directory.CreateDirectory(currentDir + "\\tmp\\");
+            }
+
+            File.WriteAllText(currentDir + zone.ZoneID + ".json", zone.ToJSON());
+
+            Console.WriteLine("Write to zone to json at :" + currentDir + zone.ZoneID + ".json");
+        }
+
         private long threadStarted = 0;
 
         private void CallDelegate(Delegate del, EventWaitHandle waitHandle, WaitHandle[] waitHandles, int i, ZoneChangeArgs newZoneArgs, object sender) {

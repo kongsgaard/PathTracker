@@ -21,37 +21,42 @@ namespace PathTracker_Backend {
         
         static void Main(string[] args) {
 
-
-            //
-            //LogCreator.Setup();
-            //
-            //ComponentManager manager = new ComponentManager();
-            //
-            //Task t = new Task(manager.StartClientTxtListener);
-            //t.Start();
-            //System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
-            //manager.StartInventoryListener();
-            //manager.StartStashtabListener("C");
-            //
-            //t.Wait();
-            //211 to 252
-            //float f = ZonePropertyExtractor.CalculateHue(108, 81, 218);
-            
             Thread thread = new Thread(() => LowLevelKeyboardHook.KeyboardHook());
             thread.IsBackground = true;
             thread.Priority = ThreadPriority.BelowNormal;
             thread.Start();
+
+            LogCreator.Setup();
+            
+            ComponentManager manager = new ComponentManager();
+            
+            Task t = new Task(manager.StartClientTxtListener);
+            t.Start();
+            System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
+            manager.StartInventoryListener();
+            //manager.StartStashtabListener("C");
+            
+            t.Wait();
+            //211 to 252
+            //float f = ZonePropertyExtractor.CalculateHue(108, 81, 218);
+            
+
 
             //Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
             //Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
 
 
 
-            LogCreator.Setup();
-
-            ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor();
-
-            zonePropertyExtractor.WatchForMinimapTab();
+            //LogCreator.Setup();
+            //
+            //Zone z = new Zone("z1");
+            //z.ZoneID = "TestZone";
+            //
+            //ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor();
+            //zonePropertyExtractor.zone = z;
+            //
+            //
+            //zonePropertyExtractor.WatchForMinimapTab();
 
             //Console.WriteLine("Done!");
             Console.ReadLine();

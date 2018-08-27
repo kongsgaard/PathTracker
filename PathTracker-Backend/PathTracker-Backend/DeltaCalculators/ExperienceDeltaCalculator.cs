@@ -20,7 +20,7 @@ namespace PathTracker_Backend
             CharacterProgress characterProgress = new CharacterProgress();
             characterProgress.AscendencyClass = ExitedWithCharacter.AscendencyClass;
             characterProgress.League = ExitedWithCharacter.League;
-            characterProgress.Name = characterProgress.Name;
+            characterProgress.Name = ExitedWithCharacter.Name;
 
             //Simple delta calculation for penalized xp
             characterProgress.ExperienceProgress = ExitedWithCharacter.Experience - EnteredWithCharacter.Experience;
