@@ -29,16 +29,19 @@ namespace PathTracker_Backend {
         public void Listen(ItemDeltaCalculator fromZoneDeltaCalculator, ItemDeltaCalculator enteredZoneDeltaCalculator, 
             ExperienceDeltaCalculator fromZoneExperienceDeltaCalculator, ExperienceDeltaCalculator enteredZoneExperienceDeltaCalculator) {
             Inventory newInventory = Coordinator.GetInventory();
-            
+
+            var InventoryItems = newInventory.Items.Where(x => x.InventoryId == "MainInventory").ToList();
+            var EquippedItems = newInventory.Items.Where(x => x.InventoryId != "MainInventory").ToList();
+
             if (fromZoneDeltaCalculator != null) {
-                fromZoneDeltaCalculator.UpdateLeftZoneWithItems(newInventory.Items);
+                fromZoneDeltaCalculator.UpdateLeftZoneWithItems(InventoryItems);
                 fromZoneExperienceDeltaCalculator.ExitedWithCharacter = newInventory.Character;
-                fromZoneExperienceDeltaCalculator.ExitedWithItems = newInventory.Items;
+                fromZoneExperienceDeltaCalculator.ExitedWithItems = EquippedItems;
             }
 
-            enteredZoneDeltaCalculator.UpdateEnteredZoneWithItems(newInventory.Items);
+            enteredZoneDeltaCalculator.UpdateEnteredZoneWithItems(InventoryItems);
             enteredZoneExperienceDeltaCalculator.EnteredWithCharacter = newInventory.Character;
-            enteredZoneExperienceDeltaCalculator.EnteredWithItems = newInventory.Items;
+            enteredZoneExperienceDeltaCalculator.EnteredWithItems = EquippedItems;
             
             InventoryLog.Info("Inventory (account:" + Settings.GetValue("Account") + ",character:" + Settings.GetValue("CurrentCharacter") + ") fetched");
         }

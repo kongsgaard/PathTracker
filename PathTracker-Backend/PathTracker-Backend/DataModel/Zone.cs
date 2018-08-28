@@ -48,20 +48,16 @@ namespace PathTracker_Backend
         }
         
         public string ToJSON() {
-            JObject zoneJson =
-            new JObject(
-                new JProperty("itemsAdded",
-                    new JArray(AddedNonStackableItems)),
-                new JProperty("itemsRemoved",
-                    new JArray(RemovedNonStackableItems)),
-                new JProperty("stackableItemDelta",
-                    new JArray(DeltaStackableItems)),
-                new JProperty("characterProgres", 
-                    new JArray(characterProgress)),
-                new JProperty("zoneName", ZoneName),
-                new JProperty("zoneID", ZoneID),
-                new JProperty("mods",
-                    new JArray(mapMods)));
+
+            JProperty itemsAdded = new JProperty("itemsAdded", JArray.FromObject(AddedNonStackableItems));
+            JProperty itemsRemoved = new JProperty("itemsRemoved", JArray.FromObject(RemovedNonStackableItems));
+            JProperty stackableItemsDelta = new JProperty("stackableItemDelta", JObject.FromObject(DeltaStackableItems));
+            JProperty charProgress = new JProperty("characterProgres", JObject.FromObject(characterProgress));
+            JProperty zoneName = new JProperty("zoneName", ZoneName);
+            JProperty zoneID = new JProperty("zoneID", ZoneID);
+            JProperty mpMods = new JProperty("mods", JArray.FromObject(mapMods));
+
+            JObject zoneJson = new JObject(itemsAdded, itemsRemoved, stackableItemsDelta, charProgress, zoneName, zoneID, mpMods);
             
             return zoneJson.ToString();
         }

@@ -61,8 +61,6 @@ namespace PathTracker_Backend {
                 if(keepWatchingWatch.ElapsedMilliseconds >= watchingDelay && CheckForMapMods) {
                     CheckForMapMods = false;
 
-                    Console.WriteLine("Entered parse check");
-
                     (List<MapMod> parsedMods, MapModParseStatus status) = GetMapMods();
 
                     switch (status) {
@@ -87,7 +85,6 @@ namespace PathTracker_Backend {
                     keepWatchingWatch.Restart();
                 }
                 else {
-                    Console.WriteLine("Sleeping 500");
                     System.Threading.Thread.Sleep(watchingDelay);
                 }
 
@@ -175,11 +172,9 @@ namespace PathTracker_Backend {
 
             watch.Restart();
             Bitmap mapMods = bmp.Clone(mapModRect, format);
-            Console.WriteLine("Clone ms:" + watch.ElapsedMilliseconds);
 
             watch.Restart();
             Bitmap zoomed = new Bitmap(mapMods, mapMods.Width * 2, mapMods.Height * 2);
-            Console.WriteLine("zoomed ms:" + watch.ElapsedMilliseconds);
 
             //bmp.Save(currentDir + "\\tmp\\" + unixTimestamp + ".png");
             //mapMods.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMOD.png");
@@ -187,7 +182,6 @@ namespace PathTracker_Backend {
 
             watch.Restart();
             Bitmap colored = ReplaceColor(zoomed, minHue: 240, maxHue: 240, minLumi: 0.25f, maxLumi: 1f, minSat: 0.25f, maxSat: 1f, Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255));
-            Console.WriteLine("white colored ms:" + watch.ElapsedMilliseconds);
 
             //colored.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMODColored.png");
 
@@ -197,12 +191,10 @@ namespace PathTracker_Backend {
 
             watch.Restart();
             bmp.Save(currentDir + "\\tmp\\" + baseFileName + "_original.jpeg", ImageFormat.Jpeg);
-            Console.WriteLine("zoomed written ms:" + watch.ElapsedMilliseconds);
 
 
             watch.Restart();
             colored.Save(currentDir + "\\tmp\\" + baseFileName + "_filteredZoomed.jpeg", ImageFormat.Jpeg);
-            Console.WriteLine("white written ms:" + watch.ElapsedMilliseconds);
 
             //bmp.Save(currentDir + "\\tmp\\" + unixTimestamp + "png.png", ImageFormat.Png);
 
@@ -297,13 +289,14 @@ namespace PathTracker_Backend {
             psi.FileName = "cmd.exe";
             psi.Arguments = "/K " + tesseractDict + "\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedOCRFile + " & exit";
             psi.CreateNoWindow = true;
+            psi.UseShellExecute = false;
 
             p.StartInfo = psi;
 
             p.Start();
+            p.PriorityClass = ProcessPriorityClass.BelowNormal;
             p.WaitForExit(maxTimeoutMs);
-
-            Console.WriteLine("Writeing hocr to " + generatedOCRFile);
+            
 
             return generatedOCRFile + ".txt";
         }

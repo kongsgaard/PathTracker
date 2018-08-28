@@ -178,6 +178,7 @@ namespace PathTracker_Backend
             extractMods = new Thread(modExtractor.WatchForMinimapTab);
 
             extractMods.Start();
+            extractMods.Priority = ThreadPriority.BelowNormal;
 
             currentZone = enteredZone;
             
