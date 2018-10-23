@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Remove="Resources\ExperienceToLevel.txt" />
     <None Remove="Resources\MapMods.txt" />
+    <None Remove="Resources\PoeNinjaCategories.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +24,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MapMods.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PoeNinjaCategories.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

@@ -142,7 +142,7 @@ namespace PathTracker_Backend
             }
             */
         }
-
+        
         public ResourceManager() {
             CalculateExperienceDictionary();
             LoadMapMods();

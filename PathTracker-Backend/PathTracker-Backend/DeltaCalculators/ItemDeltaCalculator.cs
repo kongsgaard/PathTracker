@@ -108,6 +108,12 @@ namespace PathTracker_Backend
             return (added, removed);
         }
 
+        /// <summary>
+        /// Iterates the item list and puts the input in two seperate lists, stackable (curency, div-cards etc.) and non-stackable items
+        /// </summary>
+        /// <param name="itemList"></param>
+        /// <param name="stackableCountDictionary"></param>
+        /// <param name="nonStackableItems"></param>
         private void IterateItemList(List<Item> itemList, Dictionary<string, int> stackableCountDictionary, List<Item> nonStackableItems) {
 
             foreach (Item item in itemList) {
