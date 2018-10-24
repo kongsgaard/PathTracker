@@ -188,11 +188,13 @@ namespace PathTracker_Backend
 
             string currentDir = Directory.GetCurrentDirectory();
 
-            if (!Directory.Exists(currentDir + "\\tmp\\")) {
-                Directory.CreateDirectory(currentDir + "\\tmp\\");
-            }
+            string saveToDir = currentDir + "\\ZoneJson\\";
 
-            File.WriteAllText(currentDir + zone.ZoneID + ".json", zone.ToJSON());
+            if (!Directory.Exists(saveToDir)) {
+                Directory.CreateDirectory(saveToDir);
+            }
+            
+            File.WriteAllText(saveToDir + zone.ZoneID + ".json", zone.ToJSON());
 
             Console.WriteLine("Write to zone to json at :" + currentDir + zone.ZoneID + ".json");
         }
