@@ -100,6 +100,8 @@ namespace PathTracker_Backend
 
 
             if (currentZone != null) {
+                currentZone.timeLeft = DateTime.Now;
+                currentZone.zoneTimer.Stop();
                 fromZone = currentZone;
                 fromZoneDeltaCalculator = fromZone.deltaCalculator;
                 fromZoneExperienceDeltaCalculator = fromZone.experienceCalculator;

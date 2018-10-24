@@ -4,6 +4,7 @@ using System.Text;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Diagnostics;
 
 namespace PathTracker_Backend
 {
@@ -26,10 +27,17 @@ namespace PathTracker_Backend
         //Character name, Character progress dictionary. Enables multiple character deltas from same map
         public Dictionary<string,CharacterProgress> characterProgress = new Dictionary<string, CharacterProgress>();
 
+        public Stopwatch zoneTimer = new Stopwatch();
+
+        public DateTime timeEntered;
+        public DateTime timeLeft;
+
         public Zone(string zoneName) {
             ZoneName = zoneName;
             deltaCalculator = new ItemDeltaCalculator();
             experienceCalculator = new ExperienceDeltaCalculator();
+            zoneTimer.Start();
+            timeEntered = DateTime.Now;
         }
         
         public void CalculateAndAddToDelta() {
@@ -56,8 +64,11 @@ namespace PathTracker_Backend
             JProperty zoneName = new JProperty("zoneName", ZoneName);
             JProperty zoneID = new JProperty("zoneID", ZoneID);
             JProperty mpMods = new JProperty("mods", JArray.FromObject(mapMods));
+            JProperty timeInZone = new JProperty("secondsInZone", zoneTimer.ElapsedMilliseconds / 1000);
+            JProperty JtimeEntered = new JProperty("timeEntered", timeEntered);
+            JProperty JtimeLeft = new JProperty("timeLeft", timeLeft);
 
-            JObject zoneJson = new JObject(itemsAdded, itemsRemoved, stackableItemsDelta, charProgress, zoneName, zoneID, mpMods);
+            JObject zoneJson = new JObject(itemsAdded, itemsRemoved, stackableItemsDelta, charProgress, zoneName, zoneID, mpMods, timeInZone, JtimeEntered, JtimeLeft);
             
             return zoneJson.ToString();
         }
