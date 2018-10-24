@@ -20,15 +20,18 @@ namespace PathTracker_Backend {
     class Program {
         
         static void Main(string[] args) {
-
+            
             Thread thread = new Thread(() => LowLevelKeyboardHook.KeyboardHook());
             thread.IsBackground = true;
             thread.Priority = ThreadPriority.BelowNormal;
             thread.Start();
 
             LogCreator.Setup();
-            
-            ComponentManager manager = new ComponentManager();
+
+            IDiskSaver mongoDiskSaver = new MongoDBSaver();
+            IDiskSaver folderDiskSaver = new DiskFolderSaver();
+
+            ComponentManager manager = new ComponentManager(mongoDiskSaver);
             
             Task t = new Task(manager.StartClientTxtListener);
             t.Start();
