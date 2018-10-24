@@ -24,5 +24,5 @@ namespace PathTracker_Backend {
         public List<Item> Items { get; set; }
     }
 
-    public enum TabType { NormalStash, PremiumStash, QuadStash, DivinationCardStash, CurrencyStash, EssenceStash, MapStash }
+    public enum TabType { NormalStash, PremiumStash, QuadStash, DivinationCardStash, CurrencyStash, EssenceStash, MapStash, FragmentStash }
 }

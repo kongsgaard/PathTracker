@@ -32,6 +32,10 @@ namespace PathTracker_Backend
         public DateTime timeEntered;
         public DateTime timeLeft;
 
+        public double ConfirmedChaosAdded = 0;
+        public double TentativeChaosAdded = 0;
+        public double ConfirmedChaosRemoved = 0;
+
         public Zone(string zoneName) {
             ZoneName = zoneName;
             deltaCalculator = new ItemDeltaCalculator();
@@ -68,8 +72,18 @@ namespace PathTracker_Backend
             JProperty JtimeEntered = new JProperty("timeEntered", timeEntered);
             JProperty JtimeLeft = new JProperty("timeLeft", timeLeft);
 
-            JObject zoneJson = new JObject(itemsAdded, itemsRemoved, stackableItemsDelta, charProgress, zoneName, zoneID, mpMods, timeInZone, JtimeEntered, JtimeLeft);
+            JProperty JConfirmedChaosAdded = new JProperty("ConfirmedChaosAdded", ConfirmedChaosAdded);
+            JProperty JTentativeChaosAdded = new JProperty("TentativeChaosAdded", TentativeChaosAdded);
+            JProperty JConfirmedChaosRemoved = new JProperty("ConfirmedChaosRemoved", ConfirmedChaosRemoved);
+
+            JObject zoneJson = new JObject(itemsAdded, itemsRemoved, stackableItemsDelta, charProgress, zoneName, zoneID, mpMods, timeInZone, JtimeEntered, JtimeLeft,
+                                            JConfirmedChaosAdded, JTentativeChaosAdded, JConfirmedChaosRemoved);
             
+
+
+
+
+
             return zoneJson.ToString();
         }
 

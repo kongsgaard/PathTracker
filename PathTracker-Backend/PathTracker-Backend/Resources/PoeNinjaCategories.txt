@@ -1,5 +1,0 @@
-﻿Currency
-Fragment
-UniqueArmour, Links
-UniqueWeapon, Links
-Gems, Quality

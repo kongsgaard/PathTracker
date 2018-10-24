@@ -97,7 +97,7 @@ namespace PathTracker_Backend
             }
 
             return DeltaCount;
-
+            
         }
 
         private (List<Item>, List<Item>) CalculateNonStackableDelta(List<Item> leftWithNonStackables, List<Item> enteredWithNonStackables) {

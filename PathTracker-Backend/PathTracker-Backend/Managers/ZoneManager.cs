@@ -27,15 +27,14 @@ namespace PathTracker_Backend
         ZonePropertyExtractor modExtractor = new ZonePropertyExtractor();
 
         IDiskSaver DiskSaver = null;
-
-        PoeNinjaCurrencyRates currencyRates = new PoeNinjaCurrencyRates();
+        
+        ItemValuator itemValuator = new ItemValuator();
 
         public Zone currentZone = null;
 
         public ZoneManager(IDiskSaver saver) {
             PopulateMinimapFiles();
             DiskSaver = saver;
-            currencyRates.Update();
         }
 
         private void PopulateMinimapFiles() {
@@ -139,6 +138,8 @@ namespace PathTracker_Backend
             if (fromZone != null) {
                 fromZone.CalculateAndAddToDelta();
                 
+
+
                 int maxLoops = 50;
                 int loop = 0;
                 while (true) {
@@ -166,7 +167,38 @@ namespace PathTracker_Backend
                         loop++;
                     }
                 }
+
+                fromZone.TentativeChaosAdded = 0;
+                fromZone.ConfirmedChaosAdded = 0;
+                fromZone.ConfirmedChaosRemoved = 0;
+
+                foreach(Item i in fromZone.AddedNonStackableItems) {
+                    var value = itemValuator.ItemChaosValue(i);
+
+                    if(value.Item2 == ItemValueMode.Tentative) {
+                        fromZone.TentativeChaosAdded += value.Item1;
+                    }
+                    else if (value.Item2 == ItemValueMode.Confirmed) {
+                        fromZone.ConfirmedChaosAdded += value.Item1;
+                    }
+
+                }
+
+                foreach(var s in fromZone.DeltaStackableItems) {
+                    if(s.Value < 0) {
+                        fromZone.ConfirmedChaosRemoved += itemValuator.CurrencyChaosValue(s.Key, s.Value);
+                    }
+                    else {
+                        fromZone.ConfirmedChaosAdded += itemValuator.CurrencyChaosValue(s.Key, s.Value);
+                    }
+                }
+
+
             }
+
+
+
+
 
             if (extractMods != null) {
                 if (extractMods.ThreadState == System.Threading.ThreadState.Running) {
@@ -193,7 +225,7 @@ namespace PathTracker_Backend
 
             currentZone = enteredZone;
 
-            currencyRates.Update();
+            itemValuator.currencyRates.Update();
 
         }
         

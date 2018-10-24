@@ -37,7 +37,7 @@ namespace PathTracker_Backend {
             t.Start();
             System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
             manager.StartInventoryListener();
-            //manager.StartStashtabListener("C");
+            manager.StartStashtabListener("Gear");
             
             t.Wait();
             //211 to 252

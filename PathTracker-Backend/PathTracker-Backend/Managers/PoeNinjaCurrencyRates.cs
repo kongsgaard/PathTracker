@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace PathTracker_Backend {
-    public class PoeNinjaCurrencyRates {
+    public class PoeNinjaCurrencyRates : ICurrencyRates {
 
         SettingsManager settings = SettingsManager.Instance;
 
@@ -43,10 +43,10 @@ namespace PathTracker_Backend {
         /// 
         /// Eg; a 6 socket (but only 4 link) Doomfletch Prism could be ~250c on poe.trade, but poe.ninja will only show ~85c because the *links* are low.
         /// </remarks>
-        public double LookupChaosValue(Item item) {
+        public double LookupChaosValue(string itemName) {
 
-            if (TypelineChaosValue.ContainsKey(item.TypeLine)) {
-                return TypelineChaosValue[item.TypeLine];
+            if (TypelineChaosValue.ContainsKey(itemName)) {
+                return TypelineChaosValue[itemName];
             }
             else
                 return -1;
@@ -69,7 +69,7 @@ namespace PathTracker_Backend {
             
             using (var client = new WebClient()) {
                 Currency = await GetAndDeserialize<CurrencyInformation>(client, $"http://poe.ninja/api/Data/CurrencyOverview?league={league}&date={dateSuffix}&type=Currency");
-                Fragments = await GetAndDeserialize<CurrencyInformation>(client, $"http://api.poe.ninja/api/Data/GetFragmentOverview?league={league}&date={dateSuffix}&type=Fragment");
+                Fragments = await GetAndDeserialize<CurrencyInformation>(client, $"http://poe.ninja/api/Data/CurrencyOverview?league={league}&date={dateSuffix}&type=Fragment");
             }
             
             foreach(CurrencyInformation cinfo in Currency) {

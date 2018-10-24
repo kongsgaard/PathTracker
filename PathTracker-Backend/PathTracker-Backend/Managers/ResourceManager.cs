@@ -142,10 +142,38 @@ namespace PathTracker_Backend
             }
             */
         }
-        
+
+        public Dictionary<string, string> CurrencyTagLookup = new Dictionary<string, string>();
+        private void LoadCurrencyTagLookup() {
+            var assembly = Assembly.GetEntryAssembly();
+
+            var rsStream = assembly.GetManifestResourceStream("PathTracker-Backend.Resources.CurrencyTags.txt");
+
+            string fileContent = null;
+            using (var reader = new StreamReader(rsStream)) {
+                fileContent = reader.ReadToEnd();
+            }
+
+
+            if (fileContent == null) {
+                throw new Exception("Could not load CurrencyTags.txt resource");
+            }
+
+            var fileLines = fileContent.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).ToList();
+
+            foreach(string line in fileLines) {
+                string[] parts = line.Split(';');
+
+                foreach(string s in parts[1].Split(',')) {
+                    CurrencyTagLookup.Add(s.Trim(' '), parts[0]);
+                }
+            }
+        }
+
         public ResourceManager() {
             CalculateExperienceDictionary();
             LoadMapMods();
+            LoadCurrencyTagLookup();
         }
 
         private static ResourceManager Manager = new ResourceManager();

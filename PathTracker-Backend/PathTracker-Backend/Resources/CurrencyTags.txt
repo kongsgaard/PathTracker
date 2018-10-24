@@ -1,0 +1,27 @@
+﻿Orb of Alteration;alt
+Orb of Fusing;fuse, fus
+Orb of Alchemy;alch, alchemy
+Chaos Orb;chaos, choas
+Gemcutter's Prism;gemc, gcp
+Exalted Orb;exa, ex, exalted
+Chromatic Orb;chrom, chrome
+Jeweller's Orb;jew
+Orb of Chance;chance, chanc
+Cartographer's Chisel;chisel, cart
+Orb of Scouring;scour
+Blessed Orb;blesse
+Orb of Regret;regret, regr
+Regal Orb;regal, rega
+Divine Orb;divine, div
+Vaal Orb;vaal
+Scroll of Wisdom;wis
+Portal Scroll;port
+Armourer's Scrap;armour
+Blacksmith's Whetstone;blacksmith, whetstone
+Glassblower's Bauble;glass, bauble
+Orb of Transmutation;tra
+Orb of Augmentation;aug
+Mirror of Kalandra;mir, kal
+Eternal Orb;ete
+Perandus Coin;coin, coins, perandus
+Silver Coin;silver
