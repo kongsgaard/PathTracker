@@ -26,10 +26,13 @@ namespace PathTracker_Backend
         Thread extractMods = null;
         ZonePropertyExtractor modExtractor = new ZonePropertyExtractor();
 
+        IDiskSaver DiskSaver = null;
+
         public Zone currentZone = null;
 
-        public ZoneManager() {
+        public ZoneManager(IDiskSaver saver) {
             PopulateMinimapFiles();
+            DiskSaver = saver;
         }
 
         private void PopulateMinimapFiles() {
@@ -171,8 +174,11 @@ namespace PathTracker_Backend
                 }
             }
 
-            if(fromZone != null) {
-                writeZoneDisk(fromZone);
+            if(DiskSaver is null) {
+                Console.WriteLine("Could not write zone to disk, because disksaver was null");
+            }
+            else if(fromZone != null) {
+                DiskSaver.SaveToDisk(fromZone);
             }
 
             

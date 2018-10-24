@@ -14,8 +14,12 @@ namespace PathTracker_Backend {
         ClientTxtListener clientTxtListener = null;
         Dictionary<string, StashtabListener> stashtabListeners = new Dictionary<string, StashtabListener>();
         RequestManager requestCoordinator = new RequestManager();
-        ZoneManager zoneManager = new ZoneManager();
+        ZoneManager zoneManager;
         
+        public ComponentManager(IDiskSaver diskSaver) {
+            zoneManager = new ZoneManager(diskSaver);
+        }
+
         public void StartClientTxtListener() {
 
             if(clientTxtListener == null) {
