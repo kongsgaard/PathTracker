@@ -28,11 +28,14 @@ namespace PathTracker_Backend
 
         IDiskSaver DiskSaver = null;
 
+        PoeNinjaCurrencyRates currencyRates = new PoeNinjaCurrencyRates();
+
         public Zone currentZone = null;
 
         public ZoneManager(IDiskSaver saver) {
             PopulateMinimapFiles();
             DiskSaver = saver;
+            currencyRates.Update();
         }
 
         private void PopulateMinimapFiles() {
@@ -189,7 +192,9 @@ namespace PathTracker_Backend
             extractMods.Priority = ThreadPriority.BelowNormal;
 
             currentZone = enteredZone;
-            
+
+            currencyRates.Update();
+
         }
         
         private void writeZoneDisk(Zone zone) {

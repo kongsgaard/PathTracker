@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace PathTracker_Backend {
     public class PoeNinjaCurrencyRates {
+
+        SettingsManager settings = SettingsManager.Instance;
+
         /// <summary>
         /// A list of all cached item information from poe.ninja (non currency and map fragments)
         /// </summary>
@@ -54,7 +57,10 @@ namespace PathTracker_Backend {
         /// </summary>
         /// <param name="league"></param>
         /// <returns></returns>
-        public async Task Update(string league) {
+        public async Task Update() {
+
+            string league = settings.GetValue("CurrentLeague");
+
             // Only run an update every 2 hours, thanks. :)
             if (LastUpdate.AddMinutes(30) > DateTime.Now)
                 return;

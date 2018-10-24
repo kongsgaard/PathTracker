@@ -30,7 +30,7 @@ namespace PathTracker_Backend
 
             docs.InsertOneAsync(doc);
 
-            Console.WriteLine("Write zone info to MongoDB at " + Settings.GetValue("MongoDBConnectionString"));
+            Console.WriteLine("Write zone("+ zone.ZoneName + ") info to MongoDB at " + Settings.GetValue("MongoDBConnectionString"));
         }
         
     }
