@@ -9,5 +9,7 @@ namespace PathTracker_Backend
     public interface IDiskSaver
     {
         void SaveToDisk(Zone zone);
+
+        void UpdateItemValue(Item item);
     }
 }

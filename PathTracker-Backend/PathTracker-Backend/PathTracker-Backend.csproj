@@ -15,12 +15,16 @@
 
   <ItemGroup>
     <None Remove="Resources\CurrencyTags.txt" />
+    <None Remove="Resources\ExcludedCurrencies.txt" />
     <None Remove="Resources\ExperienceToLevel.txt" />
     <None Remove="Resources\MapMods.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\CurrencyTags.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ExcludedCurrencies.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ExperienceToLevel.txt">

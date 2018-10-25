@@ -40,12 +40,14 @@ namespace PathTracker_Backend
                 return value * count;
             }
             else {
-                throw new Exception("Could not find value of currency: " + name);
+                if(!ResourceManager.Instance.ExcludedCurrencies.Contains(name)) {
+                    throw new Exception("Could not find value of currency: " + name);
+                }
             }
+            return 0;
         }
-
         
     }
 
-    public enum ItemValueMode { Confirmed, Tentative}
+    public enum ItemValueMode { Unset, Confirmed, Tentative}
 }

@@ -138,6 +138,34 @@ namespace PathTracker_Backend {
 
         [JsonProperty("y")]
         public int Y { get; set; }
+
+        [JsonProperty("itemValues")]
+        public ItemValues itemValues = new ItemValues();
+    }
+
+    public class ItemValues {
+        [JsonProperty("CurrentChaosValue")]
+        public double CurrentChaosValue { get; set; }
+
+        [JsonProperty("ValueMode")]
+        public ItemValueMode valueMode = ItemValueMode.Unset;
+
+        [JsonProperty("Values")]
+        public List<ItemValue> Values = new List<ItemValue>();
+    }
+
+    public class ItemValue {
+        [JsonProperty("CurrentChaosValue")]
+        public double CurrentChaosValue { get; set; }
+
+        [JsonProperty("valueMode")]
+        public ItemValueMode valueMode = ItemValueMode.Unset;
+
+        [JsonProperty("zoneID")]
+        public string zoneID { get; set; }
+
+        [JsonProperty("setAt")]
+        public DateTime setAt { get; set; }
     }
 
     /// <summary>

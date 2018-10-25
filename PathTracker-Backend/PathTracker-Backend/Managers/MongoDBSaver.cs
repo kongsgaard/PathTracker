@@ -13,6 +13,7 @@ namespace PathTracker_Backend
         
         private SettingsManager Settings = SettingsManager.Instance;
 
+        Dictionary<string, List<string>> ItemIDToZoneIDMap = new Dictionary<string, List<string>>();
 
         MongoClient client = null;
 
@@ -32,6 +33,10 @@ namespace PathTracker_Backend
 
             Console.WriteLine("Write zone("+ zone.ZoneName + ") info to MongoDB at " + Settings.GetValue("MongoDBConnectionString"));
         }
-        
+
+        public void UpdateItemValue(Item item) {
+
+            throw new NotImplementedException();
+        }
     }
 }

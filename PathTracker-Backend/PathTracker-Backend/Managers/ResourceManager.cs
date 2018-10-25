@@ -170,10 +170,34 @@ namespace PathTracker_Backend
             }
         }
 
+        public HashSet<string> ExcludedCurrencies = new HashSet<string>();
+        private void LoadExcludedCurrencies() {
+            var assembly = Assembly.GetEntryAssembly();
+
+            var rsStream = assembly.GetManifestResourceStream("PathTracker-Backend.Resources.CurrencyTags.txt");
+
+            string fileContent = null;
+            using (var reader = new StreamReader(rsStream)) {
+                fileContent = reader.ReadToEnd();
+            }
+
+
+            if (fileContent == null) {
+                throw new Exception("Could not load CurrencyTags.txt resource");
+            }
+
+            var fileLines = fileContent.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).ToList();
+
+            foreach(string line in fileLines) {
+                ExcludedCurrencies.Add(line);
+            }
+        }
+
         public ResourceManager() {
             CalculateExperienceDictionary();
             LoadMapMods();
             LoadCurrencyTagLookup();
+            LoadExcludedCurrencies();
         }
 
         private static ResourceManager Manager = new ResourceManager();

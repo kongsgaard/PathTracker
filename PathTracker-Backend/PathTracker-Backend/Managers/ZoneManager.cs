@@ -174,6 +174,15 @@ namespace PathTracker_Backend
 
                 foreach(Item i in fromZone.AddedNonStackableItems) {
                     var value = itemValuator.ItemChaosValue(i);
+                    ItemValue itemValue = new ItemValue();
+                    itemValue.CurrentChaosValue = value.Item1;
+                    itemValue.valueMode = value.Item2;
+                    itemValue.setAt = fromZone.LastExitedZone;
+                    itemValue.zoneID = fromZone.ZoneID;
+
+                    i.itemValues.Values.Add(itemValue);
+                    i.itemValues.CurrentChaosValue = value.Item1;
+                    i.itemValues.valueMode = value.Item2;
 
                     if(value.Item2 == ItemValueMode.Tentative) {
                         fromZone.TentativeChaosAdded += value.Item1;

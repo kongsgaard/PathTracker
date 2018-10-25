@@ -33,6 +33,9 @@ namespace PathTracker_Backend
 
             Console.WriteLine("Write to zone to json at :" + currentDir + zone.ZoneID + ".json");
         }
-        
+
+        public void UpdateItemValue(Item item) {
+            throw new NotImplementedException();
+        }
     }
 }
