@@ -8,8 +8,8 @@ namespace PathTracker_Backend
 {
     public interface ICurrencyRates
     {
-        double LookupChaosValue(Item item);
+        double LookupChaosValue(string itemName);
 
-        Task Update(string league);
+        Task Update();
     }
 }

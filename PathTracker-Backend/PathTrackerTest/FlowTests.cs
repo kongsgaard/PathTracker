@@ -23,9 +23,11 @@ namespace PathTrackerTest {
             IWebRequestManager webRequestManager = new MockWebRequestManager();
             IZonePropertyExtractor zonePropertyExtractor = new MockZonePropertyExtractor();
 
+            ICurrencyRates currencyRates = new MockCurrenyRates();
+
             WriteLineToFile("First line", settings.GetValue("ClientTxtPath"), FileMode.Create);
 
-            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings);
+            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings, currencyRates);
 
             Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();

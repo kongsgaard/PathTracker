@@ -293,10 +293,10 @@ namespace PathTracker_Backend {
         private (List<MapMod>, MapModParseStatus) ParseOCRFile(string ocrFile) {
             var modLines = File.ReadAllLines(ocrFile);
 
-            MapMods possibleMapMods = WebResourceManager.Instance.PossibleMapModsList;
+            MapMods possibleMapMods = ResourceManager.Instance.PossibleMapModsList;
 
-            var possibleLines = WebResourceManager.Instance.PossibleMapModLines;
-            var PossibleModsDict = WebResourceManager.Instance.LineToMapModsDict;
+            var possibleLines = ResourceManager.Instance.PossibleMapModLines;
+            var PossibleModsDict = ResourceManager.Instance.LineToMapModsDict;
 
             Dictionary<string, MapMod> ChosenCandidateMods = new Dictionary<string, MapMod>();
 

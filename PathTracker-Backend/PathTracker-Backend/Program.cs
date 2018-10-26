@@ -36,7 +36,9 @@ namespace PathTracker_Backend {
             IWebRequestManager webRequestManager = new WebRequestManager(settings);
             IZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(new Win32ProcessScreenshotCapture(), settings);
 
-            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings);
+            ICurrencyRates currencyRates = new PoeNinjaCurrencyRates(settings);
+
+            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings, currencyRates);
             
             Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();

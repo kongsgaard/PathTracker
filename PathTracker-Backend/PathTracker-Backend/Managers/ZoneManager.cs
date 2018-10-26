@@ -28,12 +28,13 @@ namespace PathTracker_Backend
 
         IDiskSaver DiskSaver = null;
         
-        ItemValuator itemValuator = new ItemValuator();
+        ItemValuator itemValuator;
 
         public Zone currentZone = null;
 
-        public ZoneManager(IDiskSaver saver, IZonePropertyExtractor zonePropertyExtractor, ISettings settings) {
+        public ZoneManager(IDiskSaver saver, IZonePropertyExtractor zonePropertyExtractor, ISettings settings, ICurrencyRates currencyRates) {
             Settings = settings;
+            itemValuator = new ItemValuator(currencyRates);
             PopulateMinimapFiles();
             DiskSaver = saver;
             modExtractor = zonePropertyExtractor;

@@ -10,9 +10,9 @@ namespace PathTracker_Backend
     {
         public ICurrencyRates currencyRates;
         Dictionary<int,IItemRate> orderedItemValuators = new Dictionary<int, IItemRate>();
-        
-        public ItemValuator() {
-            currencyRates = new PoeNinjaCurrencyRates();
+
+        public ItemValuator(ICurrencyRates rates) {
+            currencyRates = rates;
             currencyRates.Update();
             
             orderedItemValuators.Add(1, new ItemNoteValuator());

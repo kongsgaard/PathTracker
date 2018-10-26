@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mock\MockCurrenyRates.cs" />
     <Compile Include="Mock\MockProcessWindowScreenCapture.cs" />
     <Compile Include="Mock\MockSettings.cs" />
     <Compile Include="Mock\MockWebRequestManager.cs" />
