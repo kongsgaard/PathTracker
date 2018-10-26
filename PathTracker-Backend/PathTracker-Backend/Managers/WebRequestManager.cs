@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace PathTracker_Backend
 {
-    public class RequestManager {
+    public class WebRequestManager : IWebRequestManager {
 
         private SettingsManager Settings = SettingsManager.Instance;
         private static readonly ILog RequestCoordinatorLog = LogCreator.CreateLog("RequestCoordinator");
@@ -101,6 +101,7 @@ namespace PathTracker_Backend
 
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(_apiEndpoint);
             
+
             
             CookieContainer cont = new CookieContainer();
             Cookie cookie = new Cookie("POESESSID", SessID, "/", ".pathofexile.com");
