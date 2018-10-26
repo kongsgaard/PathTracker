@@ -141,6 +141,9 @@ namespace PathTracker_Backend {
 
         [JsonProperty("itemValues")]
         public ItemValues itemValues = new ItemValues();
+
+        [JsonProperty("CurrentZoneID")]
+        public string CurrentZoneID { get; set; }
     }
 
     public class ItemValues {

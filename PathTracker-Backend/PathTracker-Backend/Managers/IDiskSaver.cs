@@ -10,6 +10,6 @@ namespace PathTracker_Backend
     {
         void SaveToDisk(Zone zone);
 
-        void UpdateItemValue(Item item);
+        void UpdateItemValue(Item item, ItemValuator itemValuator);
     }
 }

@@ -134,6 +134,50 @@ namespace PathTracker_Backend
             }
         }
         
+        public void RemoveItem(Item item) {
+            var countRemoved = AddedNonStackableItems.RemoveAll(x => x.Id == item.Id);
+            if(countRemoved != 1) {
+                throw new Exception("Tried to remove item from zone, with item id:" + item.Id + " || Could not remove single");
+            }
+        }
+
+        public void CalculatZoneWorth(ItemValuator itemValuator) {
+
+
+            TentativeChaosAdded = 0;
+            ConfirmedChaosAdded = 0;
+            ConfirmedChaosRemoved = 0;
+
+            foreach (Item i in AddedNonStackableItems) {
+                var value = itemValuator.ItemChaosValue(i);
+                ItemValue itemValue = new ItemValue();
+                itemValue.CurrentChaosValue = value.Item1;
+                itemValue.valueMode = value.Item2;
+                itemValue.setAt = LastExitedZone;
+                itemValue.zoneID = ZoneID;
+
+                i.itemValues.Values.Add(itemValue);
+                i.itemValues.CurrentChaosValue = value.Item1;
+                i.itemValues.valueMode = value.Item2;
+
+                if (value.Item2 == ItemValueMode.Tentative) {
+                    TentativeChaosAdded += value.Item1;
+                }
+                else if (value.Item2 == ItemValueMode.Confirmed) {
+                    ConfirmedChaosAdded += value.Item1;
+                }
+            }
+
+            foreach (var s in DeltaStackableItems) {
+                if (s.Value < 0) {
+                    ConfirmedChaosRemoved += itemValuator.CurrencyChaosValue(s.Key, s.Value);
+                }
+                else {
+                    ConfirmedChaosAdded += itemValuator.CurrencyChaosValue(s.Key, s.Value);
+                }
+            }
+
+        }
 
 
     }

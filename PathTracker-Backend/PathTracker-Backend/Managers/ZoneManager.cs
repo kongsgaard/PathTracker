@@ -168,41 +168,7 @@ namespace PathTracker_Backend
                     }
                 }
 
-                fromZone.TentativeChaosAdded = 0;
-                fromZone.ConfirmedChaosAdded = 0;
-                fromZone.ConfirmedChaosRemoved = 0;
-
-                foreach(Item i in fromZone.AddedNonStackableItems) {
-                    var value = itemValuator.ItemChaosValue(i);
-                    ItemValue itemValue = new ItemValue();
-                    itemValue.CurrentChaosValue = value.Item1;
-                    itemValue.valueMode = value.Item2;
-                    itemValue.setAt = fromZone.LastExitedZone;
-                    itemValue.zoneID = fromZone.ZoneID;
-
-                    i.itemValues.Values.Add(itemValue);
-                    i.itemValues.CurrentChaosValue = value.Item1;
-                    i.itemValues.valueMode = value.Item2;
-
-                    if(value.Item2 == ItemValueMode.Tentative) {
-                        fromZone.TentativeChaosAdded += value.Item1;
-                    }
-                    else if (value.Item2 == ItemValueMode.Confirmed) {
-                        fromZone.ConfirmedChaosAdded += value.Item1;
-                    }
-
-                }
-
-                foreach(var s in fromZone.DeltaStackableItems) {
-                    if(s.Value < 0) {
-                        fromZone.ConfirmedChaosRemoved += itemValuator.CurrencyChaosValue(s.Key, s.Value);
-                    }
-                    else {
-                        fromZone.ConfirmedChaosAdded += itemValuator.CurrencyChaosValue(s.Key, s.Value);
-                    }
-                }
-
-
+                fromZone.CalculatZoneWorth(itemValuator);
             }
 
 
