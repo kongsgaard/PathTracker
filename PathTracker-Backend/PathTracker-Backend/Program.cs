@@ -15,6 +15,8 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Threading;
 using Newtonsoft.Json;
+using System.IO.Abstractions;
+using System.IO;
 
 namespace PathTracker_Backend {
     class Program {
@@ -30,10 +32,11 @@ namespace PathTracker_Backend {
 
             IDiskSaver mongoDiskSaver = new MongoDBSaver();
             IDiskSaver folderDiskSaver = new DiskFolderSaver();
+            IFileSystem fileSystem = new FileSystem();
 
             ComponentManager manager = new ComponentManager(mongoDiskSaver);
             
-            Task t = new Task(manager.StartClientTxtListener);
+            Task t = new Task(() => manager.StartClientTxtListener(fileSystem));
             t.Start();
             System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
             manager.StartInventoryListener();

@@ -101,6 +101,7 @@ namespace PathTracker_Backend
 
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(_apiEndpoint);
             
+            
             CookieContainer cont = new CookieContainer();
             Cookie cookie = new Cookie("POESESSID", SessID, "/", ".pathofexile.com");
             Cookie cookie1 = new Cookie("stored_data", "1", "/", ".pathofexile.com");

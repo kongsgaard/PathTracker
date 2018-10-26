@@ -5,6 +5,7 @@ using log4net.Config;
 using log4net;
 using System.Reflection;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace PathTracker_Backend {
     public class ComponentManager {
@@ -20,10 +21,10 @@ namespace PathTracker_Backend {
             zoneManager = new ZoneManager(diskSaver);
         }
 
-        public void StartClientTxtListener() {
+        public void StartClientTxtListener(IFileSystem Filesystem) {
 
             if(clientTxtListener == null) {
-                clientTxtListener = new ClientTxtListener(zoneManager);
+                clientTxtListener = new ClientTxtListener(zoneManager, Filesystem);
                 clientTxtListener.StartListening();
                 EventManagerLog.Info("Starting new ClientTxtListener with ClientTxtPath:" + clientTxtListener.ClientTxtPath);
             }

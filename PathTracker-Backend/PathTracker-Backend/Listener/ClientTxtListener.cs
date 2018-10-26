@@ -9,15 +9,18 @@ using System.Text.RegularExpressions;
 using log4net.Config;
 using System.Threading.Tasks;
 using System.Threading;
+using System.IO.Abstractions;
 
 namespace PathTracker_Backend {
     public class ClientTxtListener : IListener {
+
+        IFileSystem fileSystem;
 
         private string _clientTxtPath = "";
         public string ClientTxtPath {
             get { return _clientTxtPath; }
             set {
-                if (!File.Exists(value)) {
+                if (!fileSystem.File.Exists(value)) {
                     throw new Exception("When setting ClientTxtPath, could not find file:" + value);
                 }
                 _clientTxtPath = value;
@@ -30,10 +33,12 @@ namespace PathTracker_Backend {
         private static readonly ILog ClientTxtLog = LogCreator.CreateLog("ClientTxtListener");
         private ZoneManager zoneManager;
         
-        public ClientTxtListener(ZoneManager paramZoneManager) {
+        public ClientTxtListener(ZoneManager paramZoneManager, IFileSystem FileSystem) {
             MsListenDelay = 1000;
             ClientTxtPath = Settings.GetValue("ClientTxtPath");
             ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);
+
+            fileSystem = FileSystem;
 
             zoneManager = paramZoneManager;
         }
@@ -42,7 +47,7 @@ namespace PathTracker_Backend {
 
             ClientTxtLog.Info("Starting listener");
             ListenTimer.Start();
-            using (FileStream stream = File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+            using (Stream stream = fileSystem.File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                 long numBytes = stream.Length;
 
                 while (true) {
