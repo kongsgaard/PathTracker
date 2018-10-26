@@ -28,16 +28,17 @@ namespace PathTracker_Backend {
             thread.Start();
 
             LogCreator.Setup();
+            ISettings settings = new FileSettings("settings.json");
 
-            IDiskSaver mongoDiskSaver = new MongoDBSaver();
-            IDiskSaver folderDiskSaver = new DiskFolderSaver();
-            IFileSystem fileSystem = new FileSystem();
-            IWebRequestManager webRequestManager = new WebRequestManager();
-            IZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(new Win32ProcessScreenshotCapture());
+            IDiskSaver mongoDiskSaver = new MongoDBSaver(settings);
+            IDiskSaver folderDiskSaver = new DiskFolderSaver(settings);
 
-            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor);
+            IWebRequestManager webRequestManager = new WebRequestManager(settings);
+            IZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(new Win32ProcessScreenshotCapture(), settings);
+
+            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings);
             
-            Task t = new Task(() => manager.StartClientTxtListener(fileSystem));
+            Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();
             System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
             manager.StartInventoryListener();

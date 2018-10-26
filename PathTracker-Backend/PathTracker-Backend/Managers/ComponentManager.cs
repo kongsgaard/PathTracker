@@ -16,16 +16,18 @@ namespace PathTracker_Backend {
         Dictionary<string, StashtabListener> stashtabListeners = new Dictionary<string, StashtabListener>();
         IWebRequestManager requestCoordinator;
         ZoneManager zoneManager;
+        ISettings Settings;
         
-        public ComponentManager(IDiskSaver diskSaver, IWebRequestManager webRequestManager, IZonePropertyExtractor zonePropertyExtractor) {
-            zoneManager = new ZoneManager(diskSaver, zonePropertyExtractor);
+        public ComponentManager(IDiskSaver diskSaver, IWebRequestManager webRequestManager, IZonePropertyExtractor zonePropertyExtractor, ISettings settings) {
+            Settings = settings;
+            zoneManager = new ZoneManager(diskSaver, zonePropertyExtractor, Settings);
             requestCoordinator = webRequestManager;
         }
 
-        public void StartClientTxtListener(IFileSystem Filesystem) {
+        public void StartClientTxtListener() {
 
             if(clientTxtListener == null) {
-                clientTxtListener = new ClientTxtListener(zoneManager, Filesystem);
+                clientTxtListener = new ClientTxtListener(zoneManager, Settings);
                 clientTxtListener.StartListening();
                 EventManagerLog.Info("Starting new ClientTxtListener with ClientTxtPath:" + clientTxtListener.ClientTxtPath);
             }
@@ -40,7 +42,7 @@ namespace PathTracker_Backend {
             }
 
             if (inventoryListener == null) {
-                inventoryListener = new InventoryListener(requestCoordinator);
+                inventoryListener = new InventoryListener(requestCoordinator, Settings);
                 inventoryListener.StartListening();
                 EventManagerLog.Info("Starting new InventoryListener");
                 zoneManager.NewZoneEntered += inventoryListener.NewZoneEntered;
@@ -56,7 +58,7 @@ namespace PathTracker_Backend {
             }
 
             if (!stashtabListeners.ContainsKey(StashName)) {
-                stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator);
+                stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator, Settings);
                 stashtabListeners[StashName].StartListening();
                 EventManagerLog.Info("Starting new stashtabListeners for stash:" + StashName);
                 zoneManager.NewZoneEntered += stashtabListeners[StashName].NewZoneEntered;

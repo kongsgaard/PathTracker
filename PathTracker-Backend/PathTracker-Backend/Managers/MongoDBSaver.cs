@@ -10,19 +10,20 @@ namespace PathTracker_Backend
 {
     public class MongoDBSaver : IDiskSaver 
     {
+
+        ISettings Settings;
         
-        private SettingsManager Settings = SettingsManager.Instance;
-
-
         MongoClient client = null;
 
-        public MongoDBSaver() {
+        public MongoDBSaver(ISettings settings) {
+            Settings = settings;
             client = new MongoClient(Settings.GetValue("MongoDBConnectionString"));
+            
         }
 
         public void SaveToDisk(Zone zone) {
 
-            var db = client.GetDatabase("PathTracker");
+            var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));
 
             BsonDocument doc = BsonDocument.Parse(zone.ToJSON());
 

@@ -15,10 +15,14 @@ namespace PathTracker_Backend
 {
     public class WebRequestManager : IWebRequestManager {
 
-        private SettingsManager Settings = SettingsManager.Instance;
+        private ISettings Settings;
         private static readonly ILog RequestCoordinatorLog = LogCreator.CreateLog("RequestCoordinator");
         private Dictionary<string, List<StashTab>> LeagueStashtabDictionary = new Dictionary<string, List<StashTab>>();
         
+        public WebRequestManager(ISettings settings) {
+            Settings = settings;
+        }
+
         /// <summary>
         /// Return a JSON string representing the Inventory object 
         /// </summary>

@@ -8,6 +8,7 @@ using PathTracker_Backend;
 namespace PathTrackerTest {
     public class MockZonePropertyExtractor : IZonePropertyExtractor {
 
+
         private bool keepWatching = true;
         private Zone zone;
 

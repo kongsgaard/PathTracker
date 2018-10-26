@@ -11,11 +11,13 @@ namespace PathTracker_Backend {
     public class ZonePropertyExtractor : IZonePropertyExtractor {
 
         IProcessWindowScreenshotCapture processWindowScreenshotCapture;
+        ISettings Settings;
 
-        public ZonePropertyExtractor(IProcessWindowScreenshotCapture capture) {
+        public ZonePropertyExtractor(IProcessWindowScreenshotCapture capture, ISettings settings) {
             Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
             Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
             processWindowScreenshotCapture = capture;
+            Settings = settings;
 
         }
 
@@ -265,7 +267,7 @@ namespace PathTracker_Backend {
 
             string generatedOCRFile = currentDir + "\\tmp\\" + baseFileName + "_hocrOutput";
 
-            string tesseractDict = SettingsManager.Instance.GetValue("TesseractDict");
+            string tesseractDict = Settings.GetValue("TesseractDict");
 
             if(tesseractDict == null) {
                 throw new Exception("Tried to OCR with tesseract when TesseractDict was not set in the settings");

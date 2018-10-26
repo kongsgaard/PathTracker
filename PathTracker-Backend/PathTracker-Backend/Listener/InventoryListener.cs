@@ -15,12 +15,13 @@ namespace PathTracker_Backend {
     public class InventoryListener : IListener {
         private Stopwatch ListenTimer = new Stopwatch();
         private IWebRequestManager Coordinator;
-        private SettingsManager Settings = SettingsManager.Instance;
+        private ISettings Settings;
 
         private static readonly ILog InventoryLog = LogCreator.CreateLog("InventoryListener");
 
-        public InventoryListener(IWebRequestManager coordinator) {
+        public InventoryListener(IWebRequestManager coordinator, ISettings settings) {
             Coordinator = coordinator;
+            Settings = settings;
         }
 
         public void StartListening() {

@@ -9,18 +9,16 @@ using System.Text.RegularExpressions;
 using log4net.Config;
 using System.Threading.Tasks;
 using System.Threading;
-using System.IO.Abstractions;
 
 namespace PathTracker_Backend {
     public class ClientTxtListener : IListener {
 
-        IFileSystem fileSystem;
 
         private string _clientTxtPath = "";
         public string ClientTxtPath {
             get { return _clientTxtPath; }
             set {
-                if (!fileSystem.File.Exists(value)) {
+                if (!File.Exists(value)) {
                     throw new Exception("When setting ClientTxtPath, could not find file:" + value);
                 }
                 _clientTxtPath = value;
@@ -29,16 +27,18 @@ namespace PathTracker_Backend {
 
         public int MsListenDelay;
         private Stopwatch ListenTimer = new Stopwatch();
-        private SettingsManager Settings = SettingsManager.Instance;
+        private ISettings Settings;
         private static readonly ILog ClientTxtLog = LogCreator.CreateLog("ClientTxtListener");
         private ZoneManager zoneManager;
         
-        public ClientTxtListener(ZoneManager paramZoneManager, IFileSystem FileSystem) {
-            MsListenDelay = 1000;
+        public ClientTxtListener(ZoneManager paramZoneManager, ISettings settings) {
+            Settings = settings;
+
+            MsListenDelay = 500;
             ClientTxtPath = Settings.GetValue("ClientTxtPath");
             ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);
-
-            fileSystem = FileSystem;
+            
+            
 
             zoneManager = paramZoneManager;
         }
@@ -47,7 +47,7 @@ namespace PathTracker_Backend {
 
             ClientTxtLog.Info("Starting listener");
             ListenTimer.Start();
-            using (Stream stream = fileSystem.File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+            using (Stream stream = File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                 long numBytes = stream.Length;
 
                 while (true) {
@@ -55,7 +55,7 @@ namespace PathTracker_Backend {
 
                         long currentBytes = stream.Length;
                         stream.Position = numBytes;
-
+                        
                         int numNewBytes = (int)(currentBytes - numBytes);
                         byte[] newBytes = new byte[numNewBytes];
                         string newText = "";

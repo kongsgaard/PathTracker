@@ -15,7 +15,7 @@ namespace PathTracker_Backend
 {
     public class ZoneManager
     {
-        private SettingsManager Settings = SettingsManager.Instance;
+        private ISettings Settings;
         public event EventHandler<ZoneChangeArgs> NewZoneEntered;
         List<Zone> ZoneList = new List<Zone>();
         private static readonly ILog ZoneManagerLog = LogCreator.CreateLog("ZoneManager");
@@ -30,10 +30,12 @@ namespace PathTracker_Backend
 
         public Zone currentZone = null;
 
-        public ZoneManager(IDiskSaver saver, IZonePropertyExtractor zonePropertyExtractor) {
+        public ZoneManager(IDiskSaver saver, IZonePropertyExtractor zonePropertyExtractor, ISettings settings) {
+            Settings = settings;
             PopulateMinimapFiles();
             DiskSaver = saver;
             modExtractor = zonePropertyExtractor;
+            
         }
 
         private void PopulateMinimapFiles() {
