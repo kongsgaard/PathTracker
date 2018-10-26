@@ -41,31 +41,8 @@ namespace PathTracker_Backend {
             t.Start();
             System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
             manager.StartInventoryListener();
-            //manager.StartStashtabListener("C");
             
             t.Wait();
-            //211 to 252
-            //float f = ZonePropertyExtractor.CalculateHue(108, 81, 218);
-            
-
-
-            //Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
-            //Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
-
-
-
-            //LogCreator.Setup();
-            //
-            //Zone z = new Zone("z1");
-            //z.ZoneID = "TestZone";
-            //
-            //ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor();
-            //zonePropertyExtractor.zone = z;
-            //
-            //
-            //zonePropertyExtractor.WatchForMinimapTab();
-
-            //Console.WriteLine("Done!");
             Console.ReadLine();
         }
 

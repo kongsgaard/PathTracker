@@ -63,7 +63,7 @@
     <Compile Include="Mock\MockProcessWindowScreenCapture.cs" />
     <Compile Include="Mock\MockWebRequestManager.cs" />
     <Compile Include="Mock\MockZonePropertyExtractor.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="FlowTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

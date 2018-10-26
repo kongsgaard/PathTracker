@@ -9,7 +9,8 @@ using System.Linq;
 
 namespace PathTracker_Backend
 {
-    class Win32ProcessScreenshotCapture : IProcessWindowScreenshotCapture {
+    public class Win32ProcessScreenshotCapture : IProcessWindowScreenshotCapture {
+
         public (Graphics, Bitmap) GetProcessScreenshot(string name) {
 
             //Give the minimap a little time to set
