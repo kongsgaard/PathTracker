@@ -11,20 +11,22 @@ namespace PathTracker_Backend
 {
     public class DiskFolderSaver : IDiskSaver 
     {
-        
-        private SettingsManager Settings = SettingsManager.Instance;
+
+        private ISettings Settings;
 
         string currentDir;
 
         MongoClient client = null;
 
-        public DiskFolderSaver() {
+        public DiskFolderSaver(ISettings settings) {
             
             currentDir = Directory.GetCurrentDirectory() + Settings.GetValue("DiskSaverFolderPath");
 
             if (!Directory.Exists(currentDir)) {
                 Directory.CreateDirectory(currentDir);
             }
+
+            Settings = settings;
         }
 
         public void SaveToDisk(Zone zone) {

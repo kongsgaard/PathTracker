@@ -8,11 +8,10 @@ using System.Threading;
 
 namespace PathTracker_Backend
 {
-    public class SettingsManager
-    {
+    public class FileSettings : ISettings {
         private static Mutex SettingsMutex = new Mutex();
 
-        private SettingsManager(string file) {
+        public FileSettings(string file) {
             Configuration = BuildJsonConfiguration(file);
         }
         
@@ -46,17 +45,6 @@ namespace PathTracker_Backend
             SettingsMutex.WaitOne();
             Configuration[key] = value;
             SettingsMutex.ReleaseMutex();
-        }
-        
-        private static SettingsManager Manager = new SettingsManager("Settings.json");
-        
-        /// <summary>
-        /// Gets the singleton instance of SettingsManager
-        /// </summary>
-        public static  SettingsManager Instance {
-            get {
-                return Manager;
-            }
         }
     }
 }

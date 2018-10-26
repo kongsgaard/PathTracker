@@ -15,7 +15,7 @@ namespace PathTracker_Backend
 {
     public class ZoneManager
     {
-        private SettingsManager Settings = SettingsManager.Instance;
+        private ISettings Settings;
         public event EventHandler<ZoneChangeArgs> NewZoneEntered;
         List<Zone> ZoneList = new List<Zone>();
         private static readonly ILog ZoneManagerLog = LogCreator.CreateLog("ZoneManager");
@@ -24,7 +24,7 @@ namespace PathTracker_Backend
         Dictionary<string, FileInfo> MinimapFiles = new Dictionary<string, FileInfo>();
 
         Thread extractMods = null;
-        ZonePropertyExtractor modExtractor = new ZonePropertyExtractor();
+        IZonePropertyExtractor modExtractor;
 
         IDiskSaver DiskSaver = null;
         
@@ -32,9 +32,12 @@ namespace PathTracker_Backend
 
         public Zone currentZone = null;
 
-        public ZoneManager(IDiskSaver saver) {
+        public ZoneManager(IDiskSaver saver, IZonePropertyExtractor zonePropertyExtractor, ISettings settings) {
+            Settings = settings;
             PopulateMinimapFiles();
             DiskSaver = saver;
+            modExtractor = zonePropertyExtractor;
+            
         }
 
         private void PopulateMinimapFiles() {
@@ -177,7 +180,7 @@ namespace PathTracker_Backend
 
             if (extractMods != null) {
                 if (extractMods.ThreadState == System.Threading.ThreadState.Running) {
-                    modExtractor.keepWatching = false;
+                    modExtractor.setKeepWatching(false);
 
                     System.Threading.Thread.Sleep(2500);
                     extractMods.Abort();
@@ -191,8 +194,7 @@ namespace PathTracker_Backend
                 DiskSaver.SaveToDisk(fromZone);
             }
 
-            
-            modExtractor.zone = enteredZone;
+            modExtractor.SetZone(enteredZone);
             extractMods = new Thread(modExtractor.WatchForMinimapTab);
 
             extractMods.Start();

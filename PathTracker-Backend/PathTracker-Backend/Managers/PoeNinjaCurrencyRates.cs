@@ -7,9 +7,6 @@ using Newtonsoft.Json;
 
 namespace PathTracker_Backend {
     public class PoeNinjaCurrencyRates : ICurrencyRates {
-
-        SettingsManager settings = SettingsManager.Instance;
-
         /// <summary>
         /// A list of all cached item information from poe.ninja (non currency and map fragments)
         /// </summary>

@@ -13,6 +13,7 @@ using System.Threading;
 namespace PathTracker_Backend {
     public class ClientTxtListener : IListener {
 
+
         private string _clientTxtPath = "";
         public string ClientTxtPath {
             get { return _clientTxtPath; }
@@ -26,14 +27,18 @@ namespace PathTracker_Backend {
 
         public int MsListenDelay;
         private Stopwatch ListenTimer = new Stopwatch();
-        private SettingsManager Settings = SettingsManager.Instance;
+        private ISettings Settings;
         private static readonly ILog ClientTxtLog = LogCreator.CreateLog("ClientTxtListener");
         private ZoneManager zoneManager;
         
-        public ClientTxtListener(ZoneManager paramZoneManager) {
-            MsListenDelay = 1000;
+        public ClientTxtListener(ZoneManager paramZoneManager, ISettings settings) {
+            Settings = settings;
+
+            MsListenDelay = 500;
             ClientTxtPath = Settings.GetValue("ClientTxtPath");
             ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);
+            
+            
 
             zoneManager = paramZoneManager;
         }
@@ -42,7 +47,7 @@ namespace PathTracker_Backend {
 
             ClientTxtLog.Info("Starting listener");
             ListenTimer.Start();
-            using (FileStream stream = File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+            using (Stream stream = File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                 long numBytes = stream.Length;
 
                 while (true) {
@@ -50,7 +55,7 @@ namespace PathTracker_Backend {
 
                         long currentBytes = stream.Length;
                         stream.Position = numBytes;
-
+                        
                         int numNewBytes = (int)(currentBytes - numBytes);
                         byte[] newBytes = new byte[numNewBytes];
                         string newText = "";

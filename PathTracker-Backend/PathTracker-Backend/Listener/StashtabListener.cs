@@ -14,14 +14,15 @@ namespace PathTracker_Backend {
     public class StashtabListener : IListener {
         
         private Stopwatch ListenTimer = new Stopwatch();
-        private RequestManager Coordinator;
+        private IWebRequestManager Coordinator;
         private string StashName = "";
-        private SettingsManager Settings = SettingsManager.Instance;
+        private ISettings Settings;
         private static readonly ILog StashtabLog = LogCreator.CreateLog("StashtabListener");
 
-        public StashtabListener(string stashName, RequestManager coordinator) {
+        public StashtabListener(string stashName, IWebRequestManager coordinator, ISettings settings) {
             Coordinator = coordinator;
             StashName = stashName;
+            Settings = settings;
         }
 
         public void StartListening() {

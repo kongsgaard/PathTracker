@@ -8,13 +8,16 @@ using System.IO;
 using System.Linq;
 
 namespace PathTracker_Backend {
-    public class ZonePropertyExtractor {
-        public Zone zone { get; set; }
+    public class ZonePropertyExtractor : IZonePropertyExtractor {
 
-        public ZonePropertyExtractor() {
+        IProcessWindowScreenshotCapture processWindowScreenshotCapture;
+        ISettings Settings;
+
+        public ZonePropertyExtractor(IProcessWindowScreenshotCapture capture, ISettings settings) {
             Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
             Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
-            
+            processWindowScreenshotCapture = capture;
+            Settings = settings;
 
         }
 
@@ -44,10 +47,26 @@ namespace PathTracker_Backend {
             }
         }
 
+        private Zone zone;
 
+        public Zone GetZone() {
+            return zone;
+        }
+
+        public void SetZone(Zone _zone) {
+            zone = _zone;
+        }
 
         private Stopwatch keepWatchingWatch = new Stopwatch();
-        public bool keepWatching = true;
+
+        public void setKeepWatching(bool val) {
+            keepWatching = val;
+        }
+
+        public bool GetkeepWatching() {
+            return keepWatching;
+        }
+        private bool keepWatching = true;
         public int watchingDelay = 500;
         public void WatchForMinimapTab() {
             keepWatching = true;
@@ -106,42 +125,12 @@ namespace PathTracker_Backend {
             List<MapMod> returnMods = new List<MapMod>();
             MapModParseStatus modsCorrectlyParsed = MapModParseStatus.NotPresent;
 
-            //Give the minimap a little time to set
-            System.Threading.Thread.Sleep(1000);
-            
-            var procs = Process.GetProcessesByName("PathOfExile_x64");
-
-            string activeTitle = User32Wrapper.GetActiveWindowTitle();
-
-            if(activeTitle != "Path of Exile") {
-                Console.WriteLine(activeTitle);
-                return (null, MapModParseStatus.PresentNotParsedCorrectly);
-            }
-
-            int k = 0;
-
-            var rect = new User32Wrapper.Rect();
-            int width = 0;
-            int height = 0;
-            foreach (Process proc in procs) {
-                User32Wrapper.GetWindowRect(proc.MainWindowHandle, ref rect);
-                width = rect.right - rect.left;
-                height = rect.bottom - rect.top;
-
-                // break foreach if an realistic rectangle found => main process found
-                if (width != 0 && height != 0) {
-                    break;
-                }
-            }
-
             Stopwatch watch = new Stopwatch();
             watch.Start();
-
-            var bmp = new Bitmap(width, height);
-            Graphics graphics = Graphics.FromImage(bmp);
-            graphics.CopyFromScreen(rect.left, rect.top, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+            Graphics graphics; Bitmap bmp;
+            (graphics, bmp) = processWindowScreenshotCapture.GetProcessScreenshot("PathOfExile_x64");
             Console.WriteLine("CopyFromScreen ms:" + watch.ElapsedMilliseconds);
-
+            
 
             string currentDir = Directory.GetCurrentDirectory();
 
@@ -278,7 +267,7 @@ namespace PathTracker_Backend {
 
             string generatedOCRFile = currentDir + "\\tmp\\" + baseFileName + "_hocrOutput";
 
-            string tesseractDict = SettingsManager.Instance.GetValue("TesseractDict");
+            string tesseractDict = Settings.GetValue("TesseractDict");
 
             if(tesseractDict == null) {
                 throw new Exception("Tried to OCR with tesseract when TesseractDict was not set in the settings");
@@ -304,10 +293,10 @@ namespace PathTracker_Backend {
         private (List<MapMod>, MapModParseStatus) ParseOCRFile(string ocrFile) {
             var modLines = File.ReadAllLines(ocrFile);
 
-            MapMods possibleMapMods = ResourceManager.Instance.PossibleMapModsList;
+            MapMods possibleMapMods = WebResourceManager.Instance.PossibleMapModsList;
 
-            var possibleLines = ResourceManager.Instance.PossibleMapModLines;
-            var PossibleModsDict = ResourceManager.Instance.LineToMapModsDict;
+            var possibleLines = WebResourceManager.Instance.PossibleMapModLines;
+            var PossibleModsDict = WebResourceManager.Instance.LineToMapModsDict;
 
             Dictionary<string, MapMod> ChosenCandidateMods = new Dictionary<string, MapMod>();
 

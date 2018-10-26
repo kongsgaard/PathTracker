@@ -13,12 +13,16 @@ using System.Linq;
 
 namespace PathTracker_Backend
 {
-    public class RequestManager {
+    public class WebRequestManager : IWebRequestManager {
 
-        private SettingsManager Settings = SettingsManager.Instance;
+        private ISettings Settings;
         private static readonly ILog RequestCoordinatorLog = LogCreator.CreateLog("RequestCoordinator");
         private Dictionary<string, List<StashTab>> LeagueStashtabDictionary = new Dictionary<string, List<StashTab>>();
         
+        public WebRequestManager(ISettings settings) {
+            Settings = settings;
+        }
+
         /// <summary>
         /// Return a JSON string representing the Inventory object 
         /// </summary>
@@ -100,6 +104,8 @@ namespace PathTracker_Backend
             string _apiEndpoint = $"https://www.pathofexile.com/character-window/get-stash-items?league=" + fetchLeague + "&accountName=" + account + "&tabs=1" + tabIndexString;
 
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(_apiEndpoint);
+            
+
             
             CookieContainer cont = new CookieContainer();
             Cookie cookie = new Cookie("POESESSID", SessID, "/", ".pathofexile.com");

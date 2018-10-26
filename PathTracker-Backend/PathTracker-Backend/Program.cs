@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Threading;
 using Newtonsoft.Json;
+using System.IO.Abstractions;
 
 namespace PathTracker_Backend {
     class Program {
@@ -27,41 +28,22 @@ namespace PathTracker_Backend {
             thread.Start();
 
             LogCreator.Setup();
+            ISettings settings = new FileSettings("settings.json");
 
-            IDiskSaver mongoDiskSaver = new MongoDBSaver();
-            IDiskSaver folderDiskSaver = new DiskFolderSaver();
+            IDiskSaver mongoDiskSaver = new MongoDBSaver(settings);
+            IDiskSaver folderDiskSaver = new DiskFolderSaver(settings);
 
-            ComponentManager manager = new ComponentManager(mongoDiskSaver);
+            IWebRequestManager webRequestManager = new WebRequestManager(settings);
+            IZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(new Win32ProcessScreenshotCapture(), settings);
+
+            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings);
             
-            Task t = new Task(manager.StartClientTxtListener);
+            Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();
             System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
             manager.StartInventoryListener();
-            //manager.StartStashtabListener("Gear");
             
             t.Wait();
-            //211 to 252
-            //float f = ZonePropertyExtractor.CalculateHue(108, 81, 218);
-            
-
-
-            //Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
-            //Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
-
-
-
-            //LogCreator.Setup();
-            //
-            //Zone z = new Zone("z1");
-            //z.ZoneID = "TestZone";
-            //
-            //ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor();
-            //zonePropertyExtractor.zone = z;
-            //
-            //
-            //zonePropertyExtractor.WatchForMinimapTab();
-
-            //Console.WriteLine("Done!");
             Console.ReadLine();
         }
 

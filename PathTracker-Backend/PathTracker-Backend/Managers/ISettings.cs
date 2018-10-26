@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PathTracker_Backend
 {
-    public interface ICurrencyRates
+    public interface ISettings
     {
-        double LookupChaosValue(Item item);
+        string GetValue(string key);
 
-        Task Update(string league);
+        void SetValue(string key, string value);
     }
 }

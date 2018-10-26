@@ -5,6 +5,7 @@ using log4net.Config;
 using log4net;
 using System.Reflection;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace PathTracker_Backend {
     public class ComponentManager {
@@ -13,17 +14,20 @@ namespace PathTracker_Backend {
         InventoryListener inventoryListener = null;
         ClientTxtListener clientTxtListener = null;
         Dictionary<string, StashtabListener> stashtabListeners = new Dictionary<string, StashtabListener>();
-        RequestManager requestCoordinator = new RequestManager();
+        IWebRequestManager requestCoordinator;
         ZoneManager zoneManager;
+        ISettings Settings;
         
-        public ComponentManager(IDiskSaver diskSaver) {
-            zoneManager = new ZoneManager(diskSaver);
+        public ComponentManager(IDiskSaver diskSaver, IWebRequestManager webRequestManager, IZonePropertyExtractor zonePropertyExtractor, ISettings settings) {
+            Settings = settings;
+            zoneManager = new ZoneManager(diskSaver, zonePropertyExtractor, Settings);
+            requestCoordinator = webRequestManager;
         }
 
         public void StartClientTxtListener() {
 
             if(clientTxtListener == null) {
-                clientTxtListener = new ClientTxtListener(zoneManager);
+                clientTxtListener = new ClientTxtListener(zoneManager, Settings);
                 clientTxtListener.StartListening();
                 EventManagerLog.Info("Starting new ClientTxtListener with ClientTxtPath:" + clientTxtListener.ClientTxtPath);
             }
@@ -38,7 +42,7 @@ namespace PathTracker_Backend {
             }
 
             if (inventoryListener == null) {
-                inventoryListener = new InventoryListener(requestCoordinator);
+                inventoryListener = new InventoryListener(requestCoordinator, Settings);
                 inventoryListener.StartListening();
                 EventManagerLog.Info("Starting new InventoryListener");
                 zoneManager.NewZoneEntered += inventoryListener.NewZoneEntered;
@@ -54,7 +58,7 @@ namespace PathTracker_Backend {
             }
 
             if (!stashtabListeners.ContainsKey(StashName)) {
-                stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator);
+                stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator, Settings);
                 stashtabListeners[StashName].StartListening();
                 EventManagerLog.Info("Starting new stashtabListeners for stash:" + StashName);
                 zoneManager.NewZoneEntered += stashtabListeners[StashName].NewZoneEntered;
