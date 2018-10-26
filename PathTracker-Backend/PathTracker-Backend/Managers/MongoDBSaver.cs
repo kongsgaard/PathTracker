@@ -35,7 +35,9 @@ namespace PathTracker_Backend
 
             Console.WriteLine("Write zone("+ zone.ZoneName + ") info to MongoDB at " + Settings.GetValue("MongoDBConnectionString"));
         }
-        
+
+        private HashSet<string> KnownItems = new HashSet<string>();
+
         public void UpdateItemValue(Item item, ItemValuator itemValuator) {
 
             var db = client.GetDatabase("PathTracker");

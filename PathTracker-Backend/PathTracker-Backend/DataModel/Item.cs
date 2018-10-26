@@ -271,5 +271,7 @@ namespace PathTracker_Backend {
 
     public enum SocketType { Str, Int, Dex, White, Abyss }
 
+    public enum ItemChangedTypes { ItemAdded, ItemNoteModified, ItemRemoved}
+
 }
 

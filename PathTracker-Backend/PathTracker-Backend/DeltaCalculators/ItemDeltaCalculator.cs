@@ -107,7 +107,7 @@ namespace PathTracker_Backend
 
             return (added, removed);
         }
-
+        
         /// <summary>
         /// Iterates the item list and puts the input in two seperate lists, stackable (curency, div-cards etc.) and non-stackable items
         /// </summary>
