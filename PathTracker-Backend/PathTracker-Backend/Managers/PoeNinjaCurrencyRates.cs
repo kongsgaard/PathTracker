@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace PathTracker_Backend {
-    public class PoeNinjaCurrencyRates {
+    public class PoeNinjaCurrencyRates : ICurrencyRates {
         /// <summary>
         /// A list of all cached item information from poe.ninja (non currency and map fragments)
         /// </summary>

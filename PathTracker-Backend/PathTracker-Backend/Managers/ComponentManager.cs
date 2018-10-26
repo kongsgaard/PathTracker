@@ -17,8 +17,8 @@ namespace PathTracker_Backend {
         IWebRequestManager requestCoordinator;
         ZoneManager zoneManager;
         
-        public ComponentManager(IDiskSaver diskSaver, IWebRequestManager webRequestManager) {
-            zoneManager = new ZoneManager(diskSaver);
+        public ComponentManager(IDiskSaver diskSaver, IWebRequestManager webRequestManager, IZonePropertyExtractor zonePropertyExtractor) {
+            zoneManager = new ZoneManager(diskSaver, zonePropertyExtractor);
             requestCoordinator = webRequestManager;
         }
 

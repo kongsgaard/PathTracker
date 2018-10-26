@@ -33,8 +33,9 @@ namespace PathTracker_Backend {
             IDiskSaver folderDiskSaver = new DiskFolderSaver();
             IFileSystem fileSystem = new FileSystem();
             IWebRequestManager webRequestManager = new WebRequestManager();
+            IZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(new Win32ProcessScreenshotCapture());
 
-            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager);
+            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor);
             
             Task t = new Task(() => manager.StartClientTxtListener(fileSystem));
             t.Start();

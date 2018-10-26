@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace PathTracker_Backend
 {
-    public class ResourceManager {
+    public class WebResourceManager {
         /// <summary>
         /// Dictionary of Level --> (AccumelatedXp, XpToLevel)
         /// </summary>
@@ -143,14 +143,14 @@ namespace PathTracker_Backend
             */
         }
         
-        public ResourceManager() {
+        public WebResourceManager() {
             CalculateExperienceDictionary();
             LoadMapMods();
         }
 
-        private static ResourceManager Manager = new ResourceManager();
+        private static WebResourceManager Manager = new WebResourceManager();
 
-        public static ResourceManager Instance {
+        public static WebResourceManager Instance {
             get {
                 return Manager;
             }

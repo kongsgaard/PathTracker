@@ -36,7 +36,7 @@ namespace PathTracker_Backend
 
             Dictionary<int, double> LevelProgress = new Dictionary<int, double>();
 
-            var ExperienceDictionary = ResourceManager.Instance.ExperienceDictionary;
+            var ExperienceDictionary = WebResourceManager.Instance.ExperienceDictionary;
 
             int EnteredLevel = EnteredWithCharacter.Level;
             long EnteredXp = EnteredWithCharacter.Experience;
