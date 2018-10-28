@@ -12,7 +12,7 @@ namespace PathTrackerTest {
     [TestClass]
     public class FlowTests {
         [TestMethod]
-        public void TestMethod1() {
+        public void FlowTest() {
 
             LogCreator.Setup();
 
@@ -25,22 +25,24 @@ namespace PathTrackerTest {
 
             ICurrencyRates currencyRates = new MockCurrenyRates();
 
-            WriteLineToFile("First line", settings.GetValue("ClientTxtPath"), FileMode.Create);
+            WriteLineToFile("First line", settings.GetValue("ClientTxtPath"), FileMode.Append);
+
+            var LinesForClientTxt = SetupZonesForTesting((MockWebRequestManager)webRequestManager, (MockZonePropertyExtractor)zonePropertyExtractor);
 
             ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings, currencyRates);
 
             Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();
-            System.Threading.Thread.Sleep(2000); //Wait for ClientTxtListenrer to start
+            System.Threading.Thread.Sleep(500); //Wait for ClientTxtListenrer to start
             manager.StartInventoryListener();
 
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(500);
 
-            WriteLineToFile("Second line", settings.GetValue("ClientTxtPath"), FileMode.Append);
+            foreach(string line in LinesForClientTxt) {
+                WriteLineToFile(line, settings.GetValue("ClientTxtPath"), FileMode.Append);
+                System.Threading.Thread.Sleep(2000);
+            }
 
-            System.Threading.Thread.Sleep(4000);
-
-            Console.ReadLine();
         }
 
         private ISettings SetupSettings(ISettings settings) {
@@ -63,6 +65,36 @@ namespace PathTrackerTest {
             using (var sw = new StreamWriter(new FileStream(Path, mode))) {
                 sw.WriteLine(content);
             }
+        }
+
+        private List<string> SetupZonesForTesting(MockWebRequestManager webRequestManager, MockZonePropertyExtractor zonePropertyExtractor) {
+            TestData data = new TestData();
+
+            List<string> textLines = new List<string>();
+
+            textLines.Add(@"2018 / 10 / 16 17:06:50 32531406 a34[INFO Client 11332] : You have entered Wasteland.");
+            textLines.Add(@"2018/10/16 17:05:36 32457343 a34 [INFO Client 11332] : You have entered Enlightened Hideout.");
+
+            Inventory i1 = data.GetTestDataInventory();
+            Inventory i2 = data.GetTestDataInventory();
+
+            Item newItem = data.GetTestDataLeatherBelt();
+            i2.Items.Add(newItem);
+
+            webRequestManager.AddInventoryToQueue(i1, "SpydigeSander");
+            webRequestManager.AddInventoryToQueue(i2, "SpydigeSander");
+            
+            return textLines;
+        }
+
+        private Inventory GetTestInventory(string character) {
+            Inventory inventory = new Inventory();
+
+            inventory.Character = new Character();
+            inventory.Character.Name = character;
+            
+
+            return inventory;
         }
     }
 }

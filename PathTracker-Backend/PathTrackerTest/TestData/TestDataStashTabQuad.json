@@ -1,0 +1,507 @@
+﻿{
+  "numTabs": 36,
+  "quadLayout": true,
+  "items": [
+    {
+      "verified": false,
+      "w": 2,
+      "h": 1,
+      "ilvl": 77,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Belts/Belt3.png?scale=1&scaleIndex=1&w=2&h=1&v=a559821037f54c94dae053b90bcea363",
+      "league": "Standard",
+      "id": "e225adbc9e98e6a520aa498adc0ac36f4794ee0ccbbbe4279a8f2c85da52145c",
+      "name": "Morbid Thread",
+      "typeLine": "Leather Belt",
+      "identified": true,
+      "note": "~price 2 exa",
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "59",
+              0
+            ]
+          ],
+          "displayMode": 0
+        }
+      ],
+      "implicitMods": [
+        "+40 to maximum Life"
+      ],
+      "explicitMods": [
+        "+48 to Strength",
+        "+13 to maximum Energy Shield",
+        "+99 to maximum Life",
+        "+16% to Cold Resistance",
+        "16% reduced Flask Charges used",
+        "27% increased Elemental Damage with Attack Skills"
+      ],
+      "frameType": 2,
+      "category": {
+        "accessories": [
+          "belt"
+        ]
+      },
+      "x": 7,
+      "y": 8,
+      "inventoryId": "Stash6"
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Empower.png?scale=1&scaleIndex=1&w=1&h=1&v=437c52ca684b8b50eda5fa0e09e669b7",
+      "support": true,
+      "league": "Standard",
+      "id": "069bd939eb8f30e9e6de97ad7175c57ed52df14c94bec7e0974f3ed38c5dd6cb",
+      "name": "",
+      "typeLine": "Empower Support",
+      "identified": true,
+      "note": "~price 1.5 exa",
+      "properties": [
+        {
+          "name": "Support",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "2",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Mana Multiplier",
+          "values": [
+            [
+              "125%",
+              0
+            ]
+          ],
+          "displayMode": 0
+        }
+      ],
+      "additionalProperties": [
+        {
+          "name": "Experience",
+          "values": [
+            [
+              "56107289/1439190228",
+              0
+            ]
+          ],
+          "displayMode": 2,
+          "progress": 0.03898531571030617,
+          "type": 20
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "10",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Str",
+          "values": [
+            [
+              "21",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Supports any skill gem. Once this gem reaches level 2 or above, will raise the level of supported gems. Cannot support skills that don't come from gems.",
+      "explicitMods": [
+        "+1 to Level of Supported Active Skill Gems"
+      ],
+      "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "supportgem"
+        ]
+      },
+      "x": 17,
+      "y": 13,
+      "inventoryId": "Stash6"
+    },
+    {
+      "verified": false,
+      "w": 2,
+      "h": 3,
+      "ilvl": 72,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/ClayShaper.png?scale=1&scaleIndex=1&w=2&h=3&v=cf71505943d28f8d19082865dcb8f6e1",
+      "league": "Standard",
+      "id": "55b4169fde94cee7dde44580d001c25374c8dec47e35cf195c8f6a0037420c73",
+      "sockets": [
+        {
+          "group": 0,
+          "attr": "S",
+          "sColour": "R"
+        },
+        {
+          "group": 0,
+          "attr": "D",
+          "sColour": "G"
+        }
+      ],
+      "name": "Clayshaper",
+      "typeLine": "Rock Breaker",
+      "identified": true,
+      "note": "~price 2 fuse",
+      "properties": [
+        {
+          "name": "One Handed Mace",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Physical Damage",
+          "values": [
+            [
+              "62-104",
+              1
+            ]
+          ],
+          "displayMode": 0,
+          "type": 9
+        },
+        {
+          "name": "Critical Strike Chance",
+          "values": [
+            [
+              "5.00%",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 12
+        },
+        {
+          "name": "Attacks per Second",
+          "values": [
+            [
+              "1.25",
+              1
+            ]
+          ],
+          "displayMode": 0,
+          "type": 13
+        },
+        {
+          "name": "Weapon Range",
+          "values": [
+            [
+              "9",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 14
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "41",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Str",
+          "values": [
+            [
+              "134",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "implicitMods": [
+        "40% increased Stun Duration on Enemies"
+      ],
+      "explicitMods": [
+        "Grants Level 12 Summon Stone Golem",
+        "Adds 25 to 35 Physical Damage",
+        "9% increased Attack Speed",
+        "Minions have 23% increased maximum Life",
+        "Can Summon up to 1 additional Golem at a time",
+        "Minions' Attacks deal 6 to 15 additional Physical Damage"
+      ],
+      "flavourText": [
+        "There is nothing, flesh, spirit, or stone\r",
+        "Free from our hunger for dominion."
+      ],
+      "frameType": 3,
+      "category": {
+        "weapons": [
+          "onemace"
+        ]
+      },
+      "x": 14,
+      "y": 3,
+      "inventoryId": "Stash6",
+      "socketedItems": []
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 78,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Jewels/GolemTempest.png?scale=1&scaleIndex=1&w=1&h=1&v=42e2467180d63e0479f562543baa47e2",
+      "league": "Standard",
+      "id": "b2fa366d545f7ca717140f64022f587f5797445e81f0a32514e37eccbe2c5468",
+      "name": "Primordial Harmony",
+      "typeLine": "Cobalt Jewel",
+      "identified": true,
+      "note": "~price 2 exa",
+      "explicitMods": [
+        "Golem Skills have 26% increased Cooldown Recovery Speed",
+        "Golems have 13% increased Cooldown Recovery Speed",
+        "17% increased Golem Damage for each Type of Golem you have Summoned",
+        "Golems regenerate 2% of their Maximum Life per second",
+        "Primordial"
+      ],
+      "descrText": "Place into an allocated Jewel Socket on the Passive Skill Tree. Right click to remove from the Socket.",
+      "flavourText": [
+        "\"A stone is not a stone.\r",
+        "It is but one part of a fortress.\"\r",
+        "- Ezomyte proverb"
+      ],
+      "frameType": 3,
+      "category": {
+        "jewels": []
+      },
+      "x": 6,
+      "y": 12,
+      "inventoryId": "Stash6"
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/ExplosiveArrow.png?scale=1&scaleIndex=1&w=1&h=1&v=77948b472e3794b5c994d71121a0ae6e",
+      "support": false,
+      "league": "Standard",
+      "id": "ffd4d4f5770ddf40f3a2951901cc81c7b60065eedd0415755d4bee4f53c19011",
+      "name": "",
+      "typeLine": "Explosive Arrow",
+      "identified": true,
+      "properties": [
+        {
+          "name": "Fire, Attack, Projectile, AoE, Duration, Bow",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "8",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Mana Cost",
+          "values": [
+            [
+              "23",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Critical Strike Chance",
+          "values": [
+            [
+              "6.00%",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Quality",
+          "values": [
+            [
+              "+13%",
+              1
+            ]
+          ],
+          "displayMode": 0,
+          "type": 6
+        }
+      ],
+      "additionalProperties": [
+        {
+          "name": "Experience",
+          "values": [
+            [
+              "1/1355511",
+              0
+            ]
+          ],
+          "displayMode": 2,
+          "progress": 7.3772918085524e-7,
+          "type": 20
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "46",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Dex",
+          "values": [
+            [
+              "104",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Fires an arrow which acts as a short duration fuse. Applying additional arrows to an enemy extends the duration. When the target dies or the fuses expire, the arrows explode, dealing fire AoE damage to nearby enemies. The AoE radius is proportional to the number of arrows upon death.",
+      "explicitMods": [
+        "Base duration is 1.00 seconds",
+        "13% chance to Ignite enemies",
+        "Explosion deals 142 to 214 Base Fire Damage per Fuse Charge",
+        "+2 to Explosion Radius per Fuse Charge"
+      ],
+      "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "activegem"
+        ]
+      },
+      "x": 0,
+      "y": 0,
+      "inventoryId": "Stash6"
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/IronWill.png?scale=1&scaleIndex=1&w=1&h=1&v=afb1f20cfad22f41efd4474e238b669a",
+      "support": true,
+      "league": "Standard",
+      "id": "a25ffb4dcbd56e18e2c75b118162ad68da7a921dccb759449549c59a86bc5360",
+      "name": "",
+      "typeLine": "Iron Will Support",
+      "identified": true,
+      "properties": [
+        {
+          "name": "Spell, Support",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "17",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Quality",
+          "values": [
+            [
+              "+13%",
+              1
+            ]
+          ],
+          "displayMode": 0,
+          "type": 6
+        }
+      ],
+      "additionalProperties": [
+        {
+          "name": "Experience",
+          "values": [
+            [
+              "1/26260555",
+              0
+            ]
+          ],
+          "displayMode": 2,
+          "progress": 3.8079924991052394e-8,
+          "type": 20
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "64",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Str",
+          "values": [
+            [
+              "102",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Supports spell skills, making the increase to physical melee damage from strength also increase their spell damage.",
+      "explicitMods": [
+        "Strength's damage bonus applies to Spell Damage as well for Supported Skills",
+        "Supported Skills deal 38% increased Spell Damage"
+      ],
+      "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "supportgem"
+        ]
+      },
+      "x": 0,
+      "y": 1,
+      "inventoryId": "Stash6"
+    }
+  ]
+}

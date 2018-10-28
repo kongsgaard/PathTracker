@@ -40,7 +40,7 @@ namespace PathTracker_Backend
 
         public void UpdateItemValue(Item item, ItemValuator itemValuator) {
 
-            var db = client.GetDatabase("PathTracker");
+            var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));
             
             var docs = db.GetCollection<ItemIDToZoneID>("ItemZoneMap");
 

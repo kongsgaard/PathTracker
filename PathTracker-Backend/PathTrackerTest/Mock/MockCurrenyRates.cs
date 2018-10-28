@@ -13,7 +13,7 @@ namespace PathTrackerTest {
         }
 
         public Task Update() {
-            throw new NotImplementedException();
+            return null;
         }
 
     }
