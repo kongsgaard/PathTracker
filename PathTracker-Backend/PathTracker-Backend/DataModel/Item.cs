@@ -144,6 +144,7 @@ namespace PathTracker_Backend {
 
         [JsonProperty("CurrentZoneID")]
         public string CurrentZoneID { get; set; }
+   
     }
 
     public class ItemValues {
@@ -155,6 +156,7 @@ namespace PathTracker_Backend {
 
         [JsonProperty("Values")]
         public List<ItemValue> Values = new List<ItemValue>();
+        
     }
 
     public class ItemValue {
@@ -169,6 +171,7 @@ namespace PathTracker_Backend {
 
         [JsonProperty("setAt")]
         public DateTime setAt { get; set; }
+        
     }
 
     /// <summary>
@@ -209,7 +212,8 @@ namespace PathTracker_Backend {
 
         [JsonProperty("progress")]
         public double XpProgress { get; set; }
-
+        
+        
     }
 
     public class Category {
@@ -236,6 +240,8 @@ namespace PathTracker_Backend {
 
         [JsonProperty("accessories")]
         public List<string> Accessories { get; set; }
+        
+        
     }
 
     public class Socket {
@@ -267,6 +273,7 @@ namespace PathTracker_Backend {
             }
 
         }
+        
     }
 
     public enum SocketType { Str, Int, Dex, White, Abyss }

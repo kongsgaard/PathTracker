@@ -9,6 +9,16 @@ namespace PathTracker_Backend {
         public Character Character { get; set; }
 
         public List<Item> Items { get; set; }
+
+        private Inventory(Character chara, List<Item> it) {
+            Character = chara;
+            Items = it;
+        }
+
+        public Inventory Copy() {
+
+            return new Inventory(Character, );
+        }
     }
 
     public class Character {
@@ -32,6 +42,21 @@ namespace PathTracker_Backend {
 
         [JsonProperty("experience")]
         public long Experience { get; set; }
+
+        private Character(string name, string lea, int classid, int ascendency, string clas, int level, long exp)
+        {
+            Name = name;
+            League = lea;
+            ClassId = classid;
+            AscendencyClass = ascendency;
+            Class = clas;
+            Level = level;
+            Experience = exp;
+        }
+
+        public Character Copy() {
+            return new Character(Name, League, ClassId, AscendencyClass, Class, Level, Experience);
+        }
         
     }
 }

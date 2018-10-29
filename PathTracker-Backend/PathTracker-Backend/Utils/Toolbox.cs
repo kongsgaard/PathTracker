@@ -5,6 +5,9 @@ using System.Linq;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using System.Runtime.Serialization;
 
 namespace PathTracker_Backend
 {
@@ -77,6 +80,24 @@ namespace PathTracker_Backend
             }
             // Step 7
             return d[n, m];
+        }
+
+        public static T Clone<T>(this T source) {
+            if (!typeof(T).IsSerializable) {
+                throw new ArgumentException("The type must be serializable.", "source");
+            }
+
+            // Don't serialize a null object, simply return the default for that object
+            if (Object.ReferenceEquals(source, null)) {
+                return default(T);
+            }
+
+            IFormatter formatter = new BinaryFormatter();
+            using (Stream stream = new MemoryStream()) {
+                formatter.Serialize(stream, source);
+                stream.Seek(0, SeekOrigin.Begin);
+                return (T)formatter.Deserialize(stream);
+            }
         }
 
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using PathTracker_Backend;
 
 namespace PathTrackerTest {
-    class MockWebRequestManager : IWebRequestManager {
+    public class MockWebRequestManager : IWebRequestManager {
 
         ISettings Settings;
 

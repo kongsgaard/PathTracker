@@ -27,6 +27,7 @@ namespace PathTrackerTest {
 
             MockCurrenyRates currencyRates = new MockCurrenyRates();
             currencyRates.UpdateOnce();
+            currencyRates.TypelineChaosValue["Exalted Orb"] = 100;
 
             ResourceManager resourceManager = new ResourceManager();
 
@@ -50,11 +51,7 @@ namespace PathTrackerTest {
                 WriteLineToFile("ZoneInfo", settings.GetValue("MinimapFolder") + zoneMinimapNames[i], FileMode.Append);
                 WriteLineToFile(LinesForClientTxt[i], settings.GetValue("ClientTxtPath"), FileMode.Append);
                 System.Threading.Thread.Sleep(2500);
-            }
-            
-
-
-            
+            } 
         }
 
         public void MainProgram(ComponentManager manager) {
