@@ -30,11 +30,14 @@ namespace PathTracker_Backend
         
         ItemValuator itemValuator;
 
+        ResourceManager Resource;
+
         public Zone currentZone = null;
 
-        public ZoneManager(IDiskSaver saver, IZonePropertyExtractor zonePropertyExtractor, ISettings settings, ICurrencyRates currencyRates) {
+        public ZoneManager(IDiskSaver saver, IZonePropertyExtractor zonePropertyExtractor, ISettings settings, ICurrencyRates currencyRates, ResourceManager resource) {
+            Resource = resource;
             Settings = settings;
-            itemValuator = new ItemValuator(currencyRates);
+            itemValuator = new ItemValuator(currencyRates, Resource);
             PopulateMinimapFiles();
             DiskSaver = saver;
             modExtractor = zonePropertyExtractor;
@@ -103,7 +106,7 @@ namespace PathTracker_Backend
             ItemDeltaCalculator fromZoneDeltaCalculator = null;
             ExperienceDeltaCalculator fromZoneExperienceDeltaCalculator = null;
             
-            Zone enteredZone = new Zone(zoneName);
+            Zone enteredZone = new Zone(zoneName, Resource);
             ItemDeltaCalculator enteredZoneDeltaCalculator = enteredZone.deltaCalculator;
             ExperienceDeltaCalculator enteredZoneExperienceDeltaCalculator = enteredZone.experienceCalculator;
 

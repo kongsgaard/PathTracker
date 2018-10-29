@@ -4,16 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace PathTracker_Backend
 {
     public class ItemNoteValuator : IItemRate {
 
-        ResourceManager resource = ResourceManager.Instance;
+        ResourceManager Resource;
+
+        public ItemNoteValuator(ResourceManager resource) {
+            Resource = resource;
+        }
 
         public Tuple<string, double, ItemValueMode> CalculateItemValue(Item item) {
 
-            string pattern = "^~price ([0-9]+) ([a-zA-Z]+)";
+            string pattern = "^~price ([0-9.]+) ([a-zA-Z]+)";
 
             if(item.Note == null) {
                 return new Tuple<string, double, ItemValueMode>("", 0, ItemValueMode.Tentative);
@@ -24,7 +29,7 @@ namespace PathTracker_Backend
             if (m.Success) {
                 if (m.Groups.Count > 0) {
                     double num = 0;
-                    if (double.TryParse(m.Groups[1].Value, out num)) {
+                    if (double.TryParse(m.Groups[1].Value.Replace('.', ','), NumberStyles.Any, CultureInfo.InvariantCulture, out num)) {
 
                     }
                     else {
@@ -32,8 +37,8 @@ namespace PathTracker_Backend
                     }
 
                     string name = "";
-                    if (resource.CurrencyTagLookup.ContainsKey(m.Groups[2].Value)) {
-                        name = resource.CurrencyTagLookup[m.Groups[2].Value];
+                    if (Resource.CurrencyTagLookup.ContainsKey(m.Groups[2].Value)) {
+                        name = Resource.CurrencyTagLookup[m.Groups[2].Value];
                     }
                     else {
                         Console.WriteLine("Parsed sale string, but failed to find correct itemtag in item note with note: " + item.Note);

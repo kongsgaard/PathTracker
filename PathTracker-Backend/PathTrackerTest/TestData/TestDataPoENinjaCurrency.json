@@ -1,0 +1,3558 @@
+﻿{
+	"lines": [
+		{
+			"currencyTypeName": "Mirror of Kalandra",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 22,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 15,
+				"value": 0.000035185772631578947368421,
+				"data_point_count": 1,
+				"includes_secondary": true
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 22,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 14,
+				"value": 28890.888888888888888888888889,
+				"data_point_count": 1,
+				"includes_secondary": true
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					13.68
+				],
+				"totalChange": 13.68
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-0.03,
+					0.65,
+					0.67,
+					2.35,
+					3.12,
+					3.06
+				],
+				"totalChange": 3.06
+			},
+			"chaosEquivalent": 28655.73,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					13.68
+				],
+				"totalChange": 13.68
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-0.03,
+					0.65,
+					0.67,
+					2.35,
+					3.12,
+					3.06
+				],
+				"totalChange": 3.06
+			}
+		},
+		{
+			"currencyTypeName": "Eternal Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 27,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 2,
+				"value": 0.00005936658,
+				"data_point_count": 1,
+				"includes_secondary": true
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 27,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 6,
+				"value": 18645.55,
+				"data_point_count": 1,
+				"includes_secondary": true
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-0.39,
+					0.47,
+					0.5,
+					1.26,
+					0.85,
+					3.26
+				],
+				"totalChange": 3.26
+			},
+			"chaosEquivalent": 17745.02,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					1.07
+				],
+				"totalChange": 1.07
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-0.39,
+					0.47,
+					0.5,
+					1.26,
+					0.85,
+					3.26
+				],
+				"totalChange": 3.26
+			}
+		},
+		{
+			"currencyTypeName": "Mirror Shard",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 81,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 2,
+				"value": 0.00083872,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 81,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 3,
+				"value": 1320,
+				"data_point_count": 1,
+				"includes_secondary": true
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					null,
+					null,
+					null,
+					0,
+					null,
+					null,
+					null
+				],
+				"totalChange": 0
+			},
+			"chaosEquivalent": 1256.15,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-7.23,
+					-6.1,
+					-6.1,
+					-6.1,
+					-15.38,
+					-8.19
+				],
+				"totalChange": -8.19
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-7.23,
+					-6.38,
+					-5.51,
+					-5.48,
+					-5.53,
+					-7.07
+				],
+				"totalChange": -7.07
+			}
+		},
+		{
+			"currencyTypeName": "Blessing of Chayula",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 65,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 1,
+				"value": 0.004,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 65,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 35,
+				"value": 310,
+				"data_point_count": 1,
+				"includes_secondary": true
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null
+				],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-0.32,
+					-1.23,
+					-0.19,
+					-1.23,
+					-4.32
+				],
+				"totalChange": -4.32
+			},
+			"chaosEquivalent": 280,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-5.35,
+					-5.09,
+					2.31,
+					2.31,
+					2.31,
+					-11.5
+				],
+				"totalChange": -11.5
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-0.32,
+					-1.23,
+					-0.19,
+					-1.23,
+					-4.32
+				],
+				"totalChange": -4.32
+			}
+		},
+		{
+			"currencyTypeName": "Exalted Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 2,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 100,
+				"value": 0.00917,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 2,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 60,
+				"value": 110,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0.11,
+					0.86,
+					0.86,
+					1.84,
+					2.17,
+					2.84
+				],
+				"totalChange": 2.84
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0.93,
+					1.48,
+					1.85
+				],
+				"totalChange": 1.85
+			},
+			"chaosEquivalent": 109.53,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0.11,
+					0.86,
+					0.86,
+					1.84,
+					2.17,
+					2.84
+				],
+				"totalChange": 2.84
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0.93,
+					1.48,
+					1.85
+				],
+				"totalChange": 1.85
+			}
+		},
+		{
+			"currencyTypeName": "Ancient Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 78,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 5,
+				"value": 0.04545,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 78,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 56,
+				"value": 25,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					null,
+					2.76,
+					4.77
+				],
+				"totalChange": 4.77
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					5.26,
+					8.7,
+					8.7,
+					8.7,
+					6.28,
+					8.7
+				],
+				"totalChange": 8.7
+			},
+			"chaosEquivalent": 23.5,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					2.76,
+					4.77
+				],
+				"totalChange": 4.77
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					5.26,
+					8.7,
+					8.7,
+					8.7,
+					6.28,
+					8.7
+				],
+				"totalChange": 8.7
+			}
+		},
+		{
+			"currencyTypeName": "Divine Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 3,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 32,
+				"value": 0.04444,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 3,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 73,
+				"value": 23,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0.82,
+					0,
+					0.11,
+					0,
+					0.2,
+					2.27
+				],
+				"totalChange": 2.27
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-0.51,
+					-3.26,
+					-2.22,
+					-4.17,
+					-4.17
+				],
+				"totalChange": -4.17
+			},
+			"chaosEquivalent": 22.75,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0.82,
+					0,
+					0.11,
+					0,
+					0.2,
+					2.27
+				],
+				"totalChange": 2.27
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-0.51,
+					-3.26,
+					-2.22,
+					-4.17,
+					-4.17
+				],
+				"totalChange": -4.17
+			}
+		},
+		{
+			"currencyTypeName": "Harbinger's Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 76,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 7,
+				"value": 0.04762,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 76,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 29,
+				"value": 21,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0,
+					1.38,
+					0,
+					0,
+					0,
+					0
+				],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					1.74,
+					5
+				],
+				"totalChange": 5
+			},
+			"chaosEquivalent": 21,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					1.38,
+					0,
+					0,
+					0,
+					0
+				],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					1.74,
+					5
+				],
+				"totalChange": 5
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Annulment",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 73,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 10,
+				"value": 0.08333,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 73,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 51,
+				"value": 14,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-0.59,
+					-0.59,
+					-0.42,
+					-0.44,
+					-0.59,
+					-0.59
+				],
+				"totalChange": -0.59
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0.5,
+					-0.24,
+					-2.15,
+					-0.24,
+					-0.24,
+					-0.24
+				],
+				"totalChange": -0.24
+			},
+			"chaosEquivalent": 13,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-0.59,
+					-0.59,
+					-0.42,
+					-0.44,
+					-0.59,
+					-0.59
+				],
+				"totalChange": -0.59
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0.5,
+					-0.24,
+					-2.15,
+					-0.24,
+					-0.24,
+					-0.24
+				],
+				"totalChange": -0.24
+			}
+		},
+		{
+			"currencyTypeName": "Exalted Shard",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 80,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 2,
+				"value": 0.22222,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 80,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 16,
+				"value": 6,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0,
+					null,
+					null,
+					null,
+					null,
+					null
+				],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-0.45,
+					-0.89,
+					-0.97,
+					-13.62,
+					-13.62,
+					3.65
+				],
+				"totalChange": 3.65
+			},
+			"chaosEquivalent": 5.25,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					-2.43,
+					-2.43,
+					-1.24,
+					0,
+					0
+				],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-0.45,
+					-0.89,
+					-0.97,
+					-13.62,
+					-13.62,
+					3.65
+				],
+				"totalChange": 3.65
+			}
+		},
+		{
+			"currencyTypeName": "Blessing of Uul-Netol",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 64,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 15,
+				"value": 5,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					13.97,
+					23.56,
+					23.56,
+					11.2,
+					-38.22,
+					-38.22
+				],
+				"totalChange": -38.22
+			},
+			"chaosEquivalent": 5,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					13.97,
+					23.56,
+					23.56,
+					11.2,
+					-38.22,
+					-38.22
+				],
+				"totalChange": -38.22
+			}
+		},
+		{
+			"currencyTypeName": "Master Cartographer's Sextant",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 48,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 15,
+				"value": 0.25,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 48,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 51,
+				"value": 4.5712977222222222222222222222,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					2.3,
+					0.28,
+					2.5,
+					0
+				],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-7.46,
+					-7.46,
+					-7.46,
+					-7.46,
+					4.11,
+					5.76
+				],
+				"totalChange": 5.76
+			},
+			"chaosEquivalent": 4.29,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					2.3,
+					0.28,
+					2.5,
+					0
+				],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-7.46,
+					-7.46,
+					-7.46,
+					-7.46,
+					4.11,
+					5.76
+				],
+				"totalChange": 5.76
+			}
+		},
+		{
+			"currencyTypeName": "Blessing of Esh",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 63,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 23,
+				"value": 4,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					2.7,
+					9.76,
+					-5.16,
+					-6.23,
+					-6.23,
+					-12.2
+				],
+				"totalChange": -12.2
+			},
+			"chaosEquivalent": 4,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					2.7,
+					9.76,
+					-5.16,
+					-6.23,
+					-6.23,
+					-12.2
+				],
+				"totalChange": -12.2
+			}
+		},
+		{
+			"currencyTypeName": "Journeyman Cartographer's Sextant",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 47,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 23,
+				"value": 0.4,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 47,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 55,
+				"value": 2.6946236559139784946236559139,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-0.1,
+					1.98,
+					3.75,
+					3.75,
+					3.75,
+					3.75
+				],
+				"totalChange": 3.75
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					7.78
+				],
+				"totalChange": 7.78
+			},
+			"chaosEquivalent": 2.6,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-0.1,
+					1.98,
+					3.75,
+					3.75,
+					3.75,
+					3.75
+				],
+				"totalChange": 3.75
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					7.78
+				],
+				"totalChange": 7.78
+			}
+		},
+		{
+			"currencyTypeName": "Blessing of Xoph",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 61,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 25,
+				"value": 2,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-24.33,
+					-33.33,
+					-33.33,
+					-33.33,
+					-33.33
+				],
+				"totalChange": -33.33
+			},
+			"chaosEquivalent": 2,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-24.33,
+					-33.33,
+					-33.33,
+					-33.33,
+					-33.33
+				],
+				"totalChange": -33.33
+			}
+		},
+		{
+			"currencyTypeName": "Blessing of Tul",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 62,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 23,
+				"value": 2,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-33.33,
+					-33.33,
+					-25.29,
+					-26.87,
+					-33.33
+				],
+				"totalChange": -33.33
+			},
+			"chaosEquivalent": 2,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-33.33,
+					-33.33,
+					-25.29,
+					-26.87,
+					-33.33
+				],
+				"totalChange": -33.33
+			}
+		},
+		{
+			"currencyTypeName": "Splinter of Chayula",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 60,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 4,
+				"value": 0.6991991313131313131313131313,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 60,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 51,
+				"value": 1.9576384210526315789473684211,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0,
+					null,
+					null,
+					null,
+					null,
+					null
+				],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-2.49,
+					0,
+					0,
+					-2.65,
+					-2.12
+				],
+				"totalChange": -2.12
+			},
+			"chaosEquivalent": 1.69,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					-2.47,
+					-2.47,
+					-1.7,
+					10.07,
+					10.02
+				],
+				"totalChange": 10.02
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-2.49,
+					0,
+					0,
+					-2.65,
+					-2.12
+				],
+				"totalChange": -2.12
+			}
+		},
+		{
+			"currencyTypeName": "Vaal Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 8,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 38,
+				"value": 0.66667,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 8,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 44,
+				"value": 1.6276344086021505376344086022,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-0.23,
+					0.14,
+					0.46,
+					0.48,
+					-0.23,
+					-0.23
+				],
+				"totalChange": -0.23
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-0.95,
+					-3.39,
+					-0.47,
+					-5.01,
+					-0.47,
+					1.25
+				],
+				"totalChange": 1.25
+			},
+			"chaosEquivalent": 1.56,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-0.23,
+					0.14,
+					0.46,
+					0.48,
+					-0.23,
+					-0.23
+				],
+				"totalChange": -0.23
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-0.95,
+					-3.39,
+					-0.47,
+					-5.01,
+					-0.47,
+					1.25
+				],
+				"totalChange": 1.25
+			}
+		},
+		{
+			"currencyTypeName": "Apprentice Cartographer's Sextant",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 46,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 19,
+				"value": 0.71429,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 46,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 63,
+				"value": 1.6,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					3.29,
+					7.69,
+					7.69,
+					7.69,
+					7.69,
+					7.69
+				],
+				"totalChange": 7.69
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-3.14,
+					-6.64,
+					-0.12,
+					-0.12,
+					-0.12,
+					6.54
+				],
+				"totalChange": 6.54
+			},
+			"chaosEquivalent": 1.5,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					3.29,
+					7.69,
+					7.69,
+					7.69,
+					7.69,
+					7.69
+				],
+				"totalChange": 7.69
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-3.14,
+					-6.64,
+					-0.12,
+					-0.12,
+					-0.12,
+					6.54
+				],
+				"totalChange": 6.54
+			}
+		},
+		{
+			"currencyTypeName": "Gemcutter's Prism",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 15,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 19,
+				"value": 0.9,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 15,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 58,
+				"value": 1.35,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-1.07,
+					-1.07,
+					-1.07,
+					-1.07,
+					-4.91,
+					-8.39
+				],
+				"totalChange": -8.39
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					-3.57
+				],
+				"totalChange": -3.57
+			},
+			"chaosEquivalent": 1.23,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-1.07,
+					-1.07,
+					-1.07,
+					-1.07,
+					-4.91,
+					-8.39
+				],
+				"totalChange": -8.39
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					-3.57
+				],
+				"totalChange": -3.57
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Horizons",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 75,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 4,
+				"value": 0.81976132,
+				"data_point_count": 1,
+				"includes_secondary": true
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 75,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 35,
+				"value": 1,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0.07,
+					null,
+					null,
+					31.4,
+					38.26,
+					null
+				],
+				"totalChange": 38.26
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					7.99,
+					-28.01,
+					-28.01,
+					-28.01,
+					-28.01,
+					-28.01
+				],
+				"totalChange": -28.01
+			},
+			"chaosEquivalent": 1.11,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0.07,
+					10.7,
+					10.71,
+					31.4,
+					38.26,
+					35.87
+				],
+				"totalChange": 35.87
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					7.99,
+					-28.01,
+					-28.01,
+					-28.01,
+					-28.01,
+					-28.01
+				],
+				"totalChange": -28.01
+			}
+		},
+		{
+			"currencyTypeName": "Annulment Shard",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 79,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 3,
+				"value": 1,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					null,
+					null,
+					0,
+					0,
+					null,
+					null,
+					null
+				],
+				"totalChange": 0
+			},
+			"chaosEquivalent": 1,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null
+				],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"totalChange": 0
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Regret",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 9,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 18,
+				"value": 1.245914934065934065934065934,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 9,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 44,
+				"value": 0.93333,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0.22,
+					0.19,
+					1.06,
+					1.06,
+					1.06,
+					1.4
+				],
+				"totalChange": 1.4
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0.04,
+					-0.26,
+					-0.26,
+					3.44,
+					2.39,
+					3.43
+				],
+				"totalChange": 3.43
+			},
+			"chaosEquivalent": 0.87,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0.22,
+					0.19,
+					1.06,
+					1.06,
+					1.06,
+					1.4
+				],
+				"totalChange": 1.4
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0.04,
+					-0.26,
+					-0.26,
+					3.44,
+					2.39,
+					3.43
+				],
+				"totalChange": 3.43
+			}
+		},
+		{
+			"currencyTypeName": "Regal Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 7,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 15,
+				"value": 1.3887368421052631578947368421,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 7,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 56,
+				"value": 0.8498518947368421052631578947,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0.01,
+					0.05,
+					4.44,
+					8.37,
+					1.38,
+					0.81
+				],
+				"totalChange": 0.81
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0.03,
+					0.51,
+					1.98
+				],
+				"totalChange": 1.98
+			},
+			"chaosEquivalent": 0.78,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0.01,
+					0.05,
+					4.44,
+					8.37,
+					1.38,
+					0.81
+				],
+				"totalChange": 0.81
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0.03,
+					0.51,
+					1.98
+				],
+				"totalChange": 1.98
+			}
+		},
+		{
+			"currencyTypeName": "Engineer's Orb",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 77,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 20,
+				"value": 0.6450386,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-22.94,
+					-23.55,
+					-2.24,
+					-4.27,
+					0,
+					-3.24
+				],
+				"totalChange": -3.24
+			},
+			"chaosEquivalent": 0.65,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-22.94,
+					-23.55,
+					-2.24,
+					-4.27,
+					0,
+					-3.24
+				],
+				"totalChange": -3.24
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Scouring",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 14,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 15,
+				"value": 2.1682873,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 14,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 50,
+				"value": 0.5,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-1.12,
+					1.64,
+					-0.16,
+					0.12,
+					0.14,
+					0.87
+				],
+				"totalChange": 0.87
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0.85,
+					5,
+					5
+				],
+				"totalChange": 5
+			},
+			"chaosEquivalent": 0.48,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-1.12,
+					1.64,
+					-0.16,
+					0.12,
+					0.14,
+					0.87
+				],
+				"totalChange": 0.87
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0.85,
+					5,
+					5
+				],
+				"totalChange": 5
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Fusing",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 5,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 39,
+				"value": 2.5814473684210526315789473684,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 5,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 100,
+				"value": 0.4145628395061728395061728395,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-2.66,
+					-3.31,
+					-5.35,
+					-6.72,
+					-7.41,
+					-13.27
+				],
+				"totalChange": -13.27
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-3.37,
+					-7.57,
+					-9.63,
+					-9.63,
+					-13.47,
+					-15.7
+				],
+				"totalChange": -15.7
+			},
+			"chaosEquivalent": 0.4,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-2.66,
+					-3.31,
+					-5.35,
+					-6.72,
+					-7.41,
+					-13.27
+				],
+				"totalChange": -13.27
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-3.37,
+					-7.57,
+					-9.63,
+					-9.63,
+					-13.47,
+					-15.7
+				],
+				"totalChange": -15.7
+			}
+		},
+		{
+			"currencyTypeName": "Splinter of Xoph",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 56,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 24,
+				"value": 0.382544040816326530612244898,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					4.91,
+					-2.95,
+					-1.39,
+					9.28,
+					6.58,
+					8.32
+				],
+				"totalChange": 8.32
+			},
+			"chaosEquivalent": 0.38,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null
+				],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					4.91,
+					-2.95,
+					-1.39,
+					9.28,
+					6.58,
+					8.32
+				],
+				"totalChange": 8.32
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Binding",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 74,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 20,
+				"value": 0.330853578947368421052631579,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					-0.74
+				],
+				"totalChange": -0.74
+			},
+			"chaosEquivalent": 0.33,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					-0.74
+				],
+				"totalChange": -0.74
+			}
+		},
+		{
+			"currencyTypeName": "Cartographer's Chisel",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 10,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 20,
+				"value": 3.303225483870967741935483871,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 10,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 89,
+				"value": 0.33333,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-0.14,
+					0,
+					0,
+					0.13,
+					0,
+					-0.1
+				],
+				"totalChange": -0.1
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"totalChange": 0
+			},
+			"chaosEquivalent": 0.32,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-0.14,
+					0,
+					0,
+					0.13,
+					0,
+					-0.1
+				],
+				"totalChange": -0.1
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"totalChange": 0
+			}
+		},
+		{
+			"currencyTypeName": "Blessed Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 18,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 11,
+				"value": 3.8,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 18,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 40,
+				"value": 0.3711682758620689655172413793,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-3.4,
+					2.9,
+					0.06,
+					3.52,
+					1.79,
+					0.16
+				],
+				"totalChange": 0.16
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0.76,
+					-3.59,
+					-0.2,
+					-2.71,
+					-3.53,
+					-3.69
+				],
+				"totalChange": -3.69
+			},
+			"chaosEquivalent": 0.32,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-3.4,
+					2.9,
+					0.06,
+					3.52,
+					1.79,
+					0.16
+				],
+				"totalChange": 0.16
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0.76,
+					-3.59,
+					-0.2,
+					-2.71,
+					-3.53,
+					-3.69
+				],
+				"totalChange": -3.69
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Alchemy",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 4,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 25,
+				"value": 3.6252525252525252525252525253,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 4,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 91,
+				"value": 0.3125,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0.79,
+					2.7,
+					2.7,
+					2.7,
+					6.38,
+					4.82
+				],
+				"totalChange": 4.82
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					2.42,
+					0,
+					1.03,
+					3.03,
+					6.25,
+					6.25
+				],
+				"totalChange": 6.25
+			},
+			"chaosEquivalent": 0.29,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0.79,
+					2.7,
+					2.7,
+					2.7,
+					6.38,
+					4.82
+				],
+				"totalChange": 4.82
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					2.42,
+					0,
+					1.03,
+					3.03,
+					6.25,
+					6.25
+				],
+				"totalChange": 6.25
+			}
+		},
+		{
+			"currencyTypeName": "Silver Coin",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 12,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 12,
+				"value": 6.0456,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 12,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 57,
+				"value": 0.21602248,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-8.35,
+					-8.8,
+					-10.15,
+					-6.79,
+					-1.36,
+					-0.7
+				],
+				"totalChange": -0.7
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					-2.02,
+					-2.17,
+					-2.29,
+					-2.79
+				],
+				"totalChange": -2.79
+			},
+			"chaosEquivalent": 0.19,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-8.35,
+					-8.8,
+					-10.15,
+					-6.79,
+					-1.36,
+					-0.7
+				],
+				"totalChange": -0.7
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					-2.02,
+					-2.17,
+					-2.29,
+					-2.79
+				],
+				"totalChange": -2.79
+			}
+		},
+		{
+			"currencyTypeName": "Splinter of Uul-Netol",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 59,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 22,
+				"value": 0.1828831195652173913043478261,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-0.62,
+					-8.33,
+					-37.62,
+					-42.03,
+					-37.44,
+					-36.45
+				],
+				"totalChange": -36.45
+			},
+			"chaosEquivalent": 0.18,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-0.62,
+					-8.33,
+					-37.62,
+					-42.03,
+					-37.44,
+					-36.45
+				],
+				"totalChange": -36.45
+			}
+		},
+		{
+			"currencyTypeName": "Chromatic Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 17,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 28,
+				"value": 6.9034210526315789473684210526,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 17,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 100,
+				"value": 0.13333,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					-0.47,
+					-1.5
+				],
+				"totalChange": -1.5
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-1.59,
+					-5.89,
+					-7.46,
+					-12.7,
+					-17.34
+				],
+				"totalChange": -17.34
+			},
+			"chaosEquivalent": 0.14,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					-0.47,
+					-1.5
+				],
+				"totalChange": -1.5
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					-1.59,
+					-5.89,
+					-7.46,
+					-12.7,
+					-17.34
+				],
+				"totalChange": -17.34
+			}
+		},
+		{
+			"currencyTypeName": "Splinter of Esh",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 58,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 28,
+				"value": 0.129579909090909090909090909,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0.91,
+					1.13,
+					-0.15,
+					-0.02,
+					3.54,
+					3.51
+				],
+				"totalChange": 3.51
+			},
+			"chaosEquivalent": 0.13,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0.91,
+					1.13,
+					-0.15,
+					-0.02,
+					3.54,
+					3.51
+				],
+				"totalChange": 3.51
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Chance",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 16,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 15,
+				"value": 9,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 16,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 67,
+				"value": 0.125,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-0.56,
+					0.35,
+					0.29,
+					0,
+					4.44,
+					0
+				],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-0.68,
+					0.03,
+					0.31,
+					0.31,
+					0.31,
+					0.31
+				],
+				"totalChange": 0.31
+			},
+			"chaosEquivalent": 0.12,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-0.56,
+					0.35,
+					0.29,
+					0,
+					4.44,
+					0
+				],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-0.68,
+					0.03,
+					0.31,
+					0.31,
+					0.31,
+					0.31
+				],
+				"totalChange": 0.31
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Alteration",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 6,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 17,
+				"value": 9.6,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 6,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 76,
+				"value": 0.12048,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					-0.03,
+					0.36,
+					0.28,
+					-1.07,
+					-0.82,
+					-1.07
+				],
+				"totalChange": -1.07
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					4.3,
+					5.81,
+					7.15,
+					7.15,
+					8.43
+				],
+				"totalChange": 8.43
+			},
+			"chaosEquivalent": 0.11,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					-0.03,
+					0.36,
+					0.28,
+					-1.07,
+					-0.82,
+					-1.07
+				],
+				"totalChange": -1.07
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					4.3,
+					5.81,
+					7.15,
+					7.15,
+					8.43
+				],
+				"totalChange": 8.43
+			}
+		},
+		{
+			"currencyTypeName": "Jeweller's Orb",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 11,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 35,
+				"value": 9.781875,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 11,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 100,
+				"value": 0.11236,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [
+					0,
+					0.94,
+					0.94,
+					-0.07,
+					-1.02,
+					-0.72,
+					-1.97
+				],
+				"totalChange": -1.97
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-0.11,
+					-4.1,
+					-5.26,
+					-3.62,
+					-5.87,
+					-10.11
+				],
+				"totalChange": -10.11
+			},
+			"chaosEquivalent": 0.11,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0.94,
+					0.94,
+					-0.07,
+					-1.02,
+					-0.72,
+					-1.97
+				],
+				"totalChange": -1.97
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-0.11,
+					-4.1,
+					-5.26,
+					-3.62,
+					-5.87,
+					-10.11
+				],
+				"totalChange": -10.11
+			}
+		},
+		{
+			"currencyTypeName": "Splinter of Tul",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 57,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 29,
+				"value": 0.1114402315789473684210526316,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-3.11,
+					-1.57,
+					-13.14,
+					-10.26,
+					-8.14,
+					-8.17
+				],
+				"totalChange": -8.17
+			},
+			"chaosEquivalent": 0.11,
+			"lowConfidencePaySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-3.11,
+					-1.57,
+					-13.14,
+					-10.26,
+					-8.14,
+					-8.17
+				],
+				"totalChange": -8.17
+			}
+		},
+		{
+			"currencyTypeName": "Glassblower's Bauble",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 19,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 1,
+				"value": 25,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 19,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 46,
+				"value": 0.1316477631578947368421052631,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					-0.51,
+					-12.5,
+					-12.5,
+					-7.85
+				],
+				"totalChange": -7.85
+			},
+			"chaosEquivalent": 0.09,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					-4.55,
+					-16
+				],
+				"totalChange": -16
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					-0.51,
+					-12.5,
+					-12.5,
+					-7.85
+				],
+				"totalChange": -7.85
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Augmentation",
+			"pay": null,
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 20,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 39,
+				"value": 0.03333,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					0,
+					2.17,
+					2.7,
+					3.32,
+					3.32,
+					3.32
+				],
+				"totalChange": 3.32
+			},
+			"chaosEquivalent": 0.03,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					0.29,
+					0.29,
+					0.29,
+					0.29,
+					3.63
+				],
+				"totalChange": 3.63
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					0,
+					2.17,
+					2.7,
+					3.32,
+					3.32,
+					3.32
+				],
+				"totalChange": 3.32
+			}
+		},
+		{
+			"currencyTypeName": "Blacksmith's Whetstone",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 25,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 2,
+				"value": 173.27,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 25,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 26,
+				"value": 0.02778,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					1.04,
+					0.08,
+					3.52,
+					3.52,
+					15.03,
+					15.03
+				],
+				"totalChange": 15.03
+			},
+			"chaosEquivalent": 0.02,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					11.73,
+					11.73,
+					9.29,
+					17.65,
+					17.65,
+					15.43
+				],
+				"totalChange": 15.43
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					1.04,
+					0.08,
+					3.52,
+					3.52,
+					15.03,
+					15.03
+				],
+				"totalChange": 15.03
+			}
+		},
+		{
+			"currencyTypeName": "Orb of Transmutation",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 21,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 2,
+				"value": 207.26666703,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 21,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 40,
+				"value": 0.01538,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					-4.09,
+					0.13,
+					2.28,
+					0.74,
+					3.22,
+					3.22
+				],
+				"totalChange": 3.22
+			},
+			"chaosEquivalent": 0.01,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					12.71,
+					11.13,
+					11.13,
+					80.9,
+					13.81,
+					14.63
+				],
+				"totalChange": 14.63
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					-4.09,
+					0.13,
+					2.28,
+					0.74,
+					3.22,
+					3.22
+				],
+				"totalChange": 3.22
+			}
+		},
+		{
+			"currencyTypeName": "Portal Scroll",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 24,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 1,
+				"value": 120,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 24,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 25,
+				"value": 0.0180554545454545454545454546,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					10.91,
+					2.94,
+					6.68,
+					3,
+					14.29,
+					10.7
+				],
+				"totalChange": 10.7
+			},
+			"chaosEquivalent": 0.01,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					0,
+					0,
+					6.67,
+					6.67,
+					6.67
+				],
+				"totalChange": 6.67
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					10.91,
+					2.94,
+					6.68,
+					3,
+					14.29,
+					10.7
+				],
+				"totalChange": 10.7
+			}
+		},
+		{
+			"currencyTypeName": "Armourer's Scrap",
+			"pay": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 26,
+				"get_currency_id": 1,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 3,
+				"value": 250.56122448979591836734693878,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"receive": {
+				"id": 0,
+				"league_id": 1,
+				"pay_currency_id": 1,
+				"get_currency_id": 26,
+				"sample_time_utc": "2018-10-28T18:38:46.9197168Z",
+				"count": 30,
+				"value": 0.0159896315789473684210526316,
+				"data_point_count": 1,
+				"includes_secondary": false
+			},
+			"paySparkLine": {
+				"data": [],
+				"totalChange": 0
+			},
+			"receiveSparkLine": {
+				"data": [
+					0,
+					2.9,
+					-15.46,
+					-7.04,
+					8.28,
+					16.91,
+					10.35
+				],
+				"totalChange": 10.35
+			},
+			"chaosEquivalent": 0.01,
+			"lowConfidencePaySparkLine": {
+				"data": [
+					0,
+					0,
+					4.95,
+					-7.82,
+					-5.96,
+					-5.96,
+					-8.05
+				],
+				"totalChange": -8.05
+			},
+			"lowConfidenceReceiveSparkLine": {
+				"data": [
+					0,
+					2.9,
+					-15.46,
+					-7.04,
+					8.28,
+					16.91,
+					10.35
+				],
+				"totalChange": 10.35
+			}
+		}
+	],
+	"currencyDetails": [
+		{
+			"id": 1,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1",
+			"name": "Chaos Orb",
+			"poeTradeId": 4
+		},
+		{
+			"id": 2,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1",
+			"name": "Exalted Orb",
+			"poeTradeId": 6
+		},
+		{
+			"id": 3,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyModValues.png?scale=1&w=1&h=1",
+			"name": "Divine Orb",
+			"poeTradeId": 15
+		},
+		{
+			"id": 4,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToRare.png?scale=1&w=1&h=1",
+			"name": "Orb of Alchemy",
+			"poeTradeId": 3
+		},
+		{
+			"id": 5,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketLinks.png?scale=1&w=1&h=1",
+			"name": "Orb of Fusing",
+			"poeTradeId": 2
+		},
+		{
+			"id": 6,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollMagic.png?scale=1&w=1&h=1",
+			"name": "Orb of Alteration",
+			"poeTradeId": 1
+		},
+		{
+			"id": 7,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeMagicToRare.png?scale=1&w=1&h=1",
+			"name": "Regal Orb",
+			"poeTradeId": 14
+		},
+		{
+			"id": 8,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyVaal.png?scale=1&w=1&h=1",
+			"name": "Vaal Orb",
+			"poeTradeId": 16
+		},
+		{
+			"id": 9,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyPassiveSkillRefund.png?scale=1&w=1&h=1",
+			"name": "Orb of Regret",
+			"poeTradeId": 13
+		},
+		{
+			"id": 10,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyMapQuality.png?scale=1&w=1&h=1",
+			"name": "Cartographer's Chisel",
+			"poeTradeId": 10
+		},
+		{
+			"id": 11,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketNumbers.png?scale=1&w=1&h=1",
+			"name": "Jeweller's Orb",
+			"poeTradeId": 8
+		},
+		{
+			"id": 12,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SilverObol.png?scale=1&w=1&h=1",
+			"name": "Silver Coin",
+			"poeTradeId": 35
+		},
+		{
+			"id": 13,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyCoin.png?scale=1&w=1&h=1",
+			"name": "Perandus Coin",
+			"poeTradeId": 26
+		},
+		{
+			"id": 14,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyConvertToNormal.png?scale=1&w=1&h=1",
+			"name": "Orb of Scouring",
+			"poeTradeId": 11
+		},
+		{
+			"id": 15,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyGemQuality.png?scale=1&w=1&h=1",
+			"name": "Gemcutter's Prism",
+			"poeTradeId": 5
+		},
+		{
+			"id": 16,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeRandomly.png?scale=1&w=1&h=1",
+			"name": "Orb of Chance",
+			"poeTradeId": 9
+		},
+		{
+			"id": 17,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketColours.png?scale=1&w=1&h=1",
+			"name": "Chromatic Orb",
+			"poeTradeId": 7
+		},
+		{
+			"id": 18,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImplicitMod.png?scale=1&w=1&h=1",
+			"name": "Blessed Orb",
+			"poeTradeId": 12
+		},
+		{
+			"id": 19,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyFlaskQuality.png?scale=1&w=1&h=1",
+			"name": "Glassblower's Bauble",
+			"poeTradeId": 21
+		},
+		{
+			"id": 20,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToMagic.png?scale=1&w=1&h=1",
+			"name": "Orb of Augmentation",
+			"poeTradeId": 23
+		},
+		{
+			"id": 21,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToMagic.png?scale=1&w=1&h=1",
+			"name": "Orb of Transmutation",
+			"poeTradeId": 22
+		},
+		{
+			"id": 22,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyDuplicate.png?scale=1&w=1&h=1",
+			"name": "Mirror of Kalandra",
+			"poeTradeId": 24
+		},
+		{
+			"id": 23,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyIdentification.png?scale=1&w=1&h=1",
+			"name": "Scroll of Wisdom",
+			"poeTradeId": 17
+		},
+		{
+			"id": 24,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyPortal.png?scale=1&w=1&h=1",
+			"name": "Portal Scroll",
+			"poeTradeId": 18
+		},
+		{
+			"id": 25,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyWeaponQuality.png?scale=1&w=1&h=1",
+			"name": "Blacksmith's Whetstone",
+			"poeTradeId": 20
+		},
+		{
+			"id": 26,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyArmourQuality.png?scale=1&w=1&h=1",
+			"name": "Armourer's Scrap",
+			"poeTradeId": 19
+		},
+		{
+			"id": 27,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprintOrb.png?scale=1&w=1&h=1",
+			"name": "Eternal Orb",
+			"poeTradeId": 25
+		},
+		{
+			"id": 28,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/Vaal04.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Sacrifice at Dusk",
+			"poeTradeId": 27
+		},
+		{
+			"id": 29,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/Vaal01.png?scale=1&w=1&h=1&v=3b21ce0cd4c0b9e8cf5db6257daf831a3",
+			"name": "Sacrifice at Midnight",
+			"poeTradeId": 28
+		},
+		{
+			"id": 30,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/Vaal02.png?scale=1&w=1&h=1&v=3ead6455599ec6c303f54ba98d6f8eb23",
+			"name": "Sacrifice at Dawn",
+			"poeTradeId": 29
+		},
+		{
+			"id": 31,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/Vaal03.png?scale=1&w=1&h=1&v=ba374d543316349b87de121039c3cc6f3",
+			"name": "Sacrifice at Noon",
+			"poeTradeId": 30
+		},
+		{
+			"id": 32,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/UberVaal04.png?scale=1&w=1&h=1&v=735839ceae0fc45d15ec69555e9314133",
+			"name": "Mortal Grief",
+			"poeTradeId": 31
+		},
+		{
+			"id": 33,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/UberVaal01.png?scale=1&w=1&h=1&v=9336df5d7d0befd5963b71e7a68479ce3",
+			"name": "Mortal Rage",
+			"poeTradeId": 32
+		},
+		{
+			"id": 34,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/UberVaal03.png?scale=1&w=1&h=1&v=9fb218dad337a4627a59f74bfa2d6c863",
+			"name": "Mortal Ignorance",
+			"poeTradeId": 34
+		},
+		{
+			"id": 35,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/UberVaal02.png?scale=1&w=1&h=1&v=db5b529a8425bd2b9fd7bee9fca2e0183",
+			"name": "Mortal Hope",
+			"poeTradeId": 33
+		},
+		{
+			"id": 36,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/PaleCourt01.png?scale=1&w=1&h=1&v=044cbdae1e06e621585eaa627c2162db3",
+			"name": "Eber's Key",
+			"poeTradeId": 36
+		},
+		{
+			"id": 37,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/PaleCourt02.png?scale=1&w=1&h=1&v=757829336b7239c4b1e398c203f0cca03",
+			"name": "Yriel's Key",
+			"poeTradeId": 37
+		},
+		{
+			"id": 38,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/PaleCourt03.png?scale=1&w=1&h=1&v=6e43b636847d46b560ef0518869a72943",
+			"name": "Inya's Key",
+			"poeTradeId": 38
+		},
+		{
+			"id": 39,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/PaleCourt04.png?scale=1&w=1&h=1&v=5c3afc6bad631a50f9fe5ccb570aeb363",
+			"name": "Volkuur's Key",
+			"poeTradeId": 39
+		},
+		{
+			"id": 40,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/AtlasMaps/FragmentHydra.png?scale=1&w=1&h=1&v=fd37e4be7672c0db8b549a1b16ad489d3",
+			"name": "Fragment of the Hydra",
+			"poeTradeId": 41
+		},
+		{
+			"id": 41,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/AtlasMaps/FragmentPhoenix.png?scale=1&w=1&h=1&v=8f76720ab06bb40a6d6f75730f92e4a73",
+			"name": "Fragment of the Phoenix",
+			"poeTradeId": 42
+		},
+		{
+			"id": 42,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/AtlasMaps/FragmentMinotaur.png?scale=1&w=1&h=1&v=e0e3f5e7daf32736d63fc3df1ba981223",
+			"name": "Fragment of the Minotaur",
+			"poeTradeId": 43
+		},
+		{
+			"id": 43,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/AtlasMaps/FragmentChimera.png?scale=1&w=1&h=1&v=15bd6ba80e1853c22ae3acf40abf64283",
+			"name": "Fragment of the Chimera",
+			"poeTradeId": 44
+		},
+		{
+			"id": 44,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/Labyrinth.png?scale=1&w=1&h=1&v=ef005aef5d2f9135d6922f4b1b912f783",
+			"name": "Offering to the Goddess",
+			"poeTradeId": 40
+		},
+		{
+			"id": 45,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImprintOrb.png?scale=1&w=1&h=1",
+			"name": "Stacked Deck",
+			"poeTradeId": -1
+		},
+		{
+			"id": 46,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AtlasRadiusWhite.png?scale=1&w=1&h=1",
+			"name": "Apprentice Cartographer's Sextant",
+			"poeTradeId": 45
+		},
+		{
+			"id": 47,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AtlasRadiusYellow.png?scale=1&w=1&h=1",
+			"name": "Journeyman Cartographer's Sextant",
+			"poeTradeId": 46
+		},
+		{
+			"id": 48,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AtlasRadiusRed.png?scale=1&w=1&h=1",
+			"name": "Master Cartographer's Sextant",
+			"poeTradeId": 47
+		},
+		{
+			"id": 49,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealWhite.png?scale=1&w=1&h=1",
+			"name": "Apprentice Cartographer's Seal",
+			"poeTradeId": -1
+		},
+		{
+			"id": 50,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealYellow.png?scale=1&w=1&h=1",
+			"name": "Journeyman Cartographer's Seal",
+			"poeTradeId": -1
+		},
+		{
+			"id": 51,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealRed.png?scale=1&w=1&h=1",
+			"name": "Master Cartographer's Seal",
+			"poeTradeId": -1
+		},
+		{
+			"id": 52,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealRed.png?scale=1&w=1&h=1",
+			"name": "Sacrifice Set",
+			"poeTradeId": 48
+		},
+		{
+			"id": 53,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealRed.png?scale=1&w=1&h=1",
+			"name": "Mortal Set",
+			"poeTradeId": 49
+		},
+		{
+			"id": 54,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealRed.png?scale=1&w=1&h=1",
+			"name": "Pale Court Set",
+			"poeTradeId": 50
+		},
+		{
+			"id": 55,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealRed.png?scale=1&w=1&h=1",
+			"name": "Shaper Set",
+			"poeTradeId": 51
+		},
+		{
+			"id": 56,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardFire.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Splinter of Xoph",
+			"poeTradeId": 52
+		},
+		{
+			"id": 57,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardCold.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Splinter of Tul",
+			"poeTradeId": 53
+		},
+		{
+			"id": 58,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardLightning.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Splinter of Esh",
+			"poeTradeId": 54
+		},
+		{
+			"id": 59,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardPhysical.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Splinter of Uul-Netol",
+			"poeTradeId": 55
+		},
+		{
+			"id": 60,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardChaos.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Splinter of Chayula",
+			"poeTradeId": 56
+		},
+		{
+			"id": 61,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderFire.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Blessing of Xoph",
+			"poeTradeId": 57
+		},
+		{
+			"id": 62,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderCold.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Blessing of Tul",
+			"poeTradeId": 58
+		},
+		{
+			"id": 63,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderLightning.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Blessing of Esh",
+			"poeTradeId": 59
+		},
+		{
+			"id": 64,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderPhysical.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Blessing of Uul-Netol",
+			"poeTradeId": 60
+		},
+		{
+			"id": 65,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderChaos.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Blessing of Chayula",
+			"poeTradeId": 61
+		},
+		{
+			"id": 66,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachFragmentsFire.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Xoph's Breachstone",
+			"poeTradeId": 62
+		},
+		{
+			"id": 67,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachFragmentsCold.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Tul's Breachstone",
+			"poeTradeId": 63
+		},
+		{
+			"id": 68,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachFragmentsLightning.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Esh's Breachstone",
+			"poeTradeId": 64
+		},
+		{
+			"id": 69,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachFragmentsPhysical.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Uul-Netol's Breachstone",
+			"poeTradeId": 65
+		},
+		{
+			"id": 70,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachFragmentsChaos.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Chayula's Breachstone",
+			"poeTradeId": 66
+		},
+		{
+			"id": 71,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/VaultMap.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Ancient Reliquary Key",
+			"poeTradeId": 494
+		},
+		{
+			"id": 72,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/SinFlaskEmpty.png?scale=1&scaleIndex=0&w=1&h=2",
+			"name": "Divine Vessel",
+			"poeTradeId": 512
+		},
+		{
+			"id": 73,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AnnullOrb.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Orb of Annulment",
+			"poeTradeId": 513
+		},
+		{
+			"id": 74,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BindingOrb.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Orb of Binding",
+			"poeTradeId": 514
+		},
+		{
+			"id": 75,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/HorizonOrb.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Orb of Horizons",
+			"poeTradeId": 515
+		},
+		{
+			"id": 76,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/HarbingerOrb.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Harbinger's Orb",
+			"poeTradeId": 516
+		},
+		{
+			"id": 77,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/EngineersOrb.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Engineer's Orb",
+			"poeTradeId": 517
+		},
+		{
+			"id": 78,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AncientOrb.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Ancient Orb",
+			"poeTradeId": 518
+		},
+		{
+			"id": 79,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AnnullShard.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Annulment Shard",
+			"poeTradeId": 519
+		},
+		{
+			"id": 80,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ExaltedShard.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Exalted Shard",
+			"poeTradeId": 521
+		},
+		{
+			"id": 81,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Currency/MirrorShard.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Mirror Shard",
+			"poeTradeId": 520
+		},
+		{
+			"id": 82,
+			"icon": "https://web.poecdn.com/image/Art/2DItems/Maps/VaultMap3.png?scale=1&scaleIndex=0&w=1&h=1",
+			"name": "Timeworn Reliquary Key",
+			"poeTradeId": -1
+		}
+	]
+}

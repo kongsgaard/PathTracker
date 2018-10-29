@@ -12,12 +12,14 @@ namespace PathTracker_Backend {
 
         IProcessWindowScreenshotCapture processWindowScreenshotCapture;
         ISettings Settings;
+        ResourceManager Resource;
 
-        public ZonePropertyExtractor(IProcessWindowScreenshotCapture capture, ISettings settings) {
+        public ZonePropertyExtractor(IProcessWindowScreenshotCapture capture, ISettings settings, ResourceManager resource) {
             Program.keyboardHook.OnKeyPressed += kbh_OnKeyPressed;
             Program.keyboardHook.OnKeyUnpressed += kbh_OnKeyUnPressed;
             processWindowScreenshotCapture = capture;
             Settings = settings;
+            Resource = resource;
 
         }
 
@@ -293,10 +295,10 @@ namespace PathTracker_Backend {
         private (List<MapMod>, MapModParseStatus) ParseOCRFile(string ocrFile) {
             var modLines = File.ReadAllLines(ocrFile);
 
-            MapMods possibleMapMods = ResourceManager.Instance.PossibleMapModsList;
+            MapMods possibleMapMods = Resource.PossibleMapModsList;
 
-            var possibleLines = ResourceManager.Instance.PossibleMapModLines;
-            var PossibleModsDict = ResourceManager.Instance.LineToMapModsDict;
+            var possibleLines = Resource.PossibleMapModLines;
+            var PossibleModsDict = Resource.LineToMapModsDict;
 
             Dictionary<string, MapMod> ChosenCandidateMods = new Dictionary<string, MapMod>();
 

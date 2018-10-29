@@ -32,13 +32,15 @@ namespace PathTracker_Backend {
 
             IDiskSaver mongoDiskSaver = new MongoDBSaver(settings);
             IDiskSaver folderDiskSaver = new DiskFolderSaver(settings);
+            ResourceManager resourceManager = new ResourceManager();
+
 
             IWebRequestManager webRequestManager = new WebRequestManager(settings);
-            IZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(new Win32ProcessScreenshotCapture(), settings);
+            IZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(new Win32ProcessScreenshotCapture(), settings, resourceManager);
 
             ICurrencyRates currencyRates = new PoeNinjaCurrencyRates(settings);
 
-            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings, currencyRates);
+            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings, currencyRates, resourceManager);
             
             Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();

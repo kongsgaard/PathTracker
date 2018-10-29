@@ -10,12 +10,15 @@ namespace PathTracker_Backend
     {
         public ICurrencyRates currencyRates;
         Dictionary<int,IItemRate> orderedItemValuators = new Dictionary<int, IItemRate>();
+        ResourceManager Resource;
 
-        public ItemValuator(ICurrencyRates rates) {
+
+        public ItemValuator(ICurrencyRates rates, ResourceManager resource) {
             currencyRates = rates;
             currencyRates.Update();
-            
-            orderedItemValuators.Add(1, new ItemNoteValuator());
+            Resource = resource;
+
+            orderedItemValuators.Add(1, new ItemNoteValuator(Resource));
             orderedItemValuators.Add(2, new ItemRecipeValuator());
         }
 
@@ -40,7 +43,7 @@ namespace PathTracker_Backend
                 return value * count;
             }
             else {
-                if(!ResourceManager.Instance.ExcludedCurrencies.Contains(name)) {
+                if(!Resource.ExcludedCurrencies.Contains(name)) {
                     throw new Exception("Could not find value of currency: " + name);
                 }
             }

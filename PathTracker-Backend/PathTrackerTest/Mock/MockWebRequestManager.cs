@@ -8,6 +8,12 @@ using PathTracker_Backend;
 namespace PathTrackerTest {
     class MockWebRequestManager : IWebRequestManager {
 
+        ISettings Settings;
+
+        public MockWebRequestManager(ISettings settings) {
+            Settings = settings;
+        }
+
         private Dictionary<string,Queue<Inventory>> inventories = new Dictionary<string, Queue<Inventory>>();
 
         public void AddInventoryToQueue(Inventory inv, string character) {
@@ -39,6 +45,10 @@ namespace PathTrackerTest {
 
 
         public Inventory GetInventory(string currentChar = "") {
+
+            if (currentChar == "") {
+                currentChar = Settings.GetValue("CurrentCharacter");
+            }
 
             if (inventories.ContainsKey(currentChar)){
                 return inventories[currentChar].Dequeue();

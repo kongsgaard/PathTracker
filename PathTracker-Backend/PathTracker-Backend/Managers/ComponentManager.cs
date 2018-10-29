@@ -17,10 +17,13 @@ namespace PathTracker_Backend {
         IWebRequestManager requestCoordinator;
         ZoneManager zoneManager;
         ISettings Settings;
-        
-        public ComponentManager(IDiskSaver diskSaver, IWebRequestManager webRequestManager, IZonePropertyExtractor zonePropertyExtractor, ISettings settings, ICurrencyRates currencyRates) {
+        ResourceManager Resource;
+
+        public ComponentManager(IDiskSaver diskSaver, IWebRequestManager webRequestManager, IZonePropertyExtractor zonePropertyExtractor, 
+                                ISettings settings, ICurrencyRates currencyRates, ResourceManager resource) {
+            Resource = resource;
             Settings = settings;
-            zoneManager = new ZoneManager(diskSaver, zonePropertyExtractor, Settings, currencyRates);
+            zoneManager = new ZoneManager(diskSaver, zonePropertyExtractor, Settings, currencyRates, Resource);
             requestCoordinator = webRequestManager;
         }
 

@@ -15,6 +15,12 @@ namespace PathTracker_Backend
         public List<Item> EnteredWithItems;
         public List<Item> ExitedWithItems;
 
+        ResourceManager Resource;
+
+        public ExperienceDeltaCalculator(ResourceManager resource) {
+            Resource = resource;
+        }
+
         public CharacterProgress CalculateDelta() {
 
             CharacterProgress characterProgress = new CharacterProgress();
@@ -36,7 +42,7 @@ namespace PathTracker_Backend
 
             Dictionary<int, double> LevelProgress = new Dictionary<int, double>();
 
-            var ExperienceDictionary = ResourceManager.Instance.ExperienceDictionary;
+            var ExperienceDictionary = Resource.ExperienceDictionary;
 
             int EnteredLevel = EnteredWithCharacter.Level;
             long EnteredXp = EnteredWithCharacter.Experience;

@@ -38,6 +38,11 @@ namespace PathTracker_Backend
 
         private HashSet<string> KnownItems = new HashSet<string>();
 
+        public void DropCollection(string collectionName) {
+            var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));
+            db.DropCollection("ZoneDocuments");
+        }
+
         public void UpdateItemValue(Item item, ItemValuator itemValuator) {
 
             var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));

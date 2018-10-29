@@ -14,7 +14,7 @@ namespace PathTracker_Backend
         /// </summary>
         public Dictionary<int, Tuple<long, long>> ExperienceDictionary = new Dictionary<int, Tuple<long, long>>();
         private void CalculateExperienceDictionary() {
-            var assembly = Assembly.GetEntryAssembly();
+            var assembly = Assembly.Load("PathTracker-Backend");
 
             var rsStream = assembly.GetManifestResourceStream("PathTracker-Backend.Resources.ExperienceToLevel.txt");
 
@@ -50,7 +50,7 @@ namespace PathTracker_Backend
         public List<string> PossibleMapModLines = new List<string>();
         public Dictionary<string, List<MapMod>> LineToMapModsDict = new Dictionary<string, List<MapMod>>();
         public void LoadMapMods() {
-            var assembly = Assembly.GetEntryAssembly();
+            var assembly = Assembly.Load("PathTracker-Backend");
 
             var rsStream = assembly.GetManifestResourceStream("PathTracker-Backend.Resources.MapMods.txt");
 
@@ -145,7 +145,7 @@ namespace PathTracker_Backend
 
         public Dictionary<string, string> CurrencyTagLookup = new Dictionary<string, string>();
         private void LoadCurrencyTagLookup() {
-            var assembly = Assembly.GetEntryAssembly();
+            var assembly = Assembly.Load("PathTracker-Backend");
 
             var rsStream = assembly.GetManifestResourceStream("PathTracker-Backend.Resources.CurrencyTags.txt");
 
@@ -172,7 +172,7 @@ namespace PathTracker_Backend
 
         public HashSet<string> ExcludedCurrencies = new HashSet<string>();
         private void LoadExcludedCurrencies() {
-            var assembly = Assembly.GetEntryAssembly();
+            var assembly = Assembly.Load("PathTracker-Backend");
 
             var rsStream = assembly.GetManifestResourceStream("PathTracker-Backend.Resources.CurrencyTags.txt");
 
@@ -200,12 +200,5 @@ namespace PathTracker_Backend
             LoadExcludedCurrencies();
         }
 
-        private static ResourceManager Manager = new ResourceManager();
-
-        public static ResourceManager Instance {
-            get {
-                return Manager;
-            }
-        }
     }
 }

@@ -17,6 +17,8 @@ namespace PathTracker_Backend
         public ItemDeltaCalculator deltaCalculator { get; set; }
         public ExperienceDeltaCalculator experienceCalculator { get; set; }
 
+        public ResourceManager Resource;
+
         public List<MapMod> mapMods = new List<MapMod>();
 
         public List<Item> AddedNonStackableItems = new List<Item>();
@@ -36,10 +38,11 @@ namespace PathTracker_Backend
         public double TentativeChaosAdded = 0;
         public double ConfirmedChaosRemoved = 0;
 
-        public Zone(string zoneName) {
+        public Zone(string zoneName, ResourceManager resource) {
+            Resource = resource;
             ZoneName = zoneName;
             deltaCalculator = new ItemDeltaCalculator();
-            experienceCalculator = new ExperienceDeltaCalculator();
+            experienceCalculator = new ExperienceDeltaCalculator(Resource);
             zoneTimer.Start();
             timeEntered = DateTime.Now;
         }
