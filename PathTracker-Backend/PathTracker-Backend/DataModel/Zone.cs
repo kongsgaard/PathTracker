@@ -45,6 +45,9 @@ namespace PathTracker_Backend
         [BsonElement(elementName: "RemovedNonStackableItems")]
         public List<Item> RemovedNonStackableItems = new List<Item>();
 
+        [BsonIgnore]
+        public List<Tuple<ItemChangeType, Item>> ModifiedNonStackableItems = new List<Tuple<ItemChangeType, Item>>();
+
         [BsonElement(elementName: "DeltaStackableItems")]
         public Dictionary<string, int> DeltaStackableItems = new Dictionary<string, int>();
 
@@ -85,11 +88,14 @@ namespace PathTracker_Backend
         public void CalculateAndAddToDelta() {
             List<Item> addedNonStackableItems = new List<Item>();
             List<Item> removedNonStackableItems = new List<Item>();
+            List<Tuple<ItemChangeType, Item>> modifiedNonStackableItems = new List<Tuple<ItemChangeType, Item>>();
             Dictionary<string, int> deltaStackableItems = new Dictionary<string, int>();
-            (deltaStackableItems, addedNonStackableItems, removedNonStackableItems) = deltaCalculator.CalculateDelta(ZoneName);
+
+            (deltaStackableItems, addedNonStackableItems, removedNonStackableItems, modifiedNonStackableItems) = deltaCalculator.CalculateDelta(ZoneName);
 
             AddedNonStackableItems.AddRange(addedNonStackableItems);
             RemovedNonStackableItems.AddRange(removedNonStackableItems);
+            ModifiedNonStackableItems.AddRange(modifiedNonStackableItems);
 
             DeltaStackableItems = Toolbox.AddDictionaries(DeltaStackableItems, deltaStackableItems);
             
@@ -173,6 +179,14 @@ namespace PathTracker_Backend
             if(countRemoved != 1) {
                 throw new Exception("Tried to remove item from zone, with item id:" + item.itemId + " || Could not remove single");
             }
+        }
+
+        public void UpdateItem(Item item) {
+            var countRemoved = AddedNonStackableItems.RemoveAll(x => x.itemId == item.itemId);
+            if (countRemoved != 1) {
+                throw new Exception("Tried to remove item from zone, with item id:" + item.itemId + " || Could not remove single");
+            }
+            AddedNonStackableItems.Add(item);
         }
 
         public void CalculatZoneWorth(ItemValuator itemValuator) {

@@ -14,6 +14,12 @@ namespace PathTrackerTest {
     [TestClass]
     public class FlowTests {
         
+        [TestMethod]
+        public void AllTheTests() {
+            AddItemTest();
+            TestRecipeValuator();
+        }
+
         /// <summary>
         /// Test adding an item to a zone
         /// </summary>
@@ -132,9 +138,7 @@ namespace PathTrackerTest {
             TestSetup setup = new TestSetup();
             setup.settings.SetValue("MongoDBCollectionName", "TestNoteChange");
             setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));
-
             
-
             double ExaltedValue = 50;
             setup.mockCurreny.TypelineChaosValue["Exalted Orb"] = ExaltedValue;
 
@@ -167,8 +171,8 @@ namespace PathTrackerTest {
             Assert.IsTrue(mongoDBAsserter.ZoneTentativeChaosValue(2 * ExaltedValue, "StartZone"));
             Assert.IsTrue(mongoDBAsserter.ZoneNotAddedItems(itemToAdd, "SecondZone"));
             Assert.IsTrue(mongoDBAsserter.ZoneTentativeChaosValue(0, "SecondZone"));
+            Assert.IsTrue(mongoDBAsserter.ItemZoneMapPair(itemToAdd.itemId, "StartZone"));
         }
-
 
         public void MainProgram(ComponentManager manager, List<string> tabs) {
             Task t = new Task(() => manager.StartClientTxtListener());

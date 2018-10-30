@@ -66,6 +66,23 @@ namespace PathTrackerTest {
 
         }
 
+        public bool ItemZoneMapPair(string itemID, string ZoneID) {
+            var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));
+
+            var docs = db.GetCollection<ItemIDToZoneID>(Settings.GetValue("MongoDBCollectionName") + "_ItemZoneMap");
+
+            var query = from map in docs.AsQueryable()
+                        where map.ItemID == itemID && map.CurrentZoneID == ZoneID
+                        select map;
+
+            var list = query.ToList();
+
+            if (list.Count != 1) {
+                throw new Exception();
+            }
+            else
+                return true;
+        }
 
         public bool ZoneConfirmedChaosValue(double chaosAdded, string ZoneID) {
             Zone zone = GetSingleZone(ZoneID);

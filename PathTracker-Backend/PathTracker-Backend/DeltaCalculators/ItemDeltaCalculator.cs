@@ -25,10 +25,11 @@ namespace PathTracker_Backend
         //For delta
         List<Item> AddedNonStackables = new List<Item>();
         List<Item> RemovedNonStackables = new List<Item>();
-        
+        List<Tuple<ItemChangeType, Item>> ModifiedNonStackables = new List<Tuple<ItemChangeType, Item>>();
+
         Dictionary<string, int> DeltaStackableCountDictionary = new Dictionary<string, int>();
 
-        public (Dictionary<string,int>, List<Item>, List<Item>) CalculateDelta(string zoneName) {
+        public (Dictionary<string,int>, List<Item>, List<Item>, List<Tuple<ItemChangeType, Item>>) CalculateDelta(string zoneName) {
             enteredWithStackableCountDictionary = new Dictionary<string, int>();
             leftWithStackableCountDictionary = new Dictionary<string, int>();
             enteredWithNonStackableItems = new List<Item>();
@@ -42,7 +43,7 @@ namespace PathTracker_Backend
             IterateItemList(leftZoneWithItems, leftWithStackableCountDictionary, leftWithNonStackableItems);
 
             DeltaStackableCountDictionary = CalculateStackableDelta(enteredWithStackableCountDictionary, leftWithStackableCountDictionary);
-            (AddedNonStackables, RemovedNonStackables) = CalculateNonStackableDelta(leftWithNonStackableItems, enteredWithNonStackableItems);
+            (AddedNonStackables, RemovedNonStackables, ModifiedNonStackables) = CalculateNonStackableDelta(leftWithNonStackableItems, enteredWithNonStackableItems);
 
             string logAdded = "Added - ";
             string logRemoved = "Removed - ";
@@ -60,7 +61,7 @@ namespace PathTracker_Backend
 
             ItemDeltaLog.Info("DeltaCalculator for ZoneName changes: " + logAdded + "||" + logRemoved + "||" + logStackableDelta);
 
-            return (DeltaStackableCountDictionary, AddedNonStackables, RemovedNonStackables);
+            return (DeltaStackableCountDictionary, AddedNonStackables, RemovedNonStackables, ModifiedNonStackables);
         }
 
         private Dictionary<string, int> CalculateStackableDelta(Dictionary<string, int> enteredWithCount, Dictionary<string, int> leftWithCount) {
@@ -100,12 +101,58 @@ namespace PathTracker_Backend
             
         }
 
-        private (List<Item>, List<Item>) CalculateNonStackableDelta(List<Item> leftWithNonStackables, List<Item> enteredWithNonStackables) {
+        private (List<Item>, List<Item>, List<Tuple<ItemChangeType, Item>>) CalculateNonStackableDelta(List<Item> leftWithNonStackables, List<Item> enteredWithNonStackables) {
 
             var added = leftWithNonStackables.Except(enteredWithNonStackables, new ItemComparer()).ToList();
             var removed = enteredWithNonStackables.Except(leftWithNonStackables, new ItemComparer()).ToList();
+            var modified = CalculateModifiedItems(leftWithNonStackables, enteredWithNonStackables);
 
-            return (added, removed);
+            return (added, removed, modified);
+        }
+        
+        private List<Tuple<ItemChangeType, Item>> CalculateModifiedItems(List<Item> leftWithNonStackables, List<Item> enteredWithNonStackables) {
+
+            var AlteredItems = new List<Tuple<ItemChangeType, Item>>();
+
+            foreach(Item entered in enteredWithNonStackableItems) {
+
+                var leftList = leftWithNonStackableItems.Where(x => x.itemId == entered.itemId);
+                if(leftList.Count() > 1) {
+                    throw new Exception("Should not happen - Multiple items with same ID found in delta lists");
+                }
+                else if(leftList.Count() == 1) {
+                    ItemChangeType changeType = FindItemChange(entered, leftList.First());
+
+                    if(changeType != ItemChangeType.NoChange) {
+                        AlteredItems.Add(new Tuple<ItemChangeType, Item>(changeType, leftList.First()));
+                    }
+                }
+            }
+            return AlteredItems;
+        }
+
+        /// <summary>
+        /// The order of checks matter. Any ItemChangeType that should alter in items being reallocated to a new zone should come first
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="i2"></param>
+        /// <returns></returns>
+        private ItemChangeType FindItemChange(Item i1, Item i2) {
+
+            if(i1.enchantMods != i2.enchantMods) {
+                var ex1 = i1.enchantMods.Except(i2.enchantMods);
+                var ex2 = i2.enchantMods.Except(i1.enchantMods);
+
+                if(ex1.Count() > 0 || ex2.Count() > 0) {
+                    return ItemChangeType.EnchantedModChanged;
+                }
+            }
+
+            if(i1.note != i2.note) {
+                return ItemChangeType.NoteChanged;
+            }
+
+            return ItemChangeType.NoChange;
         }
         
         /// <summary>
@@ -174,4 +221,6 @@ namespace PathTracker_Backend
 
 
     }
+
+    public enum ItemChangeType { NoChange, NoteChanged, EnchantedModChanged }
 }

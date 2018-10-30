@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
-using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 
 namespace PathTracker_Backend
@@ -33,6 +33,16 @@ namespace PathTracker_Backend
             var docs = db.GetCollection<BsonDocument>(Settings.GetValue("MongoDBCollectionName"));
             
             docs.InsertOneAsync(zone.ToBsonDocument());
+            
+            foreach(Item addedItem in zone.AddedNonStackableItems) {
+
+                var mapDocs = db.GetCollection<ItemIDToZoneID>(Settings.GetValue("MongoDBCollectionName") + "_ItemZoneMap");
+                var filter = Builders<ItemIDToZoneID>.Filter.Eq(x => x.ItemID, addedItem.itemId);
+                var options = new UpdateOptions();
+                options.IsUpsert = true;
+                mapDocs.ReplaceOne(filter, new ItemIDToZoneID(addedItem.itemId, zone.ZoneID), options);
+
+            }
 
             Console.WriteLine("Write zone("+ zone.ZoneName + ") info to MongoDB at " + Settings.GetValue("MongoDBConnectionString"));
         }
@@ -42,13 +52,15 @@ namespace PathTracker_Backend
         public void DropCollection(string collectionName) {
             var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));
             db.DropCollection(collectionName);
+
+            db.DropCollection(collectionName + "_ItemZoneMap");
         }
 
-        public void UpdateItemValue(Item item, ItemValuator itemValuator) {
+        public void UpdateZoneWithItemValue(Item item, ItemValuator itemValuator, ItemChangeType changeType, Zone fromZone) {
 
             var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));
             
-            var docs = db.GetCollection<ItemIDToZoneID>("ItemZoneMap");
+            var docs = db.GetCollection<ItemIDToZoneID>(Settings.GetValue("MongoDBCollectionName") + "_ItemZoneMap");
 
             var query = from p in docs.AsQueryable()
                         where p.ItemID == item.itemId
@@ -60,12 +72,16 @@ namespace PathTracker_Backend
                 throw new Exception("ItemZoneMap should not contain more than 1 element per item, contained multiple for item with id:" + item.itemId);
             }
             else if(list.Count < 1) {
+                //Cant find item from previous zone, so insert into map, and add to from zome
+                var filter = Builders<ItemIDToZoneID>.Filter.Eq(x => x.ItemID, item.itemId);
+                var options = new UpdateOptions();
+                options.IsUpsert = true;
+                docs.ReplaceOne(filter, new ItemIDToZoneID(item.itemId, fromZone.ZoneID), options);
 
-                docs.InsertOneAsync(new ItemIDToZoneID(item.itemId, item.CurrentZoneID));
+                fromZone.AddedNonStackableItems.Add(item);
             }
             else {
-
-                #region Extract old zone and remove item, and save it back to DB
+                
                 string oldZoneID = list.First();
 
                 var zoneDocs = db.GetCollection<Zone>(Settings.GetValue("MongoDBCollectionName"));
@@ -74,26 +90,43 @@ namespace PathTracker_Backend
                                 where z.ZoneID == oldZoneID
                                 select z;
 
-                if(zoneQuery.Count() != 1) {
+                var zoneResult = zoneQuery.ToList();
+
+                if (zoneResult.Count() != 1) {
                     throw new Exception("Could not return single zone from Zonedocs with id:" + oldZoneID);
                 }
                 else {
-                    Zone oldZone = zoneQuery.First();
+                    Zone oldZone = zoneResult.First();
 
-                    oldZone.RemoveItem(item);
+                    if(changeType == ItemChangeType.EnchantedModChanged) {
+                        oldZone.RemoveItem(item);
 
-                    oldZone.CalculatZoneWorth(itemValuator);
+                        oldZone.CalculatZoneWorth(itemValuator);
 
-                    var varZoneFilter = Builders<Zone>.Filter.Eq(s => s.ZoneID, oldZoneID);
-                    var zoneResult = zoneDocs.ReplaceOne(varZoneFilter, oldZone);
+                        var varZoneFilter = Builders<Zone>.Filter.Eq(s => s.ZoneID, oldZoneID);
+                        var zoneReplaceResult = zoneDocs.ReplaceOne(varZoneFilter, oldZone);
+
+                        fromZone.AddedNonStackableItems.Add(item);
+
+                        //Update map in database to new currentZone
+                        var updateFilter = Builders<ItemIDToZoneID>.Filter.Eq(s => s.ItemID, item.itemId);
+                        var updateStatement = Builders<ItemIDToZoneID>.Update.Set(s => s.CurrentZoneID, fromZone.ZoneID);
+                        var result = docs.UpdateMany(updateFilter, updateStatement);
+                    }
+                    else if(changeType == ItemChangeType.NoteChanged) {
+                        oldZone.UpdateItem(item);
+                        oldZone.CalculatZoneWorth(itemValuator);
+
+                        var varZoneFilter = Builders<Zone>.Filter.Eq(s => s.ZoneID, oldZoneID);
+                        var zoneReplaceResult = zoneDocs.ReplaceOne(varZoneFilter, oldZone);
+                    }
+                    else {
+                        throw new Exception("Changed item with unsupported itemchangetype found");
+                    }
+                    
                 }
-                #endregion
 
-                //Update map in database to new currentZone
-                var updateFilter = Builders<ItemIDToZoneID>.Filter.Eq(s => s.ItemID, item.itemId);
-                var updateStatement = Builders<ItemIDToZoneID>.Update.Set(s => s.CurrentZoneID, item.CurrentZoneID);
-                var result = docs.UpdateMany(updateFilter, updateStatement);
-
+                
             }
         }
     }
@@ -105,8 +138,15 @@ namespace PathTracker_Backend
             CurrentZoneID = zoneID;
         }
 
+        public ItemIDToZoneID() { }
+
+        [BsonId]
+        public string _id { get; set; }
+
+        [BsonElement(elementName: "ItemID")]
         public string ItemID { get; set; }
 
+        [BsonElement(elementName: "CurrentZoneID")]
         public string CurrentZoneID { get; set; }    
     }
 

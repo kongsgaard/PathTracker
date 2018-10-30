@@ -195,6 +195,9 @@ namespace PathTracker_Backend
                 Console.WriteLine("Could not write zone to disk, because disksaver was null");
             }
             else if(fromZone != null) {
+                foreach(var change in fromZone.ModifiedNonStackableItems) {
+                    DiskSaver.UpdateZoneWithItemValue(change.Item2, itemValuator, change.Item1, fromZone);
+                }
                 DiskSaver.SaveToDisk(fromZone);
             }
 
