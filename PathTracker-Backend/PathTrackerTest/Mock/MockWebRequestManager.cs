@@ -61,6 +61,10 @@ namespace PathTrackerTest {
 
         public StashApiRequest GetStashtab(string name, string league = "", bool initializeTabs = false) {
 
+            if(league == "") {
+                league = Settings.GetValue("CurrentLeague");
+            }
+
             string combo = name + "##" + league;
 
             if (stashTabs.ContainsKey(combo)) {

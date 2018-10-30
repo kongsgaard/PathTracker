@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace PathTracker_Backend
 {
+    [Serializable]
     public class CharacterProgress
     {
         [JsonProperty("EquippedItems")]
@@ -19,6 +21,7 @@ namespace PathTracker_Backend
         [JsonProperty("AscendencyClass")]
         public int AscendencyClass { get; set; }
 
+        [BsonIgnore]
         [JsonProperty("LevelProgress")]
         public Dictionary<int, double> LevelProgress = new Dictionary<int, double>();
 

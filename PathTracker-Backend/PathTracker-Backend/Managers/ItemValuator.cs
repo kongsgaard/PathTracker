@@ -9,7 +9,9 @@ namespace PathTracker_Backend
     public class ItemValuator
     {
         public ICurrencyRates currencyRates;
-        Dictionary<int,IItemRate> orderedItemValuators = new Dictionary<int, IItemRate>();
+        
+        public Dictionary<int,IItemRate> orderedItemValuators = new Dictionary<int, IItemRate>();
+        
         ResourceManager Resource;
 
 

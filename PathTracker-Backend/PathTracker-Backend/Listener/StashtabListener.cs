@@ -36,7 +36,7 @@ namespace PathTracker_Backend {
             }
             enteredZoneDeltaCalculator.UpdateEnteredZoneWithItems(newStashTab.Items);
             
-            StashtabLog.Info("Stash (account:" + Settings.GetValue("account") + ",name:" + StashName + ", league:" + Settings.GetValue("league") + ") fetched");
+            StashtabLog.Info("Stash (account:" + Settings.GetValue("Account") + ",name:" + StashName + ", league:" + Settings.GetValue("CurrentLeague") + ") fetched");
         }
 
         public void NewZoneEntered(object sender, ZoneChangeArgs args) {

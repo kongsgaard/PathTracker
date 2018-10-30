@@ -3,172 +3,234 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace PathTracker_Backend {
+
+    [Serializable]
     public class Item {
+
+        //[BsonId]
+        //public string _id { get; set; }
+
+        [BsonElement(elementName: "abyssJewel")]
         [JsonProperty("abyssJewel")]
-        public bool AbyssJewel { get; set; }
+        public bool abyssJewel { get; set; }
 
+        [BsonElement(elementName: "additionalProperties")]
         [JsonProperty("additionalProperties")]
-        public List<Property> AdditionalProperties { get; set; }
+        public List<Property> additionalProperties { get; set; }
 
+        [BsonElement(elementName: "category")]
         [JsonProperty("category")]
-        public Category Category { get; set; }
+        public Category category { get; set; }
 
+        [BsonElement(elementName: "corrupted")]
         [JsonProperty("corrupted")]
-        public bool Corrupted { get; set; }
+        public bool corrupted { get; set; }
 
+        [BsonElement(elementName: "cosmeticMods")]
         [JsonProperty("cosmeticMods")]
-        public List<string> CosmeticMods { get; set; }
+        public List<string> cosmeticMods { get; set; }
 
+        [BsonElement(elementName: "craftedMods")]
         [JsonProperty("craftedMods")]
-        public List<string> CraftedMods { get; set; }
+        public List<string> craftedMods { get; set; }
 
+        [BsonElement(elementName: "descrText")]
         [JsonProperty("descrText")]
-        public string Description { get; set; }
+        public string descrText { get; set; }
 
+        [BsonElement(elementName: "dubplicated")]
         [JsonProperty("dubplicated")]
-        public bool Dubplicated { get; set; }
+        public bool dubplicated { get; set; }
 
+        [BsonElement(elementName: "")]
         [JsonProperty("elder")]
-        public bool Elder { get; set; }
+        public bool elder { get; set; }
 
+        [BsonElement(elementName: "enchantMods")]
         [JsonProperty("enchantMods")]
-        public List<string> EnchantMods { get; set; }
+        public List<string> enchantMods { get; set; }
 
+        [BsonElement(elementName: "explicitMods")]
         [JsonProperty("explicitMods")]
-        public List<string> ExplicitMods { get; set; }
+        public List<string> explicitMods { get; set; }
 
+        [BsonElement(elementName: "flavourText")]
         [JsonProperty("flavourText")]
-        public List<string> FlavourText { get; set; }
+        public List<string> flavourText { get; set; }
 
+        [BsonElement(elementName: "frameType")]
         [JsonProperty("frameType")]
-        public int FrameType { get; set; }
+        public int frameType { get; set; }
 
+        [BsonElement(elementName: "h")]
         [JsonProperty("h")]
-        public int Height { get; set; }
+        public int h { get; set; }
 
+        [BsonElement(elementName: "icon")]
         [JsonProperty("icon")]
-        public string IconUrl { get; set; }
+        public string icon { get; set; }
 
+        [BsonElement(elementName: "itemId")]
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public string itemId { get; set; }
 
+        [BsonElement(elementName: "identified")]
         [JsonProperty("identified")]
-        public bool Identified { get; set; }
+        public bool identified { get; set; }
 
+        [BsonElement(elementName: "ilvl")]
         [JsonProperty("ilvl")]
-        public int Ilvl { get; set; }
+        public int ilvl { get; set; }
 
+        [BsonElement(elementName: "implicitMods")]
         [JsonProperty("implicitMods")]
-        public List<string> ImplicitMods { get; set; }
+        public List<string> implicitMods { get; set; }
 
+        [BsonElement(elementName: "inventoryId")]
         [JsonProperty("inventoryId")]
-        public string InventoryId { get; set; }
+        public string inventoryId { get; set; }
 
+        [BsonElement(elementName: "isRelic")]
         [JsonProperty("isRelic")]
-        public bool IsRelic { get; set; }
+        public bool isRelic { get; set; }
 
+        [BsonElement(elementName: "league")]
         [JsonProperty("league")]
-        public string League { get; set; }
+        public string league { get; set; }
 
+        [BsonElement(elementName: "lockedToCharacter")]
         [JsonProperty("lockedToCharacter")]
-        public bool LockedToCharacter { get; set; }
-        
+        public bool lockedToCharacter { get; set; }
+
+        [BsonElement(elementName: "maxStackSize")]
         [DefaultValue(0)]
         [JsonProperty("maxStackSize", DefaultValueHandling = DefaultValueHandling.Populate)]
-        public int MaxStackSize { get; set; }
+        public int maxStackSize { get; set; }
 
+        [BsonElement(elementName: "name")]
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string name { get; set; }
 
+        [BsonElement(elementName: "nextLevelRequierments")]
         [JsonProperty("nextLevelRequierments")]
-        public List<Property> NextLevelReqs { get; set; }
+        public List<Property> nextLevelRequierments { get; set; }
 
+        [BsonElement(elementName: "note")]
         [JsonProperty("note")]
-        public string Note { get; set; }
+        public string note { get; set; }
 
+        [BsonElement(elementName: "properties")]
         [JsonProperty("properties")]
-        public List<Property> Properties { get; set; }
+        public List<Property> properties { get; set; }
 
+        [BsonElement(elementName: "prophecyDiffText")]
         [JsonProperty("prophecyDiffText")]
-        public string ProphecyDiffText { get; set; }
+        public string prophecyDiffText { get; set; }
 
+        [BsonElement(elementName: "prophecyText")]
         [JsonProperty("prophecyText")]
-        public string ProphecyText { get; set; }
+        public string prophecyText { get; set; }
 
+        [BsonElement(elementName: "requirements")]
         [JsonProperty("requirements")]
-        public List<Property> Requirements { get; set; }
+        public List<Property> requirements { get; set; }
 
+        [BsonElement(elementName: "secDescrText")]
         [JsonProperty("secDescrText")]
-        public string SecDescrText { get; set; }
+        public string secDescrText { get; set; }
 
+        [BsonElement(elementName: "shaper")]
         [JsonProperty("shaper")]
-        public bool Shaper { get; set; }
+        public bool shaper { get; set; }
 
+        [BsonElement(elementName: "socketedItems")]
         [JsonProperty("socketedItems")]
-        public List<Item> SocketedItems { get; set; }
+        public List<Item> socketedItems { get; set; }
 
+        [BsonElement(elementName: "sockets")]
         [JsonProperty("sockets")]
-        public List<Socket> Sockets { get; set; }
+        public List<Socket> sockets { get; set; }
 
+        [BsonElement(elementName: "stackSize")]
         [JsonProperty("stackSize")]
-        public int StackSize { get; set; }
+        public int stackSize { get; set; }
 
+        [BsonElement(elementName: "support")]
         [JsonProperty("support")]
-        public bool Support { get; set; }
+        public bool support { get; set; }
 
+        [BsonElement(elementName: "talismanTier")]
         [JsonProperty("talismanTier")]
-        public int TalismanTier { get; set; }
+        public int talismanTier { get; set; }
 
+        [BsonElement(elementName: "typeLine")]
         [JsonProperty("typeLine")]
-        public string TypeLine { get; set; }
+        public string typeLine { get; set; }
 
+        [BsonElement(elementName: "utilityMods")]
         [JsonProperty("utilityMods")]
-        public List<string> UtilityMods { get; set; }
+        public List<string> utilityMods { get; set; }
 
+        [BsonElement(elementName: "verified")]
         [JsonProperty("verified")]
-        public bool Verified { get; set; }
+        public bool verified { get; set; }
 
+        [BsonElement(elementName: "w")]
         [JsonProperty("w")]
-        public int Width { get; set; }
+        public int w { get; set; }
 
+        [BsonElement(elementName: "x")]
         [JsonProperty("x")]
-        public int X { get; set; }
+        public int x { get; set; }
 
+        [BsonElement(elementName: "y")]
         [JsonProperty("y")]
-        public int Y { get; set; }
+        public int y { get; set; }
 
+        [BsonElement(elementName: "itemValues")]
         [JsonProperty("itemValues")]
         public ItemValues itemValues = new ItemValues();
 
+        [BsonElement(elementName: "CurrentZoneID")]
         [JsonProperty("CurrentZoneID")]
         public string CurrentZoneID { get; set; }
    
     }
 
+    [Serializable]
     public class ItemValues {
-        [JsonProperty("CurrentChaosValue")]
-        public double CurrentChaosValue { get; set; }
+        [BsonElement(elementName: "currentChaosValue")]
+        [JsonProperty("currentChaosValue")]
+        public double currentChaosValue { get; set; }
 
-        [JsonProperty("ValueMode")]
-        public ItemValueMode valueMode = ItemValueMode.Unset;
-
-        [JsonProperty("Values")]
-        public List<ItemValue> Values = new List<ItemValue>();
-        
-    }
-
-    public class ItemValue {
-        [JsonProperty("CurrentChaosValue")]
-        public double CurrentChaosValue { get; set; }
-
+        [BsonElement(elementName: "valueMode")]
         [JsonProperty("valueMode")]
         public ItemValueMode valueMode = ItemValueMode.Unset;
 
+        [BsonElement(elementName: "values")]
+        [JsonProperty("values")]
+        public List<ItemValue> values = new List<ItemValue>();
+        
+    }
+
+    [Serializable]
+    public class ItemValue {
+        [BsonElement(elementName: "currentChaosValue")]
+        [JsonProperty("currentChaosValue")]
+        public double currentChaosValue { get; set; }
+
+        [BsonElement(elementName: "valueMode")]
+        [JsonProperty("valueMode")]
+        public ItemValueMode valueMode = ItemValueMode.Unset;
+
+        [BsonElement(elementName: "zoneID")]
         [JsonProperty("zoneID")]
         public string zoneID { get; set; }
 
+        [BsonElement(elementName: "setAt")]
         [JsonProperty("setAt")]
         public DateTime setAt { get; set; }
         
@@ -182,7 +244,7 @@ namespace PathTracker_Backend {
             if (item == null) {
                 return 0;
             }
-            return item.Id.GetHashCode();
+            return item.itemId.GetHashCode();
         }
 
         public bool Equals(Item i1, Item i2) {
@@ -193,70 +255,87 @@ namespace PathTracker_Backend {
                 object.ReferenceEquals(i2, null)) {
                 return false;
             }
-            return i1.Id == i2.Id;
+            return i1.itemId == i2.itemId;
         }
     }
 
+    [Serializable]
     public class Property {
+        [BsonElement(elementName: "name")]
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string name { get; set; }
 
+        [BsonElement(elementName: "values")]
         [JsonProperty("values")]
-        public List<List<string>> Values { get; set; }
+        public List<List<string>> values { get; set; }
 
+        [BsonElement(elementName: "displayMode")]
         [JsonProperty("displayMode")]
-        public int DisplayMode { get; set; }
+        public int displayMode { get; set; }
 
+        [BsonElement(elementName: "type")]
         [JsonProperty("type")]
-        public int PropertyType { get; set; }
+        public int type { get; set; }
 
+        [BsonElement(elementName: "progress")]
         [JsonProperty("progress")]
-        public double XpProgress { get; set; }
-        
+        public double progress { get; set; }
         
     }
 
+    [Serializable]
     public class Category {
+        [BsonElement(elementName: "maps")]
         [JsonProperty("maps")]
-        public List<string> Maps { get; set; }
+        public List<string> maps { get; set; }
 
+        [BsonElement(elementName: "currency")]
         [JsonProperty("currency")]
-        public List<string> Currency { get; set; }
+        public List<string> currency { get; set; }
 
+        [BsonElement(elementName: "jewels")]
         [JsonProperty("jewels")]
-        public List<string> Jewels { get; set; }
+        public List<string> jewels { get; set; }
 
+        [BsonElement(elementName: "gems")]
         [JsonProperty("gems")]
-        public List<string> Gems { get; set; }
+        public List<string> gems { get; set; }
 
+        [BsonElement(elementName: "cards")]
         [JsonProperty("cards")]
-        public List<string> Cards { get; set; }
+        public List<string> cards { get; set; }
 
+        [BsonElement(elementName: "flasks")]
         [JsonProperty("flasks")]
-        public List<string> Flasks { get; set; }
+        public List<string> flasks { get; set; }
 
+        [BsonElement(elementName: "weapons")]
         [JsonProperty("weapons")]
-        public List<string> Weapons { get; set; }
+        public List<string> weapons { get; set; }
 
+        [BsonElement(elementName: "accessories")]
         [JsonProperty("accessories")]
-        public List<string> Accessories { get; set; }
+        public List<string> accessories { get; set; }
         
         
     }
 
+    [Serializable]
     public class Socket {
+        [BsonElement(elementName: "group")]
         [JsonProperty("group")]
-        public int GroupId { get; set; }
+        public int group { get; set; }
 
         /// <summary>
         /// S=str, I=int, D=dex, G=white, false=abyss
         /// </summary>
+        [BsonElement(elementName: "attr")]
         [JsonProperty("attr")]
-        private string Attr { get; set; }
+        private string attr { get; set; }
 
         public SocketType Type {
             get {
-                switch (Attr) {
+                switch (attr) {
                     case "S":
                         return SocketType.Str;
                     case "I":
@@ -268,7 +347,7 @@ namespace PathTracker_Backend {
                     case "false":
                         return SocketType.Abyss;
                     default:
-                        throw new Exception("Non-impletemend sockettype: " + Attr + " encountered");
+                        throw new Exception("Non-impletemend sockettype: " + attr + " encountered");
                 }
             }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
+using MongoDB.Bson.Serialization;
 
 
 namespace PathTracker_Backend
@@ -27,11 +28,11 @@ namespace PathTracker_Backend
 
             var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));
 
-            BsonDocument doc = BsonDocument.Parse(zone.ToJSON());
+            //BsonDocument doc = BsonDocument.Parse(zone.ToJSON());
 
-            var docs = db.GetCollection<BsonDocument>("ZoneDocuments");
-
-            docs.InsertOneAsync(doc);
+            var docs = db.GetCollection<BsonDocument>(Settings.GetValue("MongoDBCollectionName"));
+            
+            docs.InsertOneAsync(zone.ToBsonDocument());
 
             Console.WriteLine("Write zone("+ zone.ZoneName + ") info to MongoDB at " + Settings.GetValue("MongoDBConnectionString"));
         }
@@ -40,7 +41,7 @@ namespace PathTracker_Backend
 
         public void DropCollection(string collectionName) {
             var db = client.GetDatabase(Settings.GetValue("MongoDBDatabaseName"));
-            db.DropCollection("ZoneDocuments");
+            db.DropCollection(collectionName);
         }
 
         public void UpdateItemValue(Item item, ItemValuator itemValuator) {
@@ -50,24 +51,24 @@ namespace PathTracker_Backend
             var docs = db.GetCollection<ItemIDToZoneID>("ItemZoneMap");
 
             var query = from p in docs.AsQueryable()
-                        where p.ItemID == item.Id
+                        where p.ItemID == item.itemId
                         select p.CurrentZoneID;
 
             var list = query.ToList();
 
             if(list.Count > 1) {
-                throw new Exception("ItemZoneMap should not contain more than 1 element per item, contained multiple for item with id:" + item.Id);
+                throw new Exception("ItemZoneMap should not contain more than 1 element per item, contained multiple for item with id:" + item.itemId);
             }
             else if(list.Count < 1) {
 
-                docs.InsertOneAsync(new ItemIDToZoneID(item.Id, item.CurrentZoneID));
+                docs.InsertOneAsync(new ItemIDToZoneID(item.itemId, item.CurrentZoneID));
             }
             else {
 
                 #region Extract old zone and remove item, and save it back to DB
                 string oldZoneID = list.First();
 
-                var zoneDocs = db.GetCollection<Zone>("ZoneDocuments");
+                var zoneDocs = db.GetCollection<Zone>(Settings.GetValue("MongoDBCollectionName"));
 
                 var zoneQuery = from z in zoneDocs.AsQueryable()
                                 where z.ZoneID == oldZoneID
@@ -89,7 +90,7 @@ namespace PathTracker_Backend
                 #endregion
 
                 //Update map in database to new currentZone
-                var updateFilter = Builders<ItemIDToZoneID>.Filter.Eq(s => s.ItemID, item.Id);
+                var updateFilter = Builders<ItemIDToZoneID>.Filter.Eq(s => s.ItemID, item.itemId);
                 var updateStatement = Builders<ItemIDToZoneID>.Update.Set(s => s.CurrentZoneID, item.CurrentZoneID);
                 var result = docs.UpdateMany(updateFilter, updateStatement);
 

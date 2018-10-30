@@ -78,16 +78,16 @@ namespace PathTracker_Backend
                     var noGoGems = new string[] {"Enlighten Support", "Empower Support", "Enhance Support"};
 
                     //Match sockets based on id
-                    if(enteredWith.Id == exitedWith.Id && enteredWith.AdditionalProperties.Count > 0 && ExitedWithSocketedGems.Count > 0 && 
-                        !(noGoGems.Contains(enteredWith.TypeLine)) && !(noGoGems.Contains(exitedWith.TypeLine))) {
+                    if(enteredWith.itemId == exitedWith.itemId && enteredWith.additionalProperties.Count > 0 && ExitedWithSocketedGems.Count > 0 && 
+                        !(noGoGems.Contains(enteredWith.typeLine)) && !(noGoGems.Contains(exitedWith.typeLine))) {
 
                         string[] enteredWithXp = null;
                         string[] exitedWithXp = null;
 
                         //Find xp property and value for enteredWith socket
-                        foreach(Property p in enteredWith.AdditionalProperties) {
-                            if(p.Name=="Experience" && p.Values.Count > 0) {
-                                foreach(var values in p.Values) {
+                        foreach(Property p in enteredWith.additionalProperties) {
+                            if(p.name=="Experience" && p.values.Count > 0) {
+                                foreach(var values in p.values) {
                                     foreach(var value in values) {
                                         if (value.Split('/').ToList().Count == 2) {
                                             enteredWithXp = value.Split('/');
@@ -98,9 +98,9 @@ namespace PathTracker_Backend
                         }
 
                         //Find xp property and value for exitedWith socket
-                        foreach (Property p in exitedWith.AdditionalProperties) {
-                            if (p.Name == "Experience" && p.Values.Count > 0) {
-                                foreach (var values in p.Values) {
+                        foreach (Property p in exitedWith.additionalProperties) {
+                            if (p.name == "Experience" && p.values.Count > 0) {
+                                foreach (var values in p.values) {
                                     foreach (var value in values) {
                                         if (value.Split('/').ToList().Count == 2) {
                                             exitedWithXp = value.Split('/');
@@ -134,16 +134,16 @@ namespace PathTracker_Backend
         private List<Item> SocketedGems(List<Item> inventory) {
             List<Item> SocketedGems = new List<Item>();
 
-            var items = inventory.Where(x => x.InventoryId != "MainInventory");
+            var items = inventory.Where(x => x.inventoryId != "MainInventory");
 
             foreach (Item item in items) {
-                if (item.SocketedItems != null) {
-                    if (item.SocketedItems.Count > 0) {
-                        foreach (Item socket in item.SocketedItems) {
-                            if (socket.AdditionalProperties != null) {
-                                if (socket.AdditionalProperties.Count > 0) {
-                                    foreach (Property prop in socket.AdditionalProperties) {
-                                        if (prop.Name == "Experience") {
+                if (item.socketedItems != null) {
+                    if (item.socketedItems.Count > 0) {
+                        foreach (Item socket in item.socketedItems) {
+                            if (socket.additionalProperties != null) {
+                                if (socket.additionalProperties.Count > 0) {
+                                    foreach (Property prop in socket.additionalProperties) {
+                                        if (prop.name == "Experience") {
                                             SocketedGems.Add(socket);
                                         }
                                     }

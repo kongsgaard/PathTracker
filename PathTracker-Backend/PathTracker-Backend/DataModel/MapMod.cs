@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace PathTracker_Backend
 {
+    [Serializable]
     public class MapMod
     {
         [JsonProperty("Lines")]
@@ -29,6 +30,7 @@ namespace PathTracker_Backend
         
     }
 
+    [Serializable]
     public class MapMods {
 
         [JsonProperty("MapMods")]

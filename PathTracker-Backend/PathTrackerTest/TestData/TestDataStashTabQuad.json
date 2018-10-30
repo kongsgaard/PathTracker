@@ -4,51 +4,6 @@
   "items": [
     {
       "verified": false,
-      "w": 2,
-      "h": 1,
-      "ilvl": 77,
-      "icon": "https://web.poecdn.com/image/Art/2DItems/Belts/Belt3.png?scale=1&scaleIndex=1&w=2&h=1&v=a559821037f54c94dae053b90bcea363",
-      "league": "Standard",
-      "id": "e225adbc9e98e6a520aa498adc0ac36f4794ee0ccbbbe4279a8f2c85da52145c",
-      "name": "Morbid Thread",
-      "typeLine": "Leather Belt",
-      "identified": true,
-      "note": "~price 2 exa",
-      "requirements": [
-        {
-          "name": "Level",
-          "values": [
-            [
-              "59",
-              0
-            ]
-          ],
-          "displayMode": 0
-        }
-      ],
-      "implicitMods": [
-        "+40 to maximum Life"
-      ],
-      "explicitMods": [
-        "+48 to Strength",
-        "+13 to maximum Energy Shield",
-        "+99 to maximum Life",
-        "+16% to Cold Resistance",
-        "16% reduced Flask Charges used",
-        "27% increased Elemental Damage with Attack Skills"
-      ],
-      "frameType": 2,
-      "category": {
-        "accessories": [
-          "belt"
-        ]
-      },
-      "x": 7,
-      "y": 8,
-      "inventoryId": "Stash6"
-    },
-    {
-      "verified": false,
       "w": 1,
       "h": 1,
       "ilvl": 0,

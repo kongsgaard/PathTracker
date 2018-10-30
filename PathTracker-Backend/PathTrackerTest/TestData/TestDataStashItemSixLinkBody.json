@@ -1,0 +1,678 @@
+﻿{
+  "verified": false,
+  "w": 2,
+  "h": 3,
+  "ilvl": 100,
+  "icon": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyStr1C.png?scale=1&scaleIndex=0&w=2&h=3&v=890da62b76971297e9eacccd44123e99",
+  "league": "Standard",
+  "id": "969404dd848efe8ea52045289d18268d168a05454234b7ed277fb802eb82a182",
+  "sockets": [
+    {
+      "group": 0,
+      "attr": "I",
+      "sColour": "B"
+    },
+    {
+      "group": 0,
+      "attr": "S",
+      "sColour": "R"
+    },
+    {
+      "group": 0,
+      "attr": "S",
+      "sColour": "R"
+    },
+    {
+      "group": 0,
+      "attr": "S",
+      "sColour": "R"
+    },
+    {
+      "group": 0,
+      "attr": "S",
+      "sColour": "R"
+    },
+    {
+      "group": 0,
+      "attr": "S",
+      "sColour": "R"
+    }
+  ],
+  "name": "Pandemonium Coat",
+  "typeLine": "Astral Plate",
+  "identified": true,
+  "properties": [
+    {
+      "name": "Quality",
+      "values": [
+        [
+          "+20%",
+          1
+        ]
+      ],
+      "displayMode": 0,
+      "type": 6
+    },
+    {
+      "name": "Armour",
+      "values": [
+        [
+          "1109",
+          1
+        ]
+      ],
+      "displayMode": 0,
+      "type": 16
+    }
+  ],
+  "requirements": [
+    {
+      "name": "Level",
+      "values": [
+        [
+          "70",
+          0
+        ]
+      ],
+      "displayMode": 0
+    },
+    {
+      "name": "Str",
+      "values": [
+        [
+          "180",
+          0
+        ]
+      ],
+      "displayMode": 1
+    },
+    {
+      "name": "Int",
+      "values": [
+        [
+          "58",
+          0
+        ]
+      ],
+      "displayMode": 1
+    }
+  ],
+  "implicitMods": [
+    "+12% to all Elemental Resistances"
+  ],
+  "explicitMods": [
+    "+213 to Armour",
+    "+157 to maximum Life",
+    "+38% to Lightning Resistance",
+    "2% additional Physical Damage Reduction"
+  ],
+  "craftedMods": [
+    "+23% to Cold Resistance"
+  ],
+  "frameType": 2,
+  "category": {
+    "armour": [
+      "chest"
+    ]
+  },
+  "x": 0,
+  "y": 0,
+  "inventoryId": "BodyArmour",
+  "socketedItems": [
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/ConcentratedAOE.png?scale=1&scaleIndex=0&w=1&h=1&v=e93b8c61b7fc1c64a3fd41a058d660a3",
+      "support": true,
+      "id": "26d60f1c185ad3dac6a20a0d85ea86895bcbbc11f35f957fb45704e4dabad29a",
+      "name": "",
+      "typeLine": "Concentrated Effect Support",
+      "identified": true,
+      "properties": [
+        {
+          "name": "Support, AoE",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "6",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Mana Multiplier",
+          "values": [
+            [
+              "140%",
+              0
+            ]
+          ],
+          "displayMode": 0
+        }
+      ],
+      "additionalProperties": [
+        {
+          "name": "Experience",
+          "values": [
+            [
+              "349941/447718",
+              0
+            ]
+          ],
+          "displayMode": 2,
+          "progress": 0.7816103100776672,
+          "type": 20
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "35",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Int",
+          "values": [
+            [
+              "58",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Supports any skill with an area of effect, regardless of whether that skill deals damage.",
+      "explicitMods": [
+        "Supported Skills deal 40% more Area Damage",
+        "Supported Skills have 30% less Area of Effect"
+      ],
+      "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "supportgem"
+        ]
+      },
+      "socket": 0,
+      "colour": "I"
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/SlamTotemGem.png?scale=1&scaleIndex=0&w=1&h=1&v=b448e4e3f9bef63a190b916cae29f7a5",
+      "support": false,
+      "id": "4d000b80e7745e9c5148cae147467382d32a53661d12dc49bef3be56fa960f7a",
+      "name": "",
+      "typeLine": "Ancestral Warchief",
+      "identified": true,
+      "corrupted": true,
+      "properties": [
+        {
+          "name": "Totem, Attack, AoE, Melee",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "20 (Max)",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Mana Cost",
+          "values": [
+            [
+              "10",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Effectiveness of Added Damage",
+          "values": [
+            [
+              "123%",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Quality",
+          "values": [
+            [
+              "+15%",
+              1
+            ]
+          ],
+          "displayMode": 0,
+          "type": 6
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "70",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Str",
+          "values": [
+            [
+              "155",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Summons an Ancestor Totem that will attack enemies with a powerful main hand slam while you stand close to it. Being near it grants you more melee damage.",
+      "explicitMods": [
+        "15% increased Totem Damage",
+        "Totem lasts 12 seconds",
+        "Deals 122.8% of Base Damage",
+        "Summons a Totem which uses this Skill",
+        "18% more Melee Damage while Totem is Active",
+        "10% less Attack Speed",
+        "50% increased Totem Placement speed",
+        "+10 to Melee range"
+      ],
+      "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "activegem"
+        ]
+      },
+      "socket": 1,
+      "colour": "S"
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/IncreasedPhysicalDamage.png?scale=1&scaleIndex=0&w=1&h=1&v=217781293d9d65ecc9e283feacadd232",
+      "support": true,
+      "id": "d6694bab2041418fbb11693285419d3f04bbb8d515845e0cf65e9b106cb5c6ad",
+      "name": "",
+      "typeLine": "Melee Physical Damage Support",
+      "identified": true,
+      "properties": [
+        {
+          "name": "Melee, Support, Attack",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "12",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Mana Multiplier",
+          "values": [
+            [
+              "140%",
+              0
+            ]
+          ],
+          "displayMode": 0
+        }
+      ],
+      "additionalProperties": [
+        {
+          "name": "Experience",
+          "values": [
+            [
+              "1192058/2812189",
+              0
+            ]
+          ],
+          "displayMode": 2,
+          "progress": 0.42388972640037537,
+          "type": 20
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "53",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Str",
+          "values": [
+            [
+              "85",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Supports melee attack skills.",
+      "explicitMods": [
+        "Supported Skills deal 41% more Melee Physical Damage",
+        "Supported Skills deal 41% more Damage with Bleeding and Poison caused by Melee Hits"
+      ],
+      "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "supportgem"
+        ]
+      },
+      "socket": 2,
+      "colour": "S"
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Brutality.png?scale=1&scaleIndex=0&w=1&h=1&v=e39c3abec2992338acbbeac37e31fae7",
+      "support": true,
+      "id": "a984ab34a32effd967fedb145f0d18658a048eb5419976cdbc8b3dcaf8cc4806",
+      "name": "",
+      "typeLine": "Brutality Support",
+      "identified": true,
+      "properties": [
+        {
+          "name": "Support",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "9",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Mana Multiplier",
+          "values": [
+            [
+              "130%",
+              0
+            ]
+          ],
+          "displayMode": 0
+        }
+      ],
+      "additionalProperties": [
+        {
+          "name": "Experience",
+          "values": [
+            [
+              "1182965/1956648",
+              0
+            ]
+          ],
+          "displayMode": 2,
+          "progress": 0.6045875549316406,
+          "type": 20
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "54",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Str",
+          "values": [
+            [
+              "87",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Supports any skill that hits enemies.",
+      "explicitMods": [
+        "Supported Skills deal 48% more Physical Damage",
+        "Supported Skills deal no Chaos Damage",
+        "Supported Skills deal no Elemental Damage"
+      ],
+      "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "supportgem"
+        ]
+      },
+      "socket": 3,
+      "colour": "S"
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/MeleeDamageonFullLife.png?scale=1&scaleIndex=0&w=1&h=1&v=f7d0b56710409120a9731f8e6cc81175",
+      "support": true,
+      "id": "d01ee38c12bee8ed3a0e645945979eeaf985682d1847916848aa17c58931b036",
+      "name": "",
+      "typeLine": "Damage on Full Life Support",
+      "identified": true,
+      "properties": [
+        {
+          "name": "Attack, Support",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "12",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Mana Multiplier",
+          "values": [
+            [
+              "130%",
+              0
+            ]
+          ],
+          "displayMode": 0
+        }
+      ],
+      "additionalProperties": [
+        {
+          "name": "Experience",
+          "values": [
+            [
+              "1190996/2812189",
+              0
+            ]
+          ],
+          "displayMode": 2,
+          "progress": 0.4235120713710785,
+          "type": 20
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "53",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Str",
+          "values": [
+            [
+              "85",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Supports attack skills, providing a bonus to all damage dealt by those skills while your life is full.",
+      "explicitMods": [
+        "Supported Attack Skills deal 41% more Damage while on Full Life"
+      ],
+      "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "supportgem"
+        ]
+      },
+      "socket": 4,
+      "colour": "S"
+    },
+    {
+      "verified": false,
+      "w": 1,
+      "h": 1,
+      "ilvl": 0,
+      "icon": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Maim.png?scale=1&scaleIndex=0&w=1&h=1&v=e194d3f305391ae592c02515181c8a6a",
+      "support": true,
+      "id": "8e69e5316f258c6ff1c15ea94ebd78056b60e226f896e877752ec1955af517cf",
+      "name": "",
+      "typeLine": "Maim Support",
+      "identified": true,
+      "properties": [
+        {
+          "name": "Attack, Support",
+          "values": [],
+          "displayMode": 0
+        },
+        {
+          "name": "Level",
+          "values": [
+            [
+              "8",
+              0
+            ]
+          ],
+          "displayMode": 0,
+          "type": 5
+        },
+        {
+          "name": "Mana Multiplier",
+          "values": [
+            [
+              "115%",
+              0
+            ]
+          ],
+          "displayMode": 0
+        }
+      ],
+      "additionalProperties": [
+        {
+          "name": "Experience",
+          "values": [
+            [
+              "455879/507839",
+              0
+            ]
+          ],
+          "displayMode": 2,
+          "progress": 0.8976840972900391,
+          "type": 20
+        }
+      ],
+      "requirements": [
+        {
+          "name": "Level",
+          "values": [
+            [
+              "33",
+              0
+            ]
+          ],
+          "displayMode": 0
+        },
+        {
+          "name": "Str",
+          "values": [
+            [
+              "55",
+              0
+            ]
+          ],
+          "displayMode": 1
+        }
+      ],
+      "secDescrText": "Supports attack skills.",
+      "explicitMods": [
+        "Supported Skills deal 21% more Physical Damage",
+        "Supported Attacks have 30% chance to Maim on Hit",
+        "Enemies Maimed by Supported Skills take 11% increased Physical Damage"
+      ],
+      "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+      "frameType": 4,
+      "category": {
+        "gems": [
+          "supportgem"
+        ]
+      },
+      "socket": 5,
+      "colour": "S"
+    }
+  ]
+}

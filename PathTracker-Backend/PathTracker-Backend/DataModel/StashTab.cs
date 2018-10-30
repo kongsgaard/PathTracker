@@ -4,6 +4,8 @@ using System.Text;
 using Newtonsoft.Json;
 
 namespace PathTracker_Backend {
+
+    [Serializable]
     public class StashTab {
 
         [JsonProperty("hidden")]

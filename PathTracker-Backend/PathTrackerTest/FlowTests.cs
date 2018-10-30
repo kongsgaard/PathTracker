@@ -13,75 +13,180 @@ using System.Threading;
 namespace PathTrackerTest {
     [TestClass]
     public class FlowTests {
+        
+        /// <summary>
+        /// Test adding an item to a zone
+        /// </summary>
         [TestMethod]
-        public void FlowTest() {
+        public void AddItemTest() {
+            
+            TestSetup setup = new TestSetup();
+            setup.settings.SetValue("MongoDBCollectionName", "AddItemTest");
+            setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));
 
-            LogCreator.Setup();
-
-            ISettings settings = new MockSettings();
-            SetupSettings(settings);
-
-            MongoDBSaver mongoDiskSaver = new MongoDBSaver(settings);
-            MockWebRequestManager webRequestManager = new MockWebRequestManager(settings);
-            MockZonePropertyExtractor zonePropertyExtractor = new MockZonePropertyExtractor();
-
-            MockCurrenyRates currencyRates = new MockCurrenyRates();
-            currencyRates.UpdateOnce();
-            currencyRates.TypelineChaosValue["Exalted Orb"] = 100;
-
-            ResourceManager resourceManager = new ResourceManager();
-
-            WriteLineToFile("First line", settings.GetValue("ClientTxtPath"), FileMode.Create);
-            Directory.CreateDirectory(settings.GetValue("MinimapFolder"));
-
-            List<string> LinesForClientTxt;
-            List<string> zoneMinimapNames;
-
-            (LinesForClientTxt, zoneMinimapNames) = SetupZonesForTesting(webRequestManager, zonePropertyExtractor);
-
-            ComponentManager manager = new ComponentManager(mongoDiskSaver, webRequestManager, zonePropertyExtractor, settings, currencyRates, resourceManager);
-
-            Thread mainProgram = new Thread(() => MainProgram(manager));
+            ComponentManager manager = new ComponentManager(setup.dBSaver, setup.mockWebRequest, setup.mockZoneProperty, setup.settings, setup.mockCurreny, setup.resourceManager);
+            List<string> StashTabsToListen = new List<string> { "Stash1" };
+            Thread mainProgram = new Thread(() => MainProgram(manager, StashTabsToListen));
             mainProgram.Start();
 
-            System.Threading.Thread.Sleep(2500);
+            TestData testData = new TestData();
+            setup.InitializeInventory(testData.GetTestDataInventory());
+            setup.InitializeStashTab(testData.GetTestDataQuadStash(), "Stash1");
 
-            
-            for(int i = 0; i < LinesForClientTxt.Count; i++) {
-                WriteLineToFile("ZoneInfo", settings.GetValue("MinimapFolder") + zoneMinimapNames[i], FileMode.Append);
-                WriteLineToFile(LinesForClientTxt[i], settings.GetValue("ClientTxtPath"), FileMode.Append);
-                System.Threading.Thread.Sleep(2500);
-            } 
+            setup.Login("LoginZone");
+            setup.NewZone("StartZone", "StartZone");
+            Item itemToAdd = testData.GetTestDataLeatherBelt();
+            setup.AddItemsToInventory(new List<Item> { itemToAdd });
+            setup.NewZone("FinalZone", "FinalZone");
+            setup.NewZone("FinalZoneLast", "FinalZoneLast");
+
+            setup.RunTest();
+
+            MongoDBAsserter mongoDBAsserter = new MongoDBAsserter(setup.settings);
+
+            Assert.IsTrue(mongoDBAsserter.ZoneAddedItems(itemToAdd, "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneNotAddedItems(itemToAdd, "FinalZone"));
         }
 
-        public void MainProgram(ComponentManager manager) {
+        /// <summary>
+        /// Test adding an item with a recipe value to a zone
+        /// </summary>
+        [TestMethod]
+        public void TestRecipeValuator() {
+
+            TestSetup setup = new TestSetup();
+            setup.settings.SetValue("MongoDBCollectionName", "TestRecipeValuator");
+            setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));
+
+            double DivineValue = 11;
+            setup.mockCurreny.TypelineChaosValue["Divine Orb"] = DivineValue;
+
+            ComponentManager manager = new ComponentManager(setup.dBSaver, setup.mockWebRequest, setup.mockZoneProperty, setup.settings, setup.mockCurreny, setup.resourceManager);
+            List<string> StashTabsToListen = new List<string> { "Stash1" };
+            Thread mainProgram = new Thread(() => MainProgram(manager, StashTabsToListen));
+            mainProgram.Start();
+
+            TestData testData = new TestData();
+            setup.InitializeInventory(testData.GetTestDataInventory());
+            setup.InitializeStashTab(testData.GetTestDataQuadStash(), "Stash1");
+
+            setup.Login("LoginZone");
+            setup.NewZone("StartZone", "StartZone");
+            Item itemToAdd = testData.GetTestDataSixLink();
+            setup.AddItemsToStash("Stash1",new List<Item> { itemToAdd });
+            setup.NewZone("FinalZone", "FinalZone");
+
+            setup.RunTest();
+
+            MongoDBAsserter mongoDBAsserter = new MongoDBAsserter(setup.settings);
+
+            Assert.IsTrue(mongoDBAsserter.ZoneAddedItems(itemToAdd, "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneConfirmedChaosValue(DivineValue, "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneTentativeChaosValue(0, "StartZone"));
+        }
+
+        /// <summary>
+        /// Test adding an item with a recipe value and a note value. The note value should decide the price
+        /// </summary>
+        [TestMethod]
+        public void TestNoteAndRecipeValuator() {
+            TestSetup setup = new TestSetup();
+            setup.settings.SetValue("MongoDBCollectionName", "TestNoteAndRecipeValuator");
+            setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));
+
+            double DivineValue = 11;
+            double ExaltedValue = 50;
+            setup.mockCurreny.TypelineChaosValue["Divine Orb"] = DivineValue;
+            setup.mockCurreny.TypelineChaosValue["Exalted Orb"] = ExaltedValue;
+
+            ComponentManager manager = new ComponentManager(setup.dBSaver, setup.mockWebRequest, setup.mockZoneProperty, setup.settings, setup.mockCurreny, setup.resourceManager);
+            List<string> StashTabsToListen = new List<string> { "Stash1" };
+            Thread mainProgram = new Thread(() => MainProgram(manager, StashTabsToListen));
+            mainProgram.Start();
+
+            TestData testData = new TestData();
+            setup.InitializeInventory(testData.GetTestDataInventory());
+            setup.InitializeStashTab(testData.GetTestDataQuadStash(), "Stash1");
+
+            setup.Login("LoginZone");
+            setup.NewZone("StartZone", "StartZone");
+            Item itemToAdd = testData.GetTestDataSixLink();
+            itemToAdd.note = "~price 1 exa";
+            setup.AddItemsToStash("Stash1", new List<Item> { itemToAdd });
+            setup.NewZone("FinalZone", "FinalZone");
+
+            setup.RunTest();
+
+            MongoDBAsserter mongoDBAsserter = new MongoDBAsserter(setup.settings);
+
+            Assert.IsTrue(mongoDBAsserter.ZoneAddedItems(itemToAdd, "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneTentativeChaosValue(ExaltedValue, "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneConfirmedChaosValue(0, "StartZone"));
+        }
+
+        /// <summary>
+        /// Test adding an item with a note, and later changing it, seeing the tenative value is updated in the earlier zone
+        /// </summary>
+        [TestMethod]
+        public void TestNoteChange() {
+            TestSetup setup = new TestSetup();
+            setup.settings.SetValue("MongoDBCollectionName", "TestNoteChange");
+            setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));
+
+            
+
+            double ExaltedValue = 50;
+            setup.mockCurreny.TypelineChaosValue["Exalted Orb"] = ExaltedValue;
+
+            ComponentManager manager = new ComponentManager(setup.dBSaver, setup.mockWebRequest, setup.mockZoneProperty, setup.settings, setup.mockCurreny, setup.resourceManager);
+            List<string> StashTabsToListen = new List<string> { "Stash1" };
+            Thread mainProgram = new Thread(() => MainProgram(manager, StashTabsToListen));
+            mainProgram.Start();
+
+            TestData testData = new TestData();
+            setup.InitializeInventory(testData.GetTestDataInventory());
+            setup.InitializeStashTab(testData.GetTestDataQuadStash(), "Stash1");
+
+            setup.Login("LoginZone");
+
+            setup.NewZone("StartZone", "StartZone");
+            Item itemToAdd = testData.GetTestDataLeatherBelt();
+            itemToAdd.note = "~price 1 exa";
+            setup.AddItemsToStash("Stash1", new List<Item> { itemToAdd });
+
+            setup.NewZone("SecondZone", "SecondZone");
+            setup.UpdateItemNoteStash(itemToAdd.itemId, "~price 2 exa", "Stash1");
+
+            setup.NewZone("FinalZone", "FinalZone");
+            
+            setup.RunTest();
+
+            MongoDBAsserter mongoDBAsserter = new MongoDBAsserter(setup.settings);
+
+            Assert.IsTrue(mongoDBAsserter.ZoneAddedItems(itemToAdd, "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneTentativeChaosValue(2 * ExaltedValue, "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneNotAddedItems(itemToAdd, "SecondZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneTentativeChaosValue(0, "SecondZone"));
+        }
+
+
+        public void MainProgram(ComponentManager manager, List<string> tabs) {
             Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();
             System.Threading.Thread.Sleep(100); //Wait for ClientTxtListenrer to start
 
             Task t1 = new Task(manager.StartInventoryListener);
             t1.Start();
+            
+            foreach(string tab in tabs) {
+                Task t2 = new Task(() => manager.StartStashtabListener(tab));
+                t2.Start();
+            }
+            
 
-            Task.WaitAll(t, t1);
+            Task.WaitAll(t);
         }
-
-        private ISettings SetupSettings(ISettings settings) {
-
-            string CurrentDir = Directory.GetCurrentDirectory();
-
-            settings.SetValue("Account", "TestAccount");
-            settings.SetValue("CurrentCharacter", "SpydigeSander");
-            settings.SetValue("CurrentLeague", "Standard");
-            settings.SetValue("ClientTxtPath", CurrentDir+"//TestData//Client.txt");
-            settings.SetValue("MinimapFolder", CurrentDir+"//Minimap//");
-            settings.SetValue("DeleteOldMinimapFiles", "false");
-            settings.SetValue("TesseractDict", "D:\\Tesseract\\Tesseract-OCR");
-            settings.SetValue("MongoDBConnectionString", "mongodb://127.0.0.1:27017");
-            settings.SetValue("MongoDBDatabaseName", "PathTrackerTest");
-
-            return settings;
-        }
-
+        
         private void WriteLineToFile(string content, string Path, FileMode mode) {
             using (var sw = new StreamWriter(new FileStream(Path, mode))) {
                 sw.WriteLine(content);
@@ -108,7 +213,7 @@ namespace PathTrackerTest {
             Inventory i3 = data.GetTestDataInventory();
 
             Item newItem = data.GetTestDataLeatherBelt();
-            newItem.InventoryId = "MainInventory";
+            newItem.inventoryId = "MainInventory";
             i2.Items.Add(newItem);
 
             webRequestManager.AddInventoryToQueue(i1, "SpydigeSander");

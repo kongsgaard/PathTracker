@@ -49,10 +49,10 @@ namespace PathTracker_Backend
             string logStackableDelta = "Stackables - ";
 
             foreach (Item item in AddedNonStackables) {
-                logAdded = logAdded + item.Name + " " + item.TypeLine + " & ";
+                logAdded = logAdded + item.name + " " + item.typeLine + " & ";
             }
             foreach (Item item in RemovedNonStackables) {
-                logRemoved = logRemoved + item.Name + " " + item.TypeLine + " & ";
+                logRemoved = logRemoved + item.name + " " + item.typeLine + " & ";
             }
             foreach (var v in DeltaStackableCountDictionary) {
                 logStackableDelta = logStackableDelta + v.Key + ":" + v.Value + " & ";
@@ -117,15 +117,15 @@ namespace PathTracker_Backend
         private void IterateItemList(List<Item> itemList, Dictionary<string, int> stackableCountDictionary, List<Item> nonStackableItems) {
 
             foreach (Item item in itemList) {
-                if (item.MaxStackSize == 0) {
+                if (item.maxStackSize == 0) {
                     nonStackableItems.Add(item);
                 }
                 else {
-                    if (stackableCountDictionary.ContainsKey(item.TypeLine)) {
-                        stackableCountDictionary[item.TypeLine] += item.StackSize;
+                    if (stackableCountDictionary.ContainsKey(item.typeLine)) {
+                        stackableCountDictionary[item.typeLine] += item.stackSize;
                     }
                     else {
-                        stackableCountDictionary[item.TypeLine] = item.StackSize;
+                        stackableCountDictionary[item.typeLine] = item.stackSize;
                     }
                 }
             }

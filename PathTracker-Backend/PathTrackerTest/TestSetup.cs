@@ -9,23 +9,58 @@ using PathTracker_Backend;
 namespace PathTrackerTest {
     public class TestSetup {
 
-        MockWebRequestManager mockWebRequest;
-        MockZonePropertyExtractor mockZoneProperty;
-        MockCurrenyRates mockCurreny;
-        MongoDBSaver dBSaver;
-        MockSettings settings;
+        public MockWebRequestManager mockWebRequest;
+        public MockZonePropertyExtractor mockZoneProperty;
+        public MockCurrenyRates mockCurreny;
+        public MongoDBSaver dBSaver;
+        public MockSettings settings;
+        public ResourceManager resourceManager;
 
-        public TestSetup(MockWebRequestManager mockWebRequestManager, MockZonePropertyExtractor mockZonePropertyExtractor, MockCurrenyRates mockCurrenyRates,
-                        MongoDBSaver mongoDBSaver, MockSettings mockSettings) {
-            mockWebRequest = mockWebRequestManager;
-            mockZoneProperty = mockZonePropertyExtractor;
-            mockCurreny = mockCurrenyRates;
-            dBSaver = mongoDBSaver;
-            settings = mockSettings;
+        private string currentCharacter = "";
+        private string currentLeague = "";
+
+        public TestSetup() {
+
+            settings = new MockSettings();
+            SetupSettings();
+
+            LogCreator.Setup();
+
+            mockWebRequest = new MockWebRequestManager(settings);
+            mockZoneProperty = new MockZonePropertyExtractor();
+            mockCurreny = new MockCurrenyRates();
+            mockCurreny.UpdateOnce();
+            dBSaver = new MongoDBSaver(settings);
+            resourceManager = new ResourceManager();
+
+            currentCharacter = settings.GetValue("CurrentCharacter");
+            currentLeague = settings.GetValue("CurrentLeague");
+
+            WriteLineToFile("First line", settings.GetValue("ClientTxtPath"), FileMode.Create);
+            Directory.CreateDirectory(settings.GetValue("MinimapFolder"));
+
+        }
+
+        public void RunTest() {
+            System.Threading.Thread.Sleep(150);
+
+            for (int i = 0; i < ClientTxtLines.Count; i++) {
+                WriteLineToFile("ZoneInfo", settings.GetValue("MinimapFolder") + zoneIDs[i], FileMode.Append);
+                System.Threading.Thread.Sleep(150);
+                WriteLineToFile(ClientTxtLines[i], settings.GetValue("ClientTxtPath"), FileMode.Append);
+                System.Threading.Thread.Sleep(1500);
+                
+                
+                
+            }
         }
 
         private Inventory currentInventory = new Inventory();
         private Dictionary<string,StashApiRequest> currentStash = new Dictionary<string, StashApiRequest>();
+
+        public void Login(string ZoneID) {
+            zoneIDs.Add(ZoneID);
+        }
 
         private List<string> ClientTxtLines = new List<string>();
         private List<string> zoneIDs = new List<string>();
@@ -34,7 +69,12 @@ namespace PathTrackerTest {
             ClientTxtLines.Add($"2018/10/16 17:06:50 32531406 a34 [INFO Client 11332] : You have entered {newZoneName}");
             zoneIDs.Add(ZoneID);
 
+            mockWebRequest.AddInventoryToQueue(Toolbox.Clone(currentInventory), currentCharacter);
+            foreach(string tab in StashTabs) {
+                mockWebRequest.AddStashtabToQueue(Toolbox.Clone(currentStash[tab]), currentLeague, tab);
+            }
 
+            mockZoneProperty.AddMapModsToQueue(new List<MapMod>());
 
         }
 
@@ -42,8 +82,10 @@ namespace PathTrackerTest {
             currentInventory = initial;
         }
 
+        List<string> StashTabs = new List<string>();
         public void InitializeStashTab(StashApiRequest apiRequest, string StashName) {
             currentStash[StashName] = apiRequest;
+            StashTabs.Add(StashName);
         }
 
         public void AddItemsToStash(string stashName, List<Item> items) {
@@ -52,14 +94,17 @@ namespace PathTrackerTest {
         }
 
         public void AddItemsToInventory(List<Item> items) {
-            currentInventory.Items.AddRange(items);
+            foreach (Item i in items) {
+                i.inventoryId = "MainInventory";
+                currentInventory.Items.Add(i);
+            }
         }
 
         public void UpdateItemNoteStash(string itemID, string newNote, string stashName) {
             var stash = currentStash[stashName];
 
-            var item = stash.Items.Single(x => x.Id == itemID);
-            item.Note = newNote;
+            var item = stash.Items.Single(x => x.itemId == itemID);
+            item.note = newNote;
         }
 
         public void SetupSettings() {
@@ -77,7 +122,11 @@ namespace PathTrackerTest {
 
         }
 
-
+        private void WriteLineToFile(string content, string Path, FileMode mode) {
+            using (var sw = new StreamWriter(new FileStream(Path, mode))) {
+                sw.WriteLine(content);
+            }
+        }
 
     }
 }

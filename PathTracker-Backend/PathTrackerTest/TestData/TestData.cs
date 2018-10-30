@@ -39,5 +39,12 @@ namespace PathTrackerTest {
             return item;
         }
 
+        public Item GetTestDataSixLink() {
+            string currentDir = Directory.GetCurrentDirectory();
+            Item item = JsonConvert.DeserializeObject<Item>(File.ReadAllText(currentDir + "/TestData/TestDataStashItemSixLinkBody.json"));
+
+            return item;
+        }
+
     }
 }

@@ -31,8 +31,8 @@ namespace PathTracker_Backend {
             ExperienceDeltaCalculator fromZoneExperienceDeltaCalculator, ExperienceDeltaCalculator enteredZoneExperienceDeltaCalculator) {
             Inventory newInventory = Coordinator.GetInventory();
 
-            var InventoryItems = newInventory.Items.Where(x => x.InventoryId == "MainInventory").ToList();
-            var EquippedItems = newInventory.Items.Where(x => x.InventoryId != "MainInventory").ToList();
+            var InventoryItems = newInventory.Items.Where(x => x.inventoryId == "MainInventory").ToList();
+            var EquippedItems = newInventory.Items.Where(x => x.inventoryId != "MainInventory").ToList();
 
             if (fromZoneDeltaCalculator != null) {
                 fromZoneDeltaCalculator.UpdateLeftZoneWithItems(InventoryItems);

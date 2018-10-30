@@ -20,11 +20,11 @@ namespace PathTracker_Backend
 
             string pattern = "^~price ([0-9.]+) ([a-zA-Z]+)";
 
-            if(item.Note == null) {
+            if(item.note == null) {
                 return new Tuple<string, double, ItemValueMode>("", 0, ItemValueMode.Tentative);
             }
 
-            Match m = Regex.Match(item.Note, pattern);
+            Match m = Regex.Match(item.note, pattern);
 
             if (m.Success) {
                 if (m.Groups.Count > 0) {
@@ -41,7 +41,7 @@ namespace PathTracker_Backend
                         name = Resource.CurrencyTagLookup[m.Groups[2].Value];
                     }
                     else {
-                        Console.WriteLine("Parsed sale string, but failed to find correct itemtag in item note with note: " + item.Note);
+                        Console.WriteLine("Parsed sale string, but failed to find correct itemtag in item note with note: " + item.note);
                     }
 
                     return new Tuple<string, double, ItemValueMode>(name, num, ItemValueMode.Tentative);

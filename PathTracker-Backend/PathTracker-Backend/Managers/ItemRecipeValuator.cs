@@ -13,12 +13,12 @@ namespace PathTracker_Backend
             //6-Link
             int CurrentGroupID = -1;
             bool AllLinked = true;
-            if(item.Sockets != null) {
-                foreach (var s in item.Sockets) {
+            if(item.sockets != null) {
+                foreach (var s in item.sockets) {
                     if (CurrentGroupID == -1) {
-                        CurrentGroupID = s.GroupId;
+                        CurrentGroupID = s.group;
                     }
-                    else if (CurrentGroupID == s.GroupId) {
+                    else if (CurrentGroupID == s.group) {
 
                     }
                     else {
@@ -26,7 +26,7 @@ namespace PathTracker_Backend
                         break;
                     }
                 }
-                if (AllLinked && item.Sockets.Count == 6) {
+                if (AllLinked && item.sockets.Count == 6) {
                     return new Tuple<string, double, ItemValueMode>("Divine Orb", 1, ItemValueMode.Confirmed);
                 }
             }
@@ -34,21 +34,21 @@ namespace PathTracker_Backend
             
 
             //6-Socket
-            if(item.Sockets != null) {
-                if (item.Sockets.Count == 6) {
+            if(item.sockets != null) {
+                if (item.sockets.Count == 6) {
                     return new Tuple<string, double, ItemValueMode>("Jeweller's Orb", 1, ItemValueMode.Confirmed);
                 }
             }
             
 
             //GCP
-            if(item.Category.Gems != null) {
-                if (item.Category.Gems.Count > 0) {
-                    foreach (var prop in item.Properties.Where(x => x.Name == "Quality")) {
+            if(item.category.gems != null) {
+                if (item.category.gems.Count > 0) {
+                    foreach (var prop in item.properties.Where(x => x.name == "Quality")) {
 
                         char[] digits = new char[2];
                         int pos = 0;
-                        foreach (var ch in prop.Values[0][0]) {
+                        foreach (var ch in prop.values[0][0]) {
                             if (char.IsDigit(ch)) {
                                 digits[pos] = ch;
                                 pos++;
@@ -87,13 +87,13 @@ namespace PathTracker_Backend
             bool GreenFound = false;
             bool RedFound = false;
 
-            if (item.Sockets != null) {
-                foreach (var s in item.Sockets) {
-                    if (CurrentGroupID != s.GroupId) {
+            if (item.sockets != null) {
+                foreach (var s in item.sockets) {
+                    if (CurrentGroupID != s.group) {
                         BlueFound = false;
                         GreenFound = false;
                         RedFound = false;
-                        CurrentGroupID = s.GroupId;
+                        CurrentGroupID = s.group;
 
                         if (s.Type == SocketType.Str) {
                             RedFound = true;
@@ -105,7 +105,7 @@ namespace PathTracker_Backend
                             GreenFound = true;
                         }
                     }
-                    else if (CurrentGroupID == s.GroupId) {
+                    else if (CurrentGroupID == s.group) {
                         if (s.Type == SocketType.Str) {
                             RedFound = true;
                         }
