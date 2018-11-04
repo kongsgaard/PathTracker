@@ -82,7 +82,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentTest.cs" />
     <Compile Include="Mock\MockCurrenyRates.cs" />
+    <Compile Include="Mock\MockProcessScreenshotCapture.cs" />
     <Compile Include="Mock\MockProcessWindowScreenCapture.cs" />
     <Compile Include="Mock\MockSettings.cs" />
     <Compile Include="Mock\MockWebRequestManager.cs" />
@@ -121,6 +123,14 @@
     <None Include="TestData\TestDataPoENinjaCurrency.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\TestDataScreenShot01.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Unavngivet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,17 +14,11 @@ namespace PathTrackerTest {
     [TestClass]
     public class FlowTests {
         
-        [TestMethod]
-        public void AllTheTests() {
-            AddItemTest();
-            TestRecipeValuator();
-        }
-
         /// <summary>
         /// Test adding an item to a zone
         /// </summary>
         [TestMethod]
-        public void AddItemTest() {
+        public void Flow_AddItemTest() {
             
             TestSetup setup = new TestSetup();
             setup.settings.SetValue("MongoDBCollectionName", "AddItemTest");
@@ -58,7 +52,7 @@ namespace PathTrackerTest {
         /// Test adding an item with a recipe value to a zone
         /// </summary>
         [TestMethod]
-        public void TestRecipeValuator() {
+        public void Flow_TestRecipeValuator() {
 
             TestSetup setup = new TestSetup();
             setup.settings.SetValue("MongoDBCollectionName", "TestRecipeValuator");
@@ -95,7 +89,7 @@ namespace PathTrackerTest {
         /// Test adding an item with a recipe value and a note value. The note value should decide the price
         /// </summary>
         [TestMethod]
-        public void TestNoteAndRecipeValuator() {
+        public void Flow_TestNoteAndRecipeValuator() {
             TestSetup setup = new TestSetup();
             setup.settings.SetValue("MongoDBCollectionName", "TestNoteAndRecipeValuator");
             setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));
@@ -134,7 +128,7 @@ namespace PathTrackerTest {
         /// Test adding an item with a note, and later changing it, seeing the tenative value is updated in the earlier zone
         /// </summary>
         [TestMethod]
-        public void TestNoteChange() {
+        public void Flow_TestNoteChange() {
             TestSetup setup = new TestSetup();
             setup.settings.SetValue("MongoDBCollectionName", "TestNoteChange");
             setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));

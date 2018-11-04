@@ -31,7 +31,7 @@ namespace PathTracker_Backend {
             ISettings settings = new FileSettings("settings.json");
 
             IDiskSaver mongoDiskSaver = new MongoDBSaver(settings);
-            IDiskSaver folderDiskSaver = new DiskFolderSaver(settings);
+            //IDiskSaver folderDiskSaver = new DiskFolderSaver(settings);
             ResourceManager resourceManager = new ResourceManager();
 
 
