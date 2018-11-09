@@ -116,7 +116,7 @@ namespace PathTrackerTest {
             settings.SetValue("ClientTxtPath", CurrentDir + "//TestData//Client.txt");
             settings.SetValue("MinimapFolder", CurrentDir + "//Minimap//");
             settings.SetValue("DeleteOldMinimapFiles", "false");
-            settings.SetValue("TesseractDict", "D:\\Tesseract\\Tesseract-OCR");
+            settings.SetValue("TesseractDict", "%TESSERACTDIR%");
             settings.SetValue("MongoDBConnectionString", "mongodb://127.0.0.1:27017");
             settings.SetValue("MongoDBDatabaseName", "PathTrackerTest");
 

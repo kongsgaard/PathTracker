@@ -18,7 +18,7 @@ namespace PathTrackerTest {
 
             MockProcessScreenshotCapture processScreenshotCapture = new MockProcessScreenshotCapture();
 
-            processScreenshotCapture.SetupImageAddToQueue(Directory.GetCurrentDirectory() + "//TestData//Unavngivet.png");
+            processScreenshotCapture.SetupImageAddToQueue(Directory.GetCurrentDirectory() + "//TestData//Screenshots//Zone1_Mods.jpeg");
 
             ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(processScreenshotCapture, setup.settings, setup.resourceManager);
             Zone testZone = new Zone("SomeZone", setup.resourceManager);
@@ -26,7 +26,9 @@ namespace PathTrackerTest {
 
             zonePropertyExtractor.SetZone(testZone);
 
-            zonePropertyExtractor.GetMapMods();
+            var ss = zonePropertyExtractor.GetMapMods();
+
+            int k = 0;
         }
     }
 }
