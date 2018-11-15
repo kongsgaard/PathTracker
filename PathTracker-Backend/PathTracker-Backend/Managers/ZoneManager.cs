@@ -18,7 +18,6 @@ namespace PathTracker_Backend
         private ISettings Settings;
         public event EventHandler<ZoneChangeArgs> NewZoneEntered;
         List<Zone> ZoneList = new List<Zone>();
-        private static readonly ILog ZoneManagerLog = LogCreator.CreateLog("ZoneManager");
 
         Dictionary<string, Zone> ZoneDict = new Dictionary<string, Zone>();
         Dictionary<string, FileInfo> MinimapFiles = new Dictionary<string, FileInfo>();
@@ -138,15 +137,12 @@ namespace PathTracker_Backend
             
             //Wait for all threads to finnish
             WaitHandle.WaitAll(waitHandles);
-            ZoneManagerLog.Info("All threads done after entering zone:" + zoneName);
 
             threadStarted = 0;
 
             if (fromZone != null) {
                 fromZone.CalculateAndAddToDelta();
                 
-
-
                 int maxLoops = 50;
                 int loop = 0;
                 while (true) {
@@ -157,11 +153,9 @@ namespace PathTracker_Backend
 
                         if (ZoneDict.ContainsKey(mostRecentChange.Name)) {
                             //Minimap already existed, so its a map which already exists.
-                            ZoneManagerLog.Info("Returned from existing map with ZoneName:" + fromZone.ZoneName + " ID:" + fromZone.ZoneID);
                             ZoneDict[fromZone.ZoneID].MergeZoneIntoThis(fromZone);
                         }
                         else {
-                            ZoneManagerLog.Info("Return from new map with ZoneName:" + fromZone.ZoneName + " ID:" + fromZone.ZoneID);
                             ZoneDict.Add(mostRecentChange.Name, fromZone);
                         }
                         break;

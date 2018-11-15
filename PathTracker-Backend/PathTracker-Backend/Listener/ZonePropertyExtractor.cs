@@ -166,17 +166,17 @@ namespace PathTracker_Backend {
 
             watch.Restart();
             Bitmap zoomed = new Bitmap(mapMods, mapMods.Width * 2, mapMods.Height * 2);
-
+            
             //bmp.Save(currentDir + "\\tmp\\" + unixTimestamp + ".png");
             //mapMods.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMOD.png");
             //zoomed.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMODzoomed.png");
 
             watch.Restart();
-            Bitmap colored = ReplaceColor(zoomed, minHue: 240, maxHue: 240, minLumi: 0.25f, maxLumi: 1f, minSat: 0.25f, maxSat: 1f, Color.FromArgb(0, 0, 0), Color.FromArgb(255, 255, 255));
-
+            Bitmap colored = ReplaceColor(zoomed, minHue: 230, maxHue: 250, minLumi: 0.25f, maxLumi: 1f, minSat: 0.05f, maxSat: 1f, Color.FromArgb(0, 0, 0));
+            
             //colored.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMODColored.png");
 
-            
+
 
             //Console.WriteLine("Took ms :" + watch.ElapsedMilliseconds);
 
@@ -186,7 +186,7 @@ namespace PathTracker_Backend {
 
             watch.Restart();
             colored.Save(currentDir + "\\tmp\\" + baseFileName + "_filteredZoomed.jpeg", ImageFormat.Jpeg);
-
+            
             //bmp.Save(currentDir + "\\tmp\\" + unixTimestamp + "png.png", ImageFormat.Png);
 
             string hocrFile = generateOCR(currentDir, baseFileName);
@@ -198,7 +198,7 @@ namespace PathTracker_Backend {
 
         private static unsafe Bitmap ReplaceColor(Bitmap source,
                                   float minHue, float maxHue, float minLumi, float maxLumi, float minSat, float maxSat,
-                                  Color replacementWithinThreshold, Color replacementOutsideThreshold) {
+                                  Color replacementOutsideThreshold, Color? replacementWithinThreshold = null) {
             const int pixelSize = 4; // 32 bits per pixel
 
             Bitmap target = new Bitmap(
@@ -234,10 +234,13 @@ namespace PathTracker_Backend {
 
                         
                         
-                        if (hue >= minHue && hue <= maxHue && lumi >= minLumi && lumi <= maxLumi && sat <= maxSat && sat >= minSat) {
-                            //r = replacementWithinThreshold.R;
-                            //g = replacementWithinThreshold.G;
-                            //b = replacementWithinThreshold.B;
+                        if (hue > minHue && hue < maxHue && lumi > minLumi && lumi < maxLumi && sat < maxSat && sat > minSat) {
+                            if(replacementWithinThreshold != null) {
+                                Color casted = (Color)replacementWithinThreshold;
+                                r = casted.R;
+                                g = casted.G;
+                                b = casted.B;
+                            }
                         }
                         else {
                             r = replacementOutsideThreshold.R;
@@ -278,8 +281,8 @@ namespace PathTracker_Backend {
             Process p = new Process();
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "cmd.exe";
-            psi.Arguments = "/K " + tesseractDict + "\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedOCRFile + " & exit";
-            psi.CreateNoWindow = true;
+            psi.Arguments = "/C " + tesseractDict + "\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedOCRFile + " & exit";
+            psi.CreateNoWindow = false;
             psi.UseShellExecute = false;
 
             p.StartInfo = psi;

@@ -24,8 +24,6 @@ namespace PathTrackerTest {
             settings = new MockSettings();
             SetupSettings();
 
-            LogCreator.Setup();
-
             mockWebRequest = new MockWebRequestManager(settings);
             mockZoneProperty = new MockZonePropertyExtractor();
             mockCurreny = new MockCurrenyRates();

@@ -16,7 +16,6 @@ namespace PathTracker_Backend
     public class WebRequestManager : IWebRequestManager {
 
         private ISettings Settings;
-        private static readonly ILog RequestCoordinatorLog = LogCreator.CreateLog("RequestCoordinator");
         private Dictionary<string, List<StashTab>> LeagueStashtabDictionary = new Dictionary<string, List<StashTab>>();
         
         public WebRequestManager(ISettings settings) {
@@ -57,8 +56,6 @@ namespace PathTracker_Backend
             LogHeader(webResponse.Headers);
             string responseDecompressed = DecompressToString(webResponse);
             Inventory deserialized = JsonConvert.DeserializeObject<Inventory>(responseDecompressed);
-
-            RequestCoordinatorLog.Info("Finnished inventory request (Account:" + account + ",character: " + currentChar + ") request in " + timer.ElapsedMilliseconds + "ms");
 
 
             return deserialized; 
@@ -123,8 +120,6 @@ namespace PathTracker_Backend
 
             StashApiRequest apiRequest = JsonConvert.DeserializeObject<StashApiRequest>(decompressedStashTab);
             
-            RequestCoordinatorLog.Info("Finnished stash tab (Account:"+account+",name: "+ name + ",league: " + league +") request in " + timer.ElapsedMilliseconds + "ms");
-
             //Verify that the selected tab has the correct name. If the tab was moved, the cached index will be wrong and needs correcting.
             if (initializeTabs) {
                 LeagueStashtabDictionary[fetchLeague] = apiRequest.StashTabs;
@@ -134,7 +129,6 @@ namespace PathTracker_Backend
                 int newIndex = apiRequest.StashTabs.Single(x => x.Name == name).Index;
                 if (newIndex != tabIndex) {
                     int oldIndex = LeagueStashtabDictionary[fetchLeague].Single(x => x.Name == name).Index;
-                    RequestCoordinatorLog.Info("Requesting stash tab " + name + " again. Index changed from " + oldIndex.ToString() + " to " + newIndex.ToString());
                     LeagueStashtabDictionary[fetchLeague] = apiRequest.StashTabs;
                     apiRequest = GetStashtab(name: name, league: fetchLeague);
                 }
@@ -181,7 +175,6 @@ namespace PathTracker_Backend
                 }
             }
 
-            RequestCoordinatorLog.Info(rateLimit);
         }
 
         private static byte[] ReadFully(Stream stream, int bufferSize = 32768) {

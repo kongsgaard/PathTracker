@@ -28,7 +28,6 @@ namespace PathTracker_Backend {
         public int MsListenDelay;
         private Stopwatch ListenTimer = new Stopwatch();
         private ISettings Settings;
-        private static readonly ILog ClientTxtLog = LogCreator.CreateLog("ClientTxtListener");
         private ZoneManager zoneManager;
         
         public ClientTxtListener(ZoneManager paramZoneManager, ISettings settings) {
@@ -36,7 +35,6 @@ namespace PathTracker_Backend {
 
             MsListenDelay = 500;
             ClientTxtPath = Settings.GetValue("ClientTxtPath");
-            ClientTxtLog.Info("Client.txt file set to path: " + ClientTxtPath);
             
             
 
@@ -45,7 +43,6 @@ namespace PathTracker_Backend {
         
         public void StartListening() {
 
-            ClientTxtLog.Info("Starting listener");
             ListenTimer.Start();
             using (Stream stream = File.Open(ClientTxtPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                 long numBytes = stream.Length;
@@ -62,7 +59,6 @@ namespace PathTracker_Backend {
                         if (numNewBytes > 0) {
                             stream.Read(newBytes, 0, numNewBytes);
                             newText = System.Text.Encoding.Default.GetString(newBytes);
-                            ClientTxtLog.Info(newBytes.Length.ToString() + " new bytes in " + ClientTxtPath);
                         }
 
                         numBytes = stream.Length;
@@ -91,7 +87,6 @@ namespace PathTracker_Backend {
         private void ParseClientText(string newText) {
             string[] newLines = newText.Split('\n');
 
-            ClientTxtLog.Info("Parsing " + newLines.Length + " lines in " + ClientTxtPath);
 
             foreach (string line in newLines) {
                 string tst = line;
@@ -108,7 +103,6 @@ namespace PathTracker_Backend {
             if (zoneMatch.Success && zoneMatch.Groups.Count > 1) {
                 if (zoneMatch.Groups[1].Captures.Count > 0) {
                     string zoneName = zoneMatch.Groups[1].Captures[0].ToString();
-                    ClientTxtLog.Info("Entered: " + zoneName);
 
                     zoneManager.ZoneEntered(zoneName);
                 }

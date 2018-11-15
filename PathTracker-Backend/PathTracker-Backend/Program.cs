@@ -26,8 +26,7 @@ namespace PathTracker_Backend {
             thread.IsBackground = true;
             thread.Priority = ThreadPriority.BelowNormal;
             thread.Start();
-
-            LogCreator.Setup();
+            
             ISettings settings = new FileSettings("settings.json");
 
             IDiskSaver mongoDiskSaver = new MongoDBSaver(settings);

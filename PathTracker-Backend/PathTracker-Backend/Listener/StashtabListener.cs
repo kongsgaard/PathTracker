@@ -17,7 +17,6 @@ namespace PathTracker_Backend {
         private IWebRequestManager Coordinator;
         private string StashName = "";
         private ISettings Settings;
-        private static readonly ILog StashtabLog = LogCreator.CreateLog("StashtabListener");
 
         public StashtabListener(string stashName, IWebRequestManager coordinator, ISettings settings) {
             Coordinator = coordinator;
@@ -36,11 +35,9 @@ namespace PathTracker_Backend {
             }
             enteredZoneDeltaCalculator.UpdateEnteredZoneWithItems(newStashTab.Items);
             
-            StashtabLog.Info("Stash (account:" + Settings.GetValue("Account") + ",name:" + StashName + ", league:" + Settings.GetValue("CurrentLeague") + ") fetched");
         }
 
         public void NewZoneEntered(object sender, ZoneChangeArgs args) {
-            StashtabLog.Info("New zone entered event fired for stash:"+StashName+". Zone:" + args.ZoneName);
             Listen(args.FromZoneDeltaCalculator, args.EnteredZoneDeltaCalculator);
         }
 

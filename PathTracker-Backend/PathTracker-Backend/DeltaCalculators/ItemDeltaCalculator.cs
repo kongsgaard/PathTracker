@@ -12,8 +12,6 @@ namespace PathTracker_Backend
 {
     public class ItemDeltaCalculator {
 
-        private static readonly ILog ItemDeltaLog = LogCreator.CreateLog("ItemDeltaCalculator");
-
         //Track old/new inventories
         Dictionary<string, int> enteredWithStackableCountDictionary = new Dictionary<string, int>();
         Dictionary<string, int> leftWithStackableCountDictionary = new Dictionary<string, int>();
@@ -59,7 +57,6 @@ namespace PathTracker_Backend
                 logStackableDelta = logStackableDelta + v.Key + ":" + v.Value + " & ";
             }
 
-            ItemDeltaLog.Info("DeltaCalculator for ZoneName changes: " + logAdded + "||" + logRemoved + "||" + logStackableDelta);
 
             return (DeltaStackableCountDictionary, AddedNonStackables, RemovedNonStackables, ModifiedNonStackables);
         }

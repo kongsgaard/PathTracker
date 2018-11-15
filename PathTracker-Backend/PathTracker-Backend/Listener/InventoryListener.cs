@@ -17,7 +17,6 @@ namespace PathTracker_Backend {
         private IWebRequestManager Coordinator;
         private ISettings Settings;
 
-        private static readonly ILog InventoryLog = LogCreator.CreateLog("InventoryListener");
 
         public InventoryListener(IWebRequestManager coordinator, ISettings settings) {
             Coordinator = coordinator;
@@ -44,11 +43,9 @@ namespace PathTracker_Backend {
             enteredZoneExperienceDeltaCalculator.EnteredWithCharacter = newInventory.Character;
             enteredZoneExperienceDeltaCalculator.EnteredWithItems = EquippedItems;
             
-            InventoryLog.Info("Inventory (account:" + Settings.GetValue("Account") + ",character:" + Settings.GetValue("CurrentCharacter") + ") fetched");
         }
 
         public void NewZoneEntered(object sender, ZoneChangeArgs args) {
-            InventoryLog.Info("New zone entered event fired. Zone:" + args.ZoneName);
             Listen(args.FromZoneDeltaCalculator,args.EnteredZoneDeltaCalculator, args.FromZoneExperienceDeltaCalculator, args.EnteredZoneExperienceDeltaCalculator);
         }
 

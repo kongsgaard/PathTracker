@@ -9,7 +9,6 @@ using System.IO.Abstractions;
 
 namespace PathTracker_Backend {
     public class ComponentManager {
-        private static readonly ILog EventManagerLog = LogCreator.CreateLog("EventManager");
 
         InventoryListener inventoryListener = null;
         ClientTxtListener clientTxtListener = null;
@@ -32,10 +31,8 @@ namespace PathTracker_Backend {
             if(clientTxtListener == null) {
                 clientTxtListener = new ClientTxtListener(zoneManager, Settings);
                 clientTxtListener.StartListening();
-                EventManagerLog.Info("Starting new ClientTxtListener with ClientTxtPath:" + clientTxtListener.ClientTxtPath);
             }
             else {
-                EventManagerLog.Info("ClientTxtListener listener already started with ClientTxtPath:" + clientTxtListener.ClientTxtPath);
             }
         }
 
@@ -47,11 +44,9 @@ namespace PathTracker_Backend {
             if (inventoryListener == null) {
                 inventoryListener = new InventoryListener(requestCoordinator, Settings);
                 inventoryListener.StartListening();
-                EventManagerLog.Info("Starting new InventoryListener");
                 zoneManager.NewZoneEntered += inventoryListener.NewZoneEntered;
             }
             else {
-                EventManagerLog.Info("InventoryListener listener already started");
             }
         }
 
@@ -63,11 +58,9 @@ namespace PathTracker_Backend {
             if (!stashtabListeners.ContainsKey(StashName)) {
                 stashtabListeners[StashName] = new StashtabListener(StashName, requestCoordinator, Settings);
                 stashtabListeners[StashName].StartListening();
-                EventManagerLog.Info("Starting new stashtabListeners for stash:" + StashName);
                 zoneManager.NewZoneEntered += stashtabListeners[StashName].NewZoneEntered;
             }
             else {
-                EventManagerLog.Info("stashtabListeners listener already started for StashName:" + StashName);
             }
         }
     }
