@@ -113,7 +113,6 @@ namespace PathTracker_Backend {
         }
 
 
-        public enum MapModParseStatus { ModsParsed, PresentNotParsedCorrectly, NotPresent}
         
         /// <summary>
         /// 
@@ -301,7 +300,7 @@ namespace PathTracker_Backend {
             MapMods possibleMapMods = Resource.PossibleMapModsList;
 
             var possibleLines = Resource.PossibleMapModLines;
-            var PossibleModsDict = Resource.LineToMapModsDict;
+            var PossibleModsDict = new Dictionary<string, List<MapMod>>(Resource.LineToMapModsDict);
 
             Dictionary<string, MapMod> ChosenCandidateMods = new Dictionary<string, MapMod>();
 
@@ -310,11 +309,19 @@ namespace PathTracker_Backend {
 
             int LinesWithContent = 0;
 
+            foreach(var kvp in PossibleModsDict) {
+                foreach(var mod in kvp.Value) {
+                    foreach(var modLine in mod.ModLines) {
+                        modLine.IsFound = false;
+                    }
+                }
+            }
+
             foreach(var actualLine in modLines) {
 
                 var actualLineLower = actualLine.ToLower();
 
-                if(actualLine.Length < 3) {
+                if(actualLine.Length < 5) {
                     continue;
                 }
                 else {
@@ -342,8 +349,9 @@ namespace PathTracker_Backend {
                 var possibleMods = PossibleModsDict[chosenLine];
 
                 foreach(var mod in possibleMods) {
-                    if (ChosenCandidateMods.ContainsKey(mod.Name)) {
-                        MapMod currentMultiLineMod = ChosenCandidateMods[mod.Name];
+                    var tempMod = MapMod.CopyObject(mod);
+                    if (ChosenCandidateMods.ContainsKey(tempMod.Name)) {
+                        MapMod currentMultiLineMod = ChosenCandidateMods[tempMod.Name];
 
                         foreach(var line in currentMultiLineMod.ModLines) {
                             if(line.LineText == chosenLine) {
@@ -352,9 +360,9 @@ namespace PathTracker_Backend {
                         }
                     }
                     else {
-                        ChosenCandidateMods[mod.Name] = MapMod.CopyObject(mod);
+                        ChosenCandidateMods[mod.Name] = tempMod;
 
-                        foreach (var line in ChosenCandidateMods[mod.Name].ModLines) {
+                        foreach (var line in ChosenCandidateMods[tempMod.Name].ModLines) {
                             if (line.LineText == chosenLine) {
                                 line.IsFound = true;
                             }
@@ -388,4 +396,6 @@ namespace PathTracker_Backend {
             return (ActualChosenMods, status);
         }
     }
+
+    public enum MapModParseStatus { ModsParsed, PresentNotParsedCorrectly, NotPresent }
 }

@@ -126,5 +126,13 @@ namespace PathTrackerTest {
             }
         }
 
+        public bool MapModsListContainsMod(List<MapMod> mapMods, string modName) {
+            if(mapMods.Where(x => x.Name == modName).ToList().Count == 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
 }

@@ -489,7 +489,7 @@
           "MinRoll": ""
         },
         {
-          "Line": "#%increased Rarity of Items found in this Area",
+          "Line": "#% increased Rarity of Items found in this Area",
           "MaxRoll": "11",
           "MinRoll": ""
         }
@@ -515,7 +515,7 @@
           "MinRoll": ""
         },
         {
-          "Line": "#%increased Rarity of Items found in this Area",
+          "Line": "#% increased Rarity of Items found in this Area",
           "MaxRoll": "11",
           "MinRoll": ""
         }
