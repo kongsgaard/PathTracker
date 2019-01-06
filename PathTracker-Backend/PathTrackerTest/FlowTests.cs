@@ -168,20 +168,46 @@ namespace PathTrackerTest {
             Assert.IsTrue(mongoDBAsserter.ItemZoneMapPair(itemToAdd.itemId, "StartZone"));
         }
 
+        [TestMethod]
+        public void Flow_ZoneExtractModsToDB() {
+            TestSetup setup = new TestSetup();
+            setup.settings.SetValue("MongoDBCollectionName", "ZoneExtractModsToDB");
+            setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));
+
+            
+            MockProcessScreenshotCapture processScreenshotCapture = new MockProcessScreenshotCapture();
+            processScreenshotCapture.SetupImageAddToQueue(Directory.GetCurrentDirectory() + "//TestData//Screenshots//Zone3_Mods.jpeg");
+            ZonePropertyExtractor zonePropertyExtractor = new ZonePropertyExtractor(processScreenshotCapture, setup.settings, setup.resourceManager);
+            
+            ComponentManager manager = new ComponentManager(setup.dBSaver, setup.mockWebRequest, zonePropertyExtractor, setup.settings, setup.mockCurreny, setup.resourceManager);
+
+            TestData testData = new TestData();
+            setup.InitializeInventory(testData.GetTestDataInventory());
+
+            List<string> StashTabsToListen = new List<string> { };
+            Thread mainProgram = new Thread(() => MainProgram(manager, StashTabsToListen));
+            mainProgram.Start();
+
+            setup.Login("LoginZone");
+            setup.NewZone("StartZone", "StartZone", 15000);
+            setup.NewZone("FinalZone", "FinalZone");
+            setup.RunTest();
+        }
+
         public void MainProgram(ComponentManager manager, List<string> tabs) {
             Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();
             System.Threading.Thread.Sleep(100); //Wait for ClientTxtListenrer to start
-
+            
             Task t1 = new Task(manager.StartInventoryListener);
             t1.Start();
+            
             
             foreach(string tab in tabs) {
                 Task t2 = new Task(() => manager.StartStashtabListener(tab));
                 t2.Start();
             }
             
-
             Task.WaitAll(t);
         }
         

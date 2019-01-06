@@ -97,9 +97,7 @@ namespace PathTracker_Backend
 
         public void ZoneEntered(string zoneName) {
 
-            Delegate[] delegates = NewZoneEntered.GetInvocationList();
-            WaitHandle[] waitHandles = new WaitHandle[delegates.Length];
-
+            
 
             Zone fromZone = null;
             ItemDeltaCalculator fromZoneDeltaCalculator = null;
@@ -119,27 +117,32 @@ namespace PathTracker_Backend
             }
 
             ZoneChangeArgs newZone = new ZoneChangeArgs(zoneName, fromZoneDeltaCalculator, enteredZoneDeltaCalculator, fromZoneExperienceDeltaCalculator, enteredZoneExperienceDeltaCalculator);
-            
+
+
+            //Call all delegates which subscribe to the NewZoneEntered event handler
+            Delegate[] delegates = NewZoneEntered.GetInvocationList();
+            WaitHandle[] waitHandles = new WaitHandle[delegates.Length];
+
             for (int i = 0; i < delegates.Length; i++) {
                 int iparam = i;
                 EventWaitHandle waitHandle = new EventWaitHandle(false, EventResetMode.ManualReset);
                 Thread thread = new Thread(() => CallDelegate(delegates[iparam], waitHandle, waitHandles, iparam, newZone, this));
                 thread.IsBackground = true;
                 thread.Start();
-
-                
             }
-            
+
             //Wait for all threads to start
             while (Interlocked.Read(ref threadStarted) < delegates.Length) {
                 Thread.Sleep(100);
             }
-            
+
             //Wait for all threads to finnish
             WaitHandle.WaitAll(waitHandles);
 
             threadStarted = 0;
-
+            
+            
+            //If the previous zone is null, calculate delta
             if (fromZone != null) {
                 fromZone.CalculateAndAddToDelta();
                 

@@ -46,7 +46,7 @@ namespace PathTrackerTest {
                 WriteLineToFile("ZoneInfo", settings.GetValue("MinimapFolder") + zoneIDs[i], FileMode.Append);
                 System.Threading.Thread.Sleep(150);
                 WriteLineToFile(ClientTxtLines[i], settings.GetValue("ClientTxtPath"), FileMode.Append);
-                System.Threading.Thread.Sleep(1500);
+                System.Threading.Thread.Sleep(waitMiliSeconds[i]);
                 
                 
                 
@@ -62,10 +62,13 @@ namespace PathTrackerTest {
 
         private List<string> ClientTxtLines = new List<string>();
         private List<string> zoneIDs = new List<string>();
-        public void NewZone(string newZoneName, string ZoneID) {
+        private List<int> waitMiliSeconds = new List<int>();
+        public void NewZone(string newZoneName, string ZoneID, int WaitMS = 1500) {
 
             ClientTxtLines.Add($"2018/10/16 17:06:50 32531406 a34 [INFO Client 11332] : You have entered {newZoneName}");
             zoneIDs.Add(ZoneID);
+
+            waitMiliSeconds.Add(WaitMS);
 
             mockWebRequest.AddInventoryToQueue(Toolbox.Clone(currentInventory), currentCharacter);
             foreach(string tab in StashTabs) {
