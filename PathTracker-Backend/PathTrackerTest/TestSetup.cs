@@ -28,7 +28,7 @@ namespace PathTrackerTest {
             mockZoneProperty = new MockZonePropertyExtractor();
             mockCurreny = new MockCurrenyRates();
             mockCurreny.UpdateOnce();
-            dBSaver = new MongoDBSaver(settings);
+            dBSaver = new MongoDBSaver(settings, true);
             resourceManager = new ResourceManager();
 
             currentCharacter = settings.GetValue("CurrentCharacter");

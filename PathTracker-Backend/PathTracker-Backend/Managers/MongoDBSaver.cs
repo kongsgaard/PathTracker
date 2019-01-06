@@ -21,14 +21,34 @@ namespace PathTracker_Backend
         
         MongoClient client = null;
         Process mongod = null;
-
-        public MongoDBSaver(ISettings settings) {
+        
+        string MongoDBProcessIDFile = Directory.GetCurrentDirectory() + "\\MongoDBData\\StartedProcessID";
+        
+        public MongoDBSaver(ISettings settings, bool StartIfNotStarted) {
             Settings = settings;
             client = new MongoClient(Settings.GetValue("MongoDBConnectionString"));
-
-            if (!IsServerConnceted) {
+            
+            if (StartIfNotStarted && !this.IsServerConnected()) {
                 StartupMongoDBClient();
             }
+            else {
+                if (File.Exists(MongoDBProcessIDFile)) {
+                    string processID = File.ReadAllText(MongoDBProcessIDFile);
+                    int ID = int.Parse(processID);
+
+                    try {
+                        mongod = Process.GetProcessById(ID);
+                    }
+                    catch (Exception e) {
+                        File.Delete(MongoDBProcessIDFile);
+                        Console.WriteLine("Deleted file, exception happened");
+                        Console.WriteLine(e.ToString());
+                    }
+
+
+                }
+            }
+
             
         }
 
@@ -44,12 +64,15 @@ namespace PathTracker_Backend
             }
         }
 
-        public bool IsServerConnceted {
-            get {
-                return client.Cluster.Description.Servers.Single().State == MongoDB.Driver.Core.Servers.ServerState.Connected;
-            }
-        }
+        private bool IsServerConnected() {
+            
+            client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("local");
+            bool isMongoLive = database.RunCommandAsync((Command<BsonDocument>)"{ping:1}").Wait(500);
 
+            return isMongoLive;
+        }
+        
         private void StartupMongoDBClient() {
             //starting the mongod server (when app starts)
             ProcessStartInfo start = new ProcessStartInfo();
@@ -63,7 +86,12 @@ namespace PathTracker_Backend
             start.Arguments = "--dbpath " + MongoDBDataDir;
 
             mongod = Process.Start(start);
-            
+
+            if (File.Exists(MongoDBProcessIDFile)) {
+                File.Delete(MongoDBProcessIDFile);
+            }
+            File.WriteAllText(MongoDBProcessIDFile, mongod.Id.ToString());
+
         }
 
         public void SaveToDisk(Zone zone) {

@@ -18,7 +18,8 @@ namespace PathTrackerTest {
         public void TestCleanup() {
             TestSetup setup = new TestSetup();
 
-            setup.dBSaver.Dispose();
+            MongoDBSaver saver = new MongoDBSaver(setup.settings, false);
+            saver.Dispose();
         }
 
         /// <summary>

@@ -1,21 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Drawing;
-using System.Text;
-using log4net;
-using log4net.Core;
-using log4net.Appender;
-using log4net.Repository.Hierarchy;
-using log4net.Config;
-using log4net.Layout;
-using System.IO;
-using System.Reflection;
-using System.Windows.Forms;
 using System.Threading;
-using Newtonsoft.Json;
-using System.IO.Abstractions;
 
 namespace PathTracker_Backend {
     class Program {
@@ -23,16 +9,17 @@ namespace PathTracker_Backend {
 
         static void Main(string[] args) {
 
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler(ProcessExitEvent);
+            handler = new ConsoleEventDelegate(ConsoleEventCallback);
+            SetConsoleCtrlHandler(handler, true);
 
+            
             Thread thread = new Thread(() => LowLevelKeyboardHook.KeyboardHook());
             thread.IsBackground = true;
             thread.Priority = ThreadPriority.BelowNormal;
             thread.Start();
             
             ISettings settings = new FileSettings("settings.json");
-
-            IDiskSaver mongoDiskSaver = new MongoDBSaver(settings);
+            IDiskSaver mongoDiskSaver = new MongoDBSaver(settings, true);
             //IDiskSaver folderDiskSaver = new DiskFolderSaver(settings);
             ResourceManager resourceManager = new ResourceManager();
 
@@ -52,15 +39,29 @@ namespace PathTracker_Backend {
             t.Wait();
             Console.ReadLine();
         }
-
-        static void ProcessExitEvent(object sender, EventArgs e) {
-            //Close mongodb process if it exists
-            ISettings settings = new FileSettings("settings.json");
-            MongoDBSaver saver = new MongoDBSaver(settings);
-            saver.Dispose();
-        }
-
+        
         public static LowLevelKeyboardHook keyboardHook = new LowLevelKeyboardHook();
         
+        /// <summary>
+        /// Method that gets called when console window is closed
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <returns></returns>
+        static bool ConsoleEventCallback(int eventType) {
+            if (eventType == 2) {
+                ISettings settings = new FileSettings("settings.json");
+
+                MongoDBSaver saver = new MongoDBSaver(settings, false);
+
+                saver.Dispose();
+            }
+            return false;
+        }
+        static ConsoleEventDelegate handler;   // Keeps it from getting garbage collected
+                                               // Pinvoke
+        private delegate bool ConsoleEventDelegate(int eventType);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool SetConsoleCtrlHandler(ConsoleEventDelegate callback, bool add);
+
     }
 }
