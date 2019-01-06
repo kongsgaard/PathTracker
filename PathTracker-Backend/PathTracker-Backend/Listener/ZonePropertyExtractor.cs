@@ -20,7 +20,6 @@ namespace PathTracker_Backend {
             processWindowScreenshotCapture = capture;
             Settings = settings;
             Resource = resource;
-
         }
 
         private bool MapmodsShown = true;
@@ -30,7 +29,6 @@ namespace PathTracker_Backend {
 
 
         public void kbh_OnKeyPressed(object sender, Keys e) {
-
             if (e == Keys.LMenu) {
                 LMenuDown = true;
             }
@@ -43,7 +41,6 @@ namespace PathTracker_Backend {
         }
 
         public void kbh_OnKeyUnPressed(object sender, Keys e) {
-
             if (e == Keys.LMenu) {
                 LMenuDown = false;
             }
