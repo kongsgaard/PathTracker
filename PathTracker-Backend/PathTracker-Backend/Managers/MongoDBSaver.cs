@@ -7,20 +7,62 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver.Core.Operations;
+using System.Diagnostics;
+using System.IO;
 
 
 namespace PathTracker_Backend
 {
-    public class MongoDBSaver : IDiskSaver 
+    public class MongoDBSaver : IDiskSaver, IDisposable
     {
 
         ISettings Settings;
         
         MongoClient client = null;
+        Process mongod = null;
 
         public MongoDBSaver(ISettings settings) {
             Settings = settings;
             client = new MongoClient(Settings.GetValue("MongoDBConnectionString"));
+
+            if (!IsServerConnceted) {
+                StartupMongoDBClient();
+            }
+            
+        }
+
+        public void Dispose() {
+            if (mongod != null) {
+                mongod.CloseMainWindow();
+            }
+        }
+
+        ~MongoDBSaver() {
+            if(mongod != null) {
+                mongod.CloseMainWindow();
+            }
+        }
+
+        public bool IsServerConnceted {
+            get {
+                return client.Cluster.Description.Servers.Single().State == MongoDB.Driver.Core.Servers.ServerState.Connected;
+            }
+        }
+
+        private void StartupMongoDBClient() {
+            //starting the mongod server (when app starts)
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = Settings.GetValue("MongoDBExePath");
+            //start.WindowStyle = ProcessWindowStyle.Hidden;
+
+            string MongoDBDataDir = Directory.GetCurrentDirectory() + "\\MongoDBData";
+            if(!Directory.Exists(MongoDBDataDir)) {
+                Directory.CreateDirectory(MongoDBDataDir);
+            }
+            start.Arguments = "--dbpath " + MongoDBDataDir;
+
+            mongod = Process.Start(start);
             
         }
 
@@ -129,6 +171,8 @@ namespace PathTracker_Backend
                 
             }
         }
+
+
     }
 
     public class ItemIDToZoneID {

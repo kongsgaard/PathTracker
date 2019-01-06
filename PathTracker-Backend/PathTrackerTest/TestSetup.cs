@@ -120,6 +120,7 @@ namespace PathTrackerTest {
             settings.SetValue("TesseractDict", "%TESSERACTDIR%");
             settings.SetValue("MongoDBConnectionString", "mongodb://127.0.0.1:27017");
             settings.SetValue("MongoDBDatabaseName", "PathTrackerTest");
+            settings.SetValue("MongoDBExePath", "C:\\Program Files\\MongoDB\\Server\\4.0\\bin\\mongod.exe");
 
         }
 

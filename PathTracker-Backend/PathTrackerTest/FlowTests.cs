@@ -14,6 +14,13 @@ namespace PathTrackerTest {
     [TestClass]
     public class FlowTests {
         
+        [TestCleanup]
+        public void TestCleanup() {
+            TestSetup setup = new TestSetup();
+
+            setup.dBSaver.Dispose();
+        }
+
         /// <summary>
         /// Test adding an item to a zone
         /// </summary>
@@ -23,7 +30,7 @@ namespace PathTrackerTest {
             TestSetup setup = new TestSetup();
             setup.settings.SetValue("MongoDBCollectionName", "AddItemTest");
             setup.dBSaver.DropCollection(setup.settings.GetValue("MongoDBCollectionName"));
-
+            
             ComponentManager manager = new ComponentManager(setup.dBSaver, setup.mockWebRequest, setup.mockZoneProperty, setup.settings, setup.mockCurreny, setup.resourceManager);
             List<string> StashTabsToListen = new List<string> { "Stash1" };
             Thread mainProgram = new Thread(() => MainProgram(manager, StashTabsToListen));

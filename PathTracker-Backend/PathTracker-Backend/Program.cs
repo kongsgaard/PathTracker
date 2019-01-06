@@ -20,8 +20,11 @@ using System.IO.Abstractions;
 namespace PathTracker_Backend {
     class Program {
         
+
         static void Main(string[] args) {
-            
+
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(ProcessExitEvent);
+
             Thread thread = new Thread(() => LowLevelKeyboardHook.KeyboardHook());
             thread.IsBackground = true;
             thread.Priority = ThreadPriority.BelowNormal;
@@ -48,6 +51,13 @@ namespace PathTracker_Backend {
             
             t.Wait();
             Console.ReadLine();
+        }
+
+        static void ProcessExitEvent(object sender, EventArgs e) {
+            //Close mongodb process if it exists
+            ISettings settings = new FileSettings("settings.json");
+            MongoDBSaver saver = new MongoDBSaver(settings);
+            saver.Dispose();
         }
 
         public static LowLevelKeyboardHook keyboardHook = new LowLevelKeyboardHook();
