@@ -21,6 +21,9 @@ namespace PathTracker_Backend
         [BsonElement(elementName: "ZoneName")]
         public string ZoneName { get; set; }
 
+        [BsonElement(elementName: "ZoneInfo")]
+        public ZoneInfo ZoneInfo { get; set; }
+
         [BsonElement(elementName: "Type")]
         public ZoneType Type { get; set; }
 

@@ -200,8 +200,19 @@ namespace PathTrackerTest {
             setup.NewZone("StartZone", "StartZone", 15000);
             setup.NewZone("FinalZone", "FinalZone");
             setup.RunTest();
-        }
 
+            MongoDBAsserter mongoDBAsserter = new MongoDBAsserter(setup.settings);
+
+            Assert.IsTrue(mongoDBAsserter.ZoneContainsMapMod("of Flames", "MapAffix", "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneContainsMapMod("Undead", "MapAffix", "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneContainsMapMod("of Vulnerability", "MapAffix", "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneContainsMapMod("Shocking", "MapAffix", "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneContainsMapMod("Twinned", "MapAffix", "StartZone"));
+            Assert.IsTrue(mongoDBAsserter.ZoneContainsMapMod("of Drought", "MapAffix", "StartZone"));
+
+            Assert.IsTrue(mongoDBAsserter.ZoneContainsCountMods(6, "StartZone"));
+        }
+        
         public void MainProgram(ComponentManager manager, List<string> tabs) {
             Task t = new Task(() => manager.StartClientTxtListener());
             t.Start();

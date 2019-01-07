@@ -103,5 +103,27 @@ namespace PathTrackerTest {
             else
                 return false;
         }
+
+        public bool ZoneContainsMapMod(string ModName, string ModType, string ZoneID) {
+            Zone zone = GetSingleZone(ZoneID);
+
+            if(zone.mapMods.Where(mod => mod.Name == ModName && mod.Type==ModType).Count() == 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        public bool ZoneContainsCountMods(int ExpectedCount, string ZoneID) {
+            Zone zone = GetSingleZone(ZoneID);
+
+            if (zone.mapMods.Count == ExpectedCount) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
 }
