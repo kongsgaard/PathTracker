@@ -109,8 +109,32 @@ namespace PathTracker_Backend {
             }
         }
 
-
         
+        public void GetZoneInfo(Bitmap bmp) {
+
+            string currentDir = Directory.GetCurrentDirectory();
+            long unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
+            string baseFileName = zone.ZoneID + "_" + unixTimestamp;
+
+            Rectangle zoneInfoRect = new Rectangle(1500,40,410,145);
+            
+            System.Drawing.Imaging.PixelFormat format = bmp.PixelFormat;
+            
+            Bitmap mapMods = bmp.Clone(zoneInfoRect, format);
+            
+            Bitmap zoomed = new Bitmap(mapMods, mapMods.Width * 2, mapMods.Height * 2);
+
+            string imgFilePath = currentDir + "\\tmp\\" + baseFileName + "_original_zoneInfo.jpeg";
+            string ocrOutputPath = currentDir + "\\tmp\\" + baseFileName + "_original_zoneInfo_hocr.txt";
+
+
+            zoomed.Save(imgFilePath, ImageFormat.Jpeg);
+
+            generateOCR(imgFilePath, ocrOutputPath);
+
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -151,45 +175,179 @@ namespace PathTracker_Backend {
             }
             Console.WriteLine("Waited for dir creation ms:" + watch.ElapsedMilliseconds);
 
+
+            GetZoneInfo(bmp);
+
+
             long unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
             string baseFileName = zone.ZoneID + "_" + unixTimestamp;
 
-            Rectangle mapModRect = new Rectangle(1280, 0, 640, 880);
-            System.Drawing.Imaging.PixelFormat format = bmp.PixelFormat;
+            string originalFilePath = currentDir + "\\tmp\\" + baseFileName + "_original.jpeg";
+            string imgFilePath = currentDir + "\\tmp\\" + baseFileName + "_onlyMapModsZoomedColored.jpeg";
+            string ocrOutputPath = currentDir + "\\tmp\\" + baseFileName + "_filteredZoomed_hocr";
 
-            watch.Restart();
-            Bitmap mapMods = bmp.Clone(mapModRect, format);
+            int MinHue = 220;
+            int MaxHue = 260;
+            float MinLumi = 0.05f;
+            float MaxLumi = 1f;
+            float MinSat = 0.05f;
+            float MaxSat = 1f;
 
-            watch.Restart();
-            Bitmap zoomed = new Bitmap(mapMods, mapMods.Width * 2, mapMods.Height * 2);
+            bmp.Save(originalFilePath, ImageFormat.Jpeg);
+            (Rectangle MapModRect, Bitmap bmpColored) = FindMapModRectangle(bmp, 20, 40, 205, 1920, 0.15, minHue: MinHue, maxHue: MaxHue, minLumi: MinLumi, maxLumi: MaxLumi, minSat: MinSat, maxSat: MaxSat, Color.FromArgb(0, 0, 0));
+
+            Bitmap MapModsBmp = bmpColored.Clone(MapModRect, bmpColored.PixelFormat);
+
+            Bitmap MapModsBmpAllColored = ReplaceColor(MapModsBmp, minHue: MinHue, maxHue: MaxHue, minLumi: MinLumi, maxLumi: MaxLumi, minSat: MinSat, maxSat: MaxSat, Color.FromArgb(0, 0, 0));
+
+            Bitmap MapModsBmpZoomed = new Bitmap(MapModsBmpAllColored, MapModsBmp.Width * 2, MapModsBmp.Height * 2);
+
+            MapModsBmpZoomed.Save(imgFilePath, ImageFormat.Jpeg);
             
-            //bmp.Save(currentDir + "\\tmp\\" + unixTimestamp + ".png");
-            //mapMods.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMOD.png");
-            //zoomed.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMODzoomed.png");
+            generateOCR(imgFilePath, ocrOutputPath);
 
-            watch.Restart();
-            Bitmap colored = ReplaceColor(zoomed, minHue: 230, maxHue: 250, minLumi: 0.25f, maxLumi: 1f, minSat: 0.05f, maxSat: 1f, Color.FromArgb(0, 0, 0));
-            
-            //colored.Save(currentDir + "\\tmp\\" + unixTimestamp + "MAPMODColored.png");
-
-
-
-            //Console.WriteLine("Took ms :" + watch.ElapsedMilliseconds);
-
-            watch.Restart();
-            bmp.Save(currentDir + "\\tmp\\" + baseFileName + "_original.jpeg", ImageFormat.Jpeg);
-
-
-            watch.Restart();
-            colored.Save(currentDir + "\\tmp\\" + baseFileName + "_filteredZoomed.jpeg", ImageFormat.Jpeg);
-            
-            //bmp.Save(currentDir + "\\tmp\\" + unixTimestamp + "png.png", ImageFormat.Png);
-
-            string hocrFile = generateOCR(currentDir, baseFileName);
-
-            (returnMods, modsCorrectlyParsed) = ParseOCRFile(hocrFile);
+            (returnMods, modsCorrectlyParsed) = ParseOCRFile(ocrOutputPath);
 
             return (returnMods, modsCorrectlyParsed);
+        }
+
+        private static unsafe (Rectangle, Bitmap) FindMapModRectangle(Bitmap source, int lineHeightPixels, int blockWidthPixels, int startHeight, int startWidth, double blockPercentWithinThreshold, float minHue, float maxHue, 
+                                                    float minLumi, float maxLumi, float minSat, float maxSat, Color replacementOutsideThreshold) {
+
+            const int pixelSize = 4; // 32 bits per pixel
+
+            Bitmap target = new Bitmap(
+              source.Width,
+              source.Height,
+              PixelFormat.Format32bppArgb);
+
+            BitmapData sourceData = null, targetData = null;
+
+            int currentLine = 0;
+            int currentBlock = 0;
+
+            int topBlocksInLine = 1;
+            int maxLine = 1;
+
+            Rectangle MapModBoundaries = new Rectangle();
+
+            try {
+                sourceData = source.LockBits(
+                  new Rectangle(0, 0, source.Width, source.Height),
+                  ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+
+                targetData = target.LockBits(
+                  new Rectangle(0, 0, target.Width, target.Height),
+                  ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+
+                int maxWidthPixels = source.Width;
+                int maxBlocks = (maxWidthPixels) / blockWidthPixels;
+
+                int maxHeightPixels = source.Height - startHeight;
+                int maxLines = (maxHeightPixels - startHeight) / lineHeightPixels;
+
+                int numPixelsInBlock = lineHeightPixels * blockWidthPixels;
+
+                int currentWidthPixel = 0;
+                int currentHeightPixel = 0;
+
+                int previousMaxBlocks = 0;
+
+                for(currentLine=0; currentLine < maxLines; currentLine++) {
+
+                    for(currentBlock = 0; currentBlock < maxBlocks; currentBlock++) {
+
+                        double pixelsInCurrentBlock = 0;
+
+                        for (int currentHeightPixelInLine=0; currentHeightPixelInLine < lineHeightPixels; currentHeightPixelInLine++) {
+
+                            currentHeightPixel = startHeight + ((currentLine * lineHeightPixels) + currentHeightPixelInLine);
+
+                            byte* sourceRow = (byte*)sourceData.Scan0 + (currentHeightPixel * sourceData.Stride);
+                            byte* targetRow = (byte*)targetData.Scan0 + (currentHeightPixel * targetData.Stride);
+
+
+                            for (int currentWidthPixelInBlock=0; currentWidthPixelInBlock < blockWidthPixels; currentWidthPixelInBlock++) {
+
+                                currentWidthPixel = source.Width - ((currentBlock * blockWidthPixels) + currentWidthPixelInBlock);
+                                
+                                byte b = sourceRow[currentWidthPixel * pixelSize + 0];
+                                byte g = sourceRow[currentWidthPixel * pixelSize + 1];
+                                byte r = sourceRow[currentWidthPixel * pixelSize + 2];
+                                byte a = sourceRow[currentWidthPixel * pixelSize + 3];
+
+                                Color c = Color.FromArgb(r, g, b);
+                                var lumi = c.GetBrightness();
+                                var hue = c.GetHue();
+                                var sat = c.GetSaturation();
+                                
+                                if (hue > minHue && hue < maxHue && lumi > minLumi && lumi < maxLumi && sat < maxSat && sat > minSat) {
+                                    pixelsInCurrentBlock++;
+                                }
+                                else {
+                                    
+                                    r = replacementOutsideThreshold.R;
+                                    g = replacementOutsideThreshold.G;
+                                    b = replacementOutsideThreshold.B;
+                                }
+
+                                targetRow[currentWidthPixel * pixelSize + 0] = b;
+                                targetRow[currentWidthPixel * pixelSize + 1] = g;
+                                targetRow[currentWidthPixel * pixelSize + 2] = r;
+                                targetRow[currentWidthPixel * pixelSize + 3] = a;
+
+                            }
+
+                        }
+                        
+                        if(pixelsInCurrentBlock / numPixelsInBlock > blockPercentWithinThreshold) {
+                            
+                        }
+                        else {
+
+                            previousMaxBlocks = currentBlock;
+
+                            if (currentBlock > topBlocksInLine) {
+                                if(pixelsInCurrentBlock / numPixelsInBlock > 0.02) {
+                                    currentBlock++;
+                                }
+                                topBlocksInLine = currentBlock;
+                            }
+                            
+                            break;
+                        }
+
+                    }
+
+                    if (currentLine > maxLine) {
+                        maxLine = currentLine;
+                    }
+
+                    if (previousMaxBlocks == 0) {
+                        break;
+                    }
+
+                }
+            }
+            finally {
+
+                int modRectWidth = topBlocksInLine * blockWidthPixels;
+                int modRectWidthStart = source.Width - topBlocksInLine * blockWidthPixels;
+
+
+                int modRectHeight = maxLine * lineHeightPixels;
+                int modRectHeightStart = startHeight;
+
+                MapModBoundaries = new Rectangle(modRectWidthStart, modRectHeightStart, modRectWidth, modRectHeight);
+
+                if (sourceData != null)
+                    source.UnlockBits(sourceData);
+
+                if (targetData != null)
+                    target.UnlockBits(targetData);
+            }
+            
+            return (MapModBoundaries, target);
         }
 
         private static unsafe Bitmap ReplaceColor(Bitmap source,
@@ -262,12 +420,10 @@ namespace PathTracker_Backend {
             return target;
         }
 
-        private string generateOCR(string currentDir, string baseFileName) {
+        private void generateOCR(string imgBaseFile, string ocrOutputFile) {
 
             int maxTimeoutMs = 60000;
-
-            string generatedOCRFile = currentDir + "\\tmp\\" + baseFileName + "_hocrOutput";
-
+            
             string tesseractDict = Settings.GetValue("TesseractDict");
 
             if(tesseractDict == null) {
@@ -277,7 +433,7 @@ namespace PathTracker_Backend {
             Process p = new Process();
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "cmd.exe";
-            psi.Arguments = "/C " + tesseractDict + "\\tesseract " + currentDir +"\\tmp\\"+baseFileName + "_filteredZoomed.jpeg " + generatedOCRFile + " & exit";
+            psi.Arguments = "/C " + tesseractDict + "\\tesseract " + imgBaseFile + " " + ocrOutputFile + " & exit";
             psi.CreateNoWindow = false;
             psi.UseShellExecute = false;
 
@@ -287,12 +443,10 @@ namespace PathTracker_Backend {
             p.PriorityClass = ProcessPriorityClass.BelowNormal;
             p.WaitForExit(maxTimeoutMs);
             
-
-            return generatedOCRFile + ".txt";
         }
 
         private (List<MapMod>, MapModParseStatus) ParseOCRFile(string ocrFile) {
-            var modLines = File.ReadAllLines(ocrFile);
+            var modLines = File.ReadAllLines(ocrFile + ".txt");
 
             MapMods possibleMapMods = Resource.PossibleMapModsList;
 
