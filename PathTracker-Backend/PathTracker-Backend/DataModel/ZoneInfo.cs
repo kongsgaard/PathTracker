@@ -18,7 +18,15 @@ namespace PathTracker_Backend {
         [JsonProperty("delveDepth")]
         public string delveDepth { get; set; }
 
+        [BsonElement(elementName: "realm")]
+        [JsonProperty("realm")]
+        public string realm { get; set; }
+
+        [BsonElement(elementName: "league")]
+        [JsonProperty("league")]
+        public string league { get; set; }
+        
     }
-    
+
 }
 
