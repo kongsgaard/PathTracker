@@ -79,16 +79,16 @@ namespace PathTracker_Backend {
                 if(keepWatchingWatch.ElapsedMilliseconds >= watchingDelay && CheckForMapMods) {
                     CheckForMapMods = false;
 
-                    (List<MapMod> parsedMods, MapModParseStatus status) = GetMapMods();
+                    (List<MapMod> parsedMods, ParseStatus status) = GetMapMods();
 
                     switch (status) {
-                        case MapModParseStatus.NotPresent:
+                        case ParseStatus.NotPresent:
                             Console.WriteLine("ModsNotPresent!");
                                 break;
-                        case MapModParseStatus.PresentNotParsedCorrectly:
+                        case ParseStatus.PresentNotParsedCorrectly:
                             CheckForMapMods = true;
                             break;
-                        case MapModParseStatus.ModsParsed:
+                        case ParseStatus.Parsed:
                             zone.mapMods = parsedMods;
                             keepWatching = false;
                             Console.WriteLine("ModsFound! Stop watching");
@@ -96,7 +96,7 @@ namespace PathTracker_Backend {
                             
                     }
 
-                    if(status == MapModParseStatus.NotPresent) {
+                    if(status == ParseStatus.NotPresent) {
                         
                     }
 
@@ -110,7 +110,7 @@ namespace PathTracker_Backend {
         }
 
         
-        public (ZoneInfo, ZoneInfoParseStatus) GetZoneInfo(Bitmap bmp) {
+        public (ZoneInfo, ParseStatus) GetZoneInfo(Bitmap bmp) {
 
             string currentDir = Directory.GetCurrentDirectory();
             long unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
@@ -137,7 +137,7 @@ namespace PathTracker_Backend {
             
         }
 
-        public (ZoneInfo, ZoneInfoParseStatus) ParseZoneinfo(string ocrFile) {
+        public (ZoneInfo, ParseStatus) ParseZoneinfo(string ocrFile) {
 
             var modLines = File.ReadAllLines(ocrFile + ".txt");
 
@@ -196,15 +196,21 @@ namespace PathTracker_Backend {
 
             }
 
-            ZoneInfoParseStatus parseStatus = ZoneInfoParseStatus.NotPresent;
+            ParseStatus parseStatus = ParseStatus.NotPresent;
 
             if(zoneInfo != null) {
-                parseStatus = ZoneInfoParseStatus.InfoParsed;
+                parseStatus = ParseStatus.Parsed;
             }
 
             return (zoneInfo, parseStatus);
         }
 
+        public (List<MapMod>, ParseStatus, ZoneInfo, ParseStatus) GetZoneProperties() {
+
+
+
+            return (null, ParseStatus.NotPresent, null, ParseStatus.NotPresent);
+        }
 
 
         /// <summary>
@@ -214,10 +220,10 @@ namespace PathTracker_Backend {
         /// List<MapMod>: the parsed mods
         /// MapModParseStatus: Value indicating whether the mapmod parsing was sucessful
         /// </returns>
-        public (List<MapMod>, MapModParseStatus) GetMapMods() {
+        public (List<MapMod>, ParseStatus) GetMapMods() {
 
             List<MapMod> returnMods = new List<MapMod>();
-            MapModParseStatus modsCorrectlyParsed = MapModParseStatus.NotPresent;
+            ParseStatus modsCorrectlyParsed = ParseStatus.NotPresent;
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -779,21 +785,19 @@ namespace PathTracker_Backend {
             }
 
 
-            MapModParseStatus status;
+            ParseStatus status;
             if (LinesWithContent > 0) {
-                status = MapModParseStatus.ModsParsed;
+                status = ParseStatus.Parsed;
             }
             else {
-                status = MapModParseStatus.NotPresent;
+                status = ParseStatus.NotPresent;
             }
 
             return (ActualChosenMods, status);
         }
     }
 
-    public enum MapModParseStatus { ModsParsed, PresentNotParsedCorrectly, NotPresent }
-
-    public enum ZoneInfoParseStatus { InfoParsed, PresentNotParsedCorrectly, NotPresent }
-
+    public enum ParseStatus { Parsed, PresentNotParsedCorrectly, NotPresent }
+    
     public enum ZoneInfoLines { MonsterLevel, DelveDepth, League, None }
 }
