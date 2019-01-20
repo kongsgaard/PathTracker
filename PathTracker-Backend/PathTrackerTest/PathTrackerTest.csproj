@@ -125,8 +125,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\Screenshots\Zone10_Mods.jpg" />
-    <Content Include="TestData\Screenshots\Zone11_Mods.jpg" />
+    <Content Include="TestData\Screenshots\Zone10_Mods.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Screenshots\Zone11_Mods.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\Screenshots\Zone1_Mods.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -139,12 +143,24 @@
     <Content Include="TestData\Screenshots\Zone3_Mods.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\Screenshots\Zone4_Mods.jpg" />
-    <Content Include="TestData\Screenshots\Zone5_Mods.jpg" />
-    <Content Include="TestData\Screenshots\Zone6_Mods.jpg" />
-    <Content Include="TestData\Screenshots\Zone7_Mods.jpg" />
-    <Content Include="TestData\Screenshots\Zone8_Mods.jpg" />
-    <Content Include="TestData\Screenshots\Zone9_Mods.jpg" />
+    <Content Include="TestData\Screenshots\Zone4_Mods.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Screenshots\Zone5_Mods.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Screenshots\Zone6_Mods.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Screenshots\Zone7_Mods.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Screenshots\Zone8_Mods.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Screenshots\Zone9_Mods.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

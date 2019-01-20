@@ -14,10 +14,18 @@ namespace PathTracker_Backend {
         [JsonProperty("monsterLevel")]
         public string monsterLevel { get; set; }
 
+        [BsonElement(elementName: "monsterLevelNumeric")]
+        [JsonProperty("monsterLevelNumeric")]
+        public string monsterLevelNumeric { get; set; }
+
         [BsonElement(elementName: "delveDepth")]
         [JsonProperty("delveDepth")]
         public string delveDepth { get; set; }
 
+        [BsonElement(elementName: "delveDepthNumeric")]
+        [JsonProperty("delveDepthNumeric")]
+        public string delveDepthNumeric { get; set; }
+        
         [BsonElement(elementName: "realm")]
         [JsonProperty("realm")]
         public string realm { get; set; }

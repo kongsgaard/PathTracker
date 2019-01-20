@@ -448,7 +448,7 @@
     {
       "Lines": [
         {
-          "Line": "Enemies close together can attract monsters from Beyond",
+          "Line": "Slaying Enemies close together can attract monsters from Beyond",
           "MaxRoll": "",
           "MinRoll": ""
         },
@@ -1545,7 +1545,7 @@
     {
       "Lines": [
         {
-          "Line": "Players have #% reduced Block Chance",
+          "Line": "Players have #% reduced Chance to Block",
           "MaxRoll": "40",
           "MinRoll": "20"
         },
@@ -1576,7 +1576,7 @@
     {
       "Lines": [
         {
-          "Line": "Player Dodge chance is Unlucky",
+          "Line": "Player chance to Dodge is Unlucky",
           "MaxRoll": "",
           "MinRoll": ""
         },

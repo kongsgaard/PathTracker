@@ -6,6 +6,9 @@ using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace PathTracker_Backend {
     public class ZonePropertyExtractor : IZonePropertyExtractor {
@@ -45,6 +48,8 @@ namespace PathTracker_Backend {
                 LMenuDown = false;
             }
         }
+        
+        private Mutex originalScreenshotBmpMutex = new Mutex();
 
         private Zone zone;
 
@@ -79,9 +84,11 @@ namespace PathTracker_Backend {
                 if(keepWatchingWatch.ElapsedMilliseconds >= watchingDelay && CheckForMapMods) {
                     CheckForMapMods = false;
 
-                    (List<MapMod> parsedMods, ParseStatus status) = GetMapMods();
+                    ZoneProperty zoneProperty = GetZoneProperties();
 
-                    switch (status) {
+                    //(List<MapMod> parsedMods, ParseStatus status) = GetMapMods();
+
+                    switch (zoneProperty.mapModsParseStatus) {
                         case ParseStatus.NotPresent:
                             Console.WriteLine("ModsNotPresent!");
                                 break;
@@ -89,14 +96,14 @@ namespace PathTracker_Backend {
                             CheckForMapMods = true;
                             break;
                         case ParseStatus.Parsed:
-                            zone.mapMods = parsedMods;
+                            zone.mapMods = zoneProperty.mapMods;
                             keepWatching = false;
                             Console.WriteLine("ModsFound! Stop watching");
                             break;
                             
                     }
 
-                    if(status == ParseStatus.NotPresent) {
+                    if(zoneProperty.mapModsParseStatus == ParseStatus.NotPresent) {
                         
                     }
 
@@ -109,31 +116,60 @@ namespace PathTracker_Backend {
             }
         }
 
-        
-        public (ZoneInfo, ParseStatus) GetZoneInfo(Bitmap bmp) {
+
+        public Bitmap GetOriginalScreenshot() {
+
+            Graphics graphics; Bitmap bmp;
+            (graphics, bmp) = processWindowScreenshotCapture.GetProcessScreenshot("PathOfExile_x64");
 
             string currentDir = Directory.GetCurrentDirectory();
-            long unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
-            string baseFileName = zone.ZoneID + "_" + unixTimestamp;
+
+            if (!Directory.Exists(currentDir + "\\tmp\\")) {
+                Directory.CreateDirectory(currentDir + "\\tmp\\");
+            }
+
+            int waitTicks = 10;
+            for (int i = 0; i < waitTicks; i++) {
+                if (!Directory.Exists(currentDir + "\\tmp\\")) {
+                    if (i == waitTicks - 1) {
+                        throw new Exception("Could not create dictionary within allocated time : " + currentDir + "\\tmp\\");
+                    }
+                    System.Threading.Thread.Sleep(200);
+                }
+                else {
+                    break;
+                }
+            }
+
+            return bmp;
+        }
+        
+        public (ZoneInfo, ParseStatus, string) GetZoneInfo(Bitmap bmp, string baseFileName, string currentDir) {
+
+            string imgGrayScaleFilePath = currentDir + "\\tmp\\" + baseFileName + "_zoneInfoGrayscale.jpeg";
+            string ocrGrayscaleOutputPath = currentDir + "\\tmp\\" + baseFileName + "_zoneInfoGrayscale_hocr";
 
             Rectangle zoneInfoRect = new Rectangle(1650,40,262,145);
+
+            originalScreenshotBmpMutex.WaitOne();
+            Bitmap bmpDeepCopy = new Bitmap(bmp);
+            originalScreenshotBmpMutex.ReleaseMutex();
+
+            System.Drawing.Imaging.PixelFormat format = bmpDeepCopy.PixelFormat;
             
-            System.Drawing.Imaging.PixelFormat format = bmp.PixelFormat;
-            
-            Bitmap mapMods = bmp.Clone(zoneInfoRect, format);
+            Bitmap mapMods = bmpDeepCopy.Clone(zoneInfoRect, format);
             
             Bitmap zoomed = new Bitmap(mapMods, mapMods.Width * 2, mapMods.Height * 2);
 
             Bitmap ZoomedGrayscale = MakeGrayscale3(zoomed);
-
-            string imgGrayScaleFilePath = currentDir + "\\tmp\\" + baseFileName + "_zoneInfoGrayscale.jpeg";
-            string ocrGrayscaleOutputPath = currentDir + "\\tmp\\" + baseFileName + "_zoneInfoGrayscale_hocr";
             
             ZoomedGrayscale.Save(imgGrayScaleFilePath, ImageFormat.Jpeg);
             
             generateOCR(imgGrayScaleFilePath, ocrGrayscaleOutputPath);
 
-            return ParseZoneinfo(ocrGrayscaleOutputPath);
+            (ZoneInfo rtZoneinfo, ParseStatus zoneInfoParseStatus) = ParseZoneinfo(ocrGrayscaleOutputPath);
+
+            return (rtZoneinfo, zoneInfoParseStatus, imgGrayScaleFilePath);
             
         }
 
@@ -146,8 +182,8 @@ namespace PathTracker_Backend {
             int LinesWithContent = 0;
 
             List<Tuple<string, ZoneInfoLines>> hintLines = new List<Tuple<string, ZoneInfoLines>>();
-            hintLines.Add(new Tuple<string, ZoneInfoLines>("depth", ZoneInfoLines.DelveDepth));
-            hintLines.Add(new Tuple<string, ZoneInfoLines>("monster level:", ZoneInfoLines.MonsterLevel));
+            hintLines.Add(new Tuple<string, ZoneInfoLines>("delve depth: ", ZoneInfoLines.DelveDepth));
+            hintLines.Add(new Tuple<string, ZoneInfoLines>("monster level: ", ZoneInfoLines.MonsterLevel));
             hintLines.Add(new Tuple<string, ZoneInfoLines>("league", ZoneInfoLines.League));
 
             foreach (string line in modLines) {
@@ -173,7 +209,11 @@ namespace PathTracker_Backend {
                 int minDist = int.MaxValue;
                 ZoneInfoLines chosentype = ZoneInfoLines.None;
                 foreach (var kvp in distances) {
-                    if (kvp.Item1 < minDist && minDist < line.Length-2) {
+                    if (kvp.Item1 < minDist && (
+                        (kvp.Item1 < line.Length - 11 && kvp.Item3 == ZoneInfoLines.MonsterLevel) ||
+                        (kvp.Item1 < line.Length - 9 && kvp.Item3 == ZoneInfoLines.DelveDepth) ||
+                        (kvp.Item1 < line.Length - 4 && kvp.Item3 == ZoneInfoLines.League) )
+                        ) {
                         minDist = kvp.Item1;
                         chosentype = kvp.Item3;
                     }
@@ -185,12 +225,30 @@ namespace PathTracker_Backend {
                         break;
                     case ZoneInfoLines.DelveDepth:
                         zoneInfo.delveDepth = line;
+                        Match depthMatch = Regex.Match(line, @": (\d+)");
+
+                        if (depthMatch.Success && depthMatch.Groups.Count > 1) {
+                            if (depthMatch.Groups[1].Captures.Count > 0) {
+                                string depthString = depthMatch.Groups[1].Captures[0].ToString();
+                                zoneInfo.delveDepthNumeric = depthString;
+                            }
+                        }
+
                         break;
                     case ZoneInfoLines.MonsterLevel:
                         zoneInfo.monsterLevel = line;
+                        Match leveMatch = Regex.Match(line, @": (\d+)");
+
+                        if (leveMatch.Success && leveMatch.Groups.Count > 1) {
+                            if (leveMatch.Groups[1].Captures.Count > 0) {
+                                string levelString = leveMatch.Groups[1].Captures[0].ToString();
+                                zoneInfo.monsterLevelNumeric = levelString;
+                            }
+                        }
+                        
                         break;
                     default:
-                        zoneInfo = null;
+                        //zoneInfo = null;
                         break;
                 }
 
@@ -198,72 +256,35 @@ namespace PathTracker_Backend {
 
             ParseStatus parseStatus = ParseStatus.NotPresent;
 
-            if(zoneInfo != null) {
-                parseStatus = ParseStatus.Parsed;
-            }
+            if(zoneInfo.monsterLevel != null) {
 
+                if(zoneInfo.monsterLevelNumeric != null) {
+                    parseStatus = ParseStatus.Parsed;
+
+                    if(zoneInfo.delveDepth != null) {
+                        if(zoneInfo.delveDepthNumeric != null) {
+                            parseStatus = ParseStatus.Parsed;
+                        }
+                        else {
+                            parseStatus = ParseStatus.PresentNotParsedCorrectly;
+                        }
+                    }
+
+                }
+                else {
+                    parseStatus = ParseStatus.PresentNotParsedCorrectly;
+                }
+
+
+            }
+            
             return (zoneInfo, parseStatus);
         }
 
-        public (List<MapMod>, ParseStatus, ZoneInfo, ParseStatus) GetZoneProperties() {
-
-
-
-            return (null, ParseStatus.NotPresent, null, ParseStatus.NotPresent);
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>
-        /// List<MapMod>: the parsed mods
-        /// MapModParseStatus: Value indicating whether the mapmod parsing was sucessful
-        /// </returns>
-        public (List<MapMod>, ParseStatus) GetMapMods() {
-
-            List<MapMod> returnMods = new List<MapMod>();
-            ParseStatus modsCorrectlyParsed = ParseStatus.NotPresent;
-
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            Graphics graphics; Bitmap bmp;
-            (graphics, bmp) = processWindowScreenshotCapture.GetProcessScreenshot("PathOfExile_x64");
-            Console.WriteLine("CopyFromScreen ms:" + watch.ElapsedMilliseconds);
+        public (List<MapMod>, ParseStatus, string, List<string>) GetMapMods(Bitmap bmp, string baseFileName, string currentDir) {
             
-            string currentDir = Directory.GetCurrentDirectory();
-
-            if (!Directory.Exists(currentDir + "\\tmp\\")) {
-                Directory.CreateDirectory(currentDir + "\\tmp\\");
-            }
-
-            watch.Restart();
-            int waitTicks = 10;
-            for (int i = 0; i < waitTicks; i++) {
-                if (!Directory.Exists(currentDir + "\\tmp\\")) {
-                    if (i == waitTicks - 1) {
-                        throw new Exception("Could not create dictionary within allocated time : " + currentDir + "\\tmp\\");
-                    }
-                    System.Threading.Thread.Sleep(200);
-                }
-                else {
-                    break;
-                }
-            }
-            Console.WriteLine("Waited for dir creation ms:" + watch.ElapsedMilliseconds);
-
-            
-            zone.ZoneInfo = GetZoneInfo(bmp).Item1;
-
-
-            long unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
-            string baseFileName = zone.ZoneID + "_" + unixTimestamp;
-
-            string originalFilePath = currentDir + "\\tmp\\" + baseFileName + "_original.jpeg";
-            string imgFilePath = currentDir + "\\tmp\\" + baseFileName + "_onlyMapModsZoomedColored.jpeg";
-            string imgGrayScaleFilePath = currentDir + "\\tmp\\" + baseFileName + "_onlyMapModsZoomedGrayScale.jpeg";
-            string ocrOutputPath = currentDir + "\\tmp\\" + baseFileName + "_filteredZoomed_hocr";
-            string ocrGrayscaleOutputPath = currentDir + "\\tmp\\" + baseFileName + "_filteredZoomedGRAYSCALE_hocr";
+            string imgGrayScaleFilePath = currentDir + "\\tmp\\" + baseFileName + "_mapModsGrayscale.jpeg";
+            string ocrGrayscaleOutputPath = currentDir + "\\tmp\\" + baseFileName + "_mapModsGrayscale_hocr";
 
             int MinHue = 220;
             int MaxHue = 260;
@@ -272,170 +293,173 @@ namespace PathTracker_Backend {
             float MinSat = 0.05f;
             float MaxSat = 1f;
 
-            bmp.Save(originalFilePath, ImageFormat.Jpeg);
-            //(Rectangle MapModRect, Bitmap bmpColored) = FindMapModRectangle(bmp, 20, 40, 205, 1920, 0.15, minHue: MinHue, maxHue: MaxHue, minLumi: MinLumi, maxLumi: MaxLumi, minSat: MinSat, maxSat: MaxSat, Color.FromArgb(0, 0, 0));
+            originalScreenshotBmpMutex.WaitOne();
+            Bitmap bmpDeepCopy = new Bitmap(bmp);
+            originalScreenshotBmpMutex.ReleaseMutex();
 
-            Rectangle MapModRectangle = FindMapModRectangle(bmp, new int[]{18, 20}, 20, 205, 1920, 0.15, minHue: MinHue, maxHue: MaxHue, minLumi: MinLumi, maxLumi: MaxLumi, minSat: MinSat, maxSat: MaxSat, Color.FromArgb(0, 0, 0));
+            Rectangle MapModRectangle = FindMapModRectangle(bmpDeepCopy, new int[] { 18, 20 }, 20, 205, 1920, 0.15, minHue: MinHue, maxHue: MaxHue, minLumi: MinLumi, maxLumi: MaxLumi, minSat: MinSat, maxSat: MaxSat, Color.FromArgb(0, 0, 0));
             
-
-            Bitmap MapModsBmp = bmp.Clone(MapModRectangle, bmp.PixelFormat);
-
-            //Bitmap MapModsBmpAllColored = ReplaceColor(MapModsBmp, minHue: MinHue, maxHue: MaxHue, minLumi: MinLumi, maxLumi: MaxLumi, minSat: MinSat, maxSat: MaxSat, Color.FromArgb(0, 0, 0));
-
+            Bitmap MapModsBmp = bmpDeepCopy.Clone(MapModRectangle, bmpDeepCopy.PixelFormat);
+            
             Bitmap MapModsBmpZoomed = new Bitmap(MapModsBmp, MapModsBmp.Width * 2, MapModsBmp.Height * 2);
 
             Bitmap MapModsBmpZoomedGrayscale = MakeGrayscale3(MapModsBmpZoomed);
 
             MapModsBmpZoomedGrayscale.Save(imgGrayScaleFilePath, ImageFormat.Jpeg);
-
-            MapModsBmpZoomed.Save(imgFilePath, ImageFormat.Jpeg);
-
+            
             generateOCR(imgGrayScaleFilePath, ocrGrayscaleOutputPath);
+            
+            (List<MapMod> returnMods, ParseStatus modsCorrectlyParsed, List<string> NonParsedMapModLines) = ParseMapMods(ocrGrayscaleOutputPath);
 
-            generateOCR(imgFilePath, ocrOutputPath);
+            return (returnMods, modsCorrectlyParsed, imgGrayScaleFilePath, NonParsedMapModLines);
 
-            (returnMods, modsCorrectlyParsed) = ParseOCRFile(ocrOutputPath);
-
-            return (returnMods, modsCorrectlyParsed);
         }
+        
+        private (List<MapMod>, ParseStatus, List<string>) ParseMapMods(string ocrFile) {
+            var modLines = File.ReadAllLines(ocrFile + ".txt");
 
-        private static unsafe (Rectangle, Bitmap) FindMapModRectangle(Bitmap source, int lineHeightPixels, int blockWidthPixels, int startHeight, int startWidth, double blockPercentWithinThreshold, float minHue, float maxHue, 
-                                                    float minLumi, float maxLumi, float minSat, float maxSat, Color replacementOutsideThreshold) {
+            MapMods possibleMapMods = Resource.PossibleMapModsList;
 
-            const int pixelSize = 4; // 32 bits per pixel
+            var possibleLines = Resource.PossibleMapModLines;
+            var PossibleModsDict = new Dictionary<string, List<MapMod>>(Resource.LineToMapModsDict);
 
-            Bitmap target = new Bitmap(
-              source.Width,
-              source.Height,
-              PixelFormat.Format32bppArgb);
+            Dictionary<string, MapMod> ChosenCandidateMods = new Dictionary<string, MapMod>();
 
-            BitmapData sourceData = null, targetData = null;
+            List<Tuple<string, string, int>> chosenLines = new List<Tuple<string, string, int>>();
+            List<MapMod> ActualChosenMods = new List<MapMod>();
+            List<string> NonParsedMapModLines = new List<string>();
 
-            int currentLine = 0;
-            int currentBlock = 0;
+            int LinesWithContent = 0;
 
-            int topBlocksInLine = 1;
-            int maxLine = 1;
-
-            Rectangle MapModBoundaries = new Rectangle();
-
-            try {
-                sourceData = source.LockBits(
-                  new Rectangle(0, 0, source.Width, source.Height),
-                  ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
-
-                targetData = target.LockBits(
-                  new Rectangle(0, 0, target.Width, target.Height),
-                  ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-
-                int maxWidthPixels = source.Width;
-                int maxBlocks = (maxWidthPixels) / blockWidthPixels;
-
-                int maxHeightPixels = source.Height - startHeight;
-                int maxLines = (maxHeightPixels - startHeight) / lineHeightPixels;
-
-                int numPixelsInBlock = lineHeightPixels * blockWidthPixels;
-
-                int currentWidthPixel = 0;
-                int currentHeightPixel = 0;
-
-                int previousMaxBlocks = 0;
-
-                for(currentLine=0; currentLine < maxLines; currentLine++) {
-
-                    for(currentBlock = 0; currentBlock < maxBlocks; currentBlock++) {
-
-                        double pixelsInCurrentBlock = 0;
-
-                        for (int currentHeightPixelInLine=0; currentHeightPixelInLine < lineHeightPixels; currentHeightPixelInLine++) {
-
-                            currentHeightPixel = startHeight + ((currentLine * lineHeightPixels) + currentHeightPixelInLine);
-
-                            byte* sourceRow = (byte*)sourceData.Scan0 + (currentHeightPixel * sourceData.Stride);
-                            byte* targetRow = (byte*)targetData.Scan0 + (currentHeightPixel * targetData.Stride);
-
-
-                            for (int currentWidthPixelInBlock=0; currentWidthPixelInBlock < blockWidthPixels; currentWidthPixelInBlock++) {
-
-                                currentWidthPixel = source.Width - ((currentBlock * blockWidthPixels) + currentWidthPixelInBlock);
-                                
-                                byte b = sourceRow[currentWidthPixel * pixelSize + 0];
-                                byte g = sourceRow[currentWidthPixel * pixelSize + 1];
-                                byte r = sourceRow[currentWidthPixel * pixelSize + 2];
-                                byte a = sourceRow[currentWidthPixel * pixelSize + 3];
-
-                                Color c = Color.FromArgb(r, g, b);
-                                var lumi = c.GetBrightness();
-                                var hue = c.GetHue();
-                                var sat = c.GetSaturation();
-                                
-                                if (hue > minHue && hue < maxHue && lumi > minLumi && lumi < maxLumi && sat < maxSat && sat > minSat) {
-                                    pixelsInCurrentBlock++;
-                                }
-                                else {
-                                    
-                                    //r = replacementOutsideThreshold.R;
-                                    //g = replacementOutsideThreshold.G;
-                                    //b = replacementOutsideThreshold.B;
-                                }
-
-                                targetRow[currentWidthPixel * pixelSize + 0] = b;
-                                targetRow[currentWidthPixel * pixelSize + 1] = g;
-                                targetRow[currentWidthPixel * pixelSize + 2] = r;
-                                targetRow[currentWidthPixel * pixelSize + 3] = a;
-
-                            }
-
-                        }
-                        
-                        if(pixelsInCurrentBlock / numPixelsInBlock > blockPercentWithinThreshold) {
-                            
-                        }
-                        else {
-
-                            previousMaxBlocks = currentBlock;
-
-                            if (currentBlock > topBlocksInLine) {
-                                if(pixelsInCurrentBlock / numPixelsInBlock > 0.02) {
-                                    currentBlock++;
-                                }
-                                topBlocksInLine = currentBlock;
-                            }
-                            
-                            break;
-                        }
-
+            foreach (var kvp in PossibleModsDict) {
+                foreach (var mod in kvp.Value) {
+                    foreach (var modLine in mod.ModLines) {
+                        modLine.IsFound = false;
                     }
-
-                    if (currentLine > maxLine) {
-                        maxLine = currentLine;
-                    }
-
-                    if (previousMaxBlocks == 0) {
-                        break;
-                    }
-
                 }
             }
-            finally {
 
-                int modRectWidth = topBlocksInLine * blockWidthPixels;
-                int modRectWidthStart = source.Width - topBlocksInLine * blockWidthPixels;
+            foreach (var actualLine in modLines) {
+
+                var actualLineLower = actualLine.ToLower();
+
+                if (actualLine.Length < 5) {
+                    continue;
+                }
+                else {
+                    LinesWithContent++;
+                }
+
+                List<Tuple<int, string>> distances = new List<Tuple<int, string>>();
+                foreach (var possibleLine in possibleLines) {
+
+                    var possibleLinesLower = possibleLine.ToLower();
+
+                    int levDist = Toolbox.LevenshteinDistance(actualLineLower, possibleLinesLower);
+                    distances.Add(new Tuple<int, string>(levDist, possibleLine));
+                }
+
+                int minDist = int.MaxValue;
+                string chosenLine = null;
+                foreach (var kvp in distances) {
+                    if (kvp.Item1 < minDist && (
+                        (kvp.Item2.Length < 15 && kvp.Item1 <= 4) ||
+                        (15 <= kvp.Item2.Length && kvp.Item2.Length < 30 && kvp.Item1 <= 7) ||
+                        (30 <= kvp.Item2.Length && kvp.Item1 <= 10)
+                        )) {
+                        minDist = kvp.Item1;
+                        chosenLine = kvp.Item2;
+                    }
+                }
+
+                if(chosenLine == null) {
+                    NonParsedMapModLines.Add(actualLine);
+                    continue;
+                }
+
+                var possibleMods = PossibleModsDict[chosenLine];
+
+                foreach (var mod in possibleMods) {
+                    var tempMod = MapMod.CopyObject(mod);
+                    if (ChosenCandidateMods.ContainsKey(tempMod.Name)) {
+                        MapMod currentMultiLineMod = ChosenCandidateMods[tempMod.Name];
+
+                        foreach (var line in currentMultiLineMod.ModLines) {
+                            if (line.LineText == chosenLine) {
+                                line.IsFound = true;
+                            }
+                        }
+                    }
+                    else {
+                        ChosenCandidateMods[mod.Name] = tempMod;
+
+                        foreach (var line in ChosenCandidateMods[tempMod.Name].ModLines) {
+                            if (line.LineText == chosenLine) {
+                                line.IsFound = true;
+                            }
+                        }
+                    }
+                }
 
 
-                int modRectHeight = maxLine * lineHeightPixels;
-                int modRectHeightStart = startHeight;
-
-                MapModBoundaries = new Rectangle(modRectWidthStart, modRectHeightStart, modRectWidth, modRectHeight);
-
-                if (sourceData != null)
-                    source.UnlockBits(sourceData);
-
-                if (targetData != null)
-                    target.UnlockBits(targetData);
             }
+
+            foreach (var kvp in ChosenCandidateMods) {
+                bool allFound = true;
+                foreach (var line in kvp.Value.ModLines) {
+                    allFound = allFound && line.IsFound;
+                }
+
+                if (allFound) {
+                    ActualChosenMods.Add(kvp.Value);
+                }
+            }
+
+
+            ParseStatus status;
+            if (LinesWithContent > 0) {
+                status = ParseStatus.Parsed;
+            }
+            else {
+                status = ParseStatus.NotPresent;
+            }
+
+            return (ActualChosenMods, status, NonParsedMapModLines);
+        }
+
+        public ZoneProperty GetZoneProperties() {
+
+            long unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
+            string baseFileName = zone.ZoneID + "_" + unixTimestamp;
+            string currentDir = Directory.GetCurrentDirectory();
+
+            ZoneProperty zoneProperty = new ZoneProperty();
+
+            Bitmap bmp = GetOriginalScreenshot();
+
+            string originalFilePath = currentDir + "\\tmp\\" + baseFileName + "_original.jpeg";
+            bmp.Save(originalFilePath, ImageFormat.Jpeg);
+
+            zoneProperty.originalScreenshotPath = originalFilePath;
+
+            Task t = new Task(() => GetZoneInfo(bmp, baseFileName, currentDir));
+
+            Task <(ZoneInfo, ParseStatus, string)> zoneInfoTask = Task<(ZoneInfo, ParseStatus, string)>.Factory.StartNew(() => GetZoneInfo(bmp, baseFileName, currentDir));
             
-            return (MapModBoundaries, target);
+            Task<(List<MapMod>, ParseStatus, string, List<string>)> mapModsTask = Task<(List<MapMod>, ParseStatus, string, List<string>)>.Factory.StartNew(() => GetMapMods(bmp, baseFileName, currentDir));
+            
+            Task.WhenAll(zoneInfoTask, mapModsTask);
+
+            zoneProperty.zoneInfo = zoneInfoTask.Result.Item1;
+            zoneProperty.zoneInfoParseStatus = zoneInfoTask.Result.Item2;
+            zoneProperty.zoneInfoScreenshotPath = zoneInfoTask.Result.Item3;
+
+            zoneProperty.mapMods = mapModsTask.Result.Item1;
+            zoneProperty.mapModsParseStatus = mapModsTask.Result.Item2;
+            zoneProperty.mapModsScreenshotPath = mapModsTask.Result.Item3;
+            zoneProperty.NonParsedMapMods = mapModsTask.Result.Item4;
+
+            return zoneProperty;
         }
 
         private static unsafe Rectangle FindMapModRectangle(Bitmap source, int[] lineHeightPixelsArr, int blockWidthPixels, int startHeight, int startWidth, double blockPercentWithinThreshold, float minHue, float maxHue,
@@ -564,77 +588,7 @@ namespace PathTracker_Backend {
             
             return MapModBoundaries;
         }
-
-        private static unsafe Bitmap ReplaceColor(Bitmap source,
-                                  float minHue, float maxHue, float minLumi, float maxLumi, float minSat, float maxSat,
-                                  Color replacementOutsideThreshold, Color? replacementWithinThreshold = null) {
-            const int pixelSize = 4; // 32 bits per pixel
-
-            Bitmap target = new Bitmap(
-              source.Width,
-              source.Height,
-              PixelFormat.Format32bppArgb);
-
-            BitmapData sourceData = null, targetData = null;
-
-            try {
-                sourceData = source.LockBits(
-                  new Rectangle(0, 0, source.Width, source.Height),
-                  ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
-
-                targetData = target.LockBits(
-                  new Rectangle(0, 0, target.Width, target.Height),
-                  ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-
-                for (int y = 0; y < source.Height; ++y) {
-                    byte* sourceRow = (byte*)sourceData.Scan0 + (y * sourceData.Stride);
-                    byte* targetRow = (byte*)targetData.Scan0 + (y * targetData.Stride);
-
-                    for (int x = 0; x < source.Width; ++x) {
-                        byte b = sourceRow[x * pixelSize + 0];
-                        byte g = sourceRow[x * pixelSize + 1];
-                        byte r = sourceRow[x * pixelSize + 2];
-                        byte a = sourceRow[x * pixelSize + 3];
-
-                        Color c = Color.FromArgb(r, g, b);
-                        var lumi = c.GetBrightness();
-                        var hue = c.GetHue();
-                        var sat = c.GetSaturation();
-
-                        
-                        
-                        if (hue > minHue && hue < maxHue && lumi > minLumi && lumi < maxLumi && sat < maxSat && sat > minSat) {
-                            if(replacementWithinThreshold != null) {
-                                Color casted = (Color)replacementWithinThreshold;
-                                r = casted.R;
-                                g = casted.G;
-                                b = casted.B;
-                            }
-                        }
-                        else {
-                            r = replacementOutsideThreshold.R;
-                            g = replacementOutsideThreshold.G;
-                            b = replacementOutsideThreshold.B;
-                        }
-
-                        targetRow[x * pixelSize + 0] = b;
-                        targetRow[x * pixelSize + 1] = g;
-                        targetRow[x * pixelSize + 2] = r;
-                        targetRow[x * pixelSize + 3] = a;
-                    }
-                }
-            }
-            finally {
-                if (sourceData != null)
-                    source.UnlockBits(sourceData);
-
-                if (targetData != null)
-                    target.UnlockBits(targetData);
-            }
-
-            return target;
-        }
-
+        
         public static Bitmap MakeGrayscale3(Bitmap original) {
             //create a blank bitmap the same size as original
             Bitmap newBitmap = new Bitmap(original.Width, original.Height);
@@ -671,7 +625,7 @@ namespace PathTracker_Backend {
 
         private void generateOCR(string imgBaseFile, string ocrOutputFile) {
 
-            int maxTimeoutMs = 60000;
+            int maxTimeoutMs = 20000;
             
             string tesseractDict = Settings.GetValue("TesseractDict");
 
@@ -694,107 +648,6 @@ namespace PathTracker_Backend {
             
         }
 
-        private (List<MapMod>, MapModParseStatus) ParseOCRFile(string ocrFile) {
-            var modLines = File.ReadAllLines(ocrFile + ".txt");
-
-            MapMods possibleMapMods = Resource.PossibleMapModsList;
-
-            var possibleLines = Resource.PossibleMapModLines;
-            var PossibleModsDict = new Dictionary<string, List<MapMod>>(Resource.LineToMapModsDict);
-
-            Dictionary<string, MapMod> ChosenCandidateMods = new Dictionary<string, MapMod>();
-
-            List<Tuple<string, string, int>> chosenLines = new List<Tuple<string, string, int>>();
-            List<MapMod> ActualChosenMods = new List<MapMod>();
-
-            int LinesWithContent = 0;
-
-            foreach(var kvp in PossibleModsDict) {
-                foreach(var mod in kvp.Value) {
-                    foreach(var modLine in mod.ModLines) {
-                        modLine.IsFound = false;
-                    }
-                }
-            }
-
-            foreach(var actualLine in modLines) {
-
-                var actualLineLower = actualLine.ToLower();
-
-                if(actualLine.Length < 5) {
-                    continue;
-                }
-                else {
-                    LinesWithContent++;
-                }
-
-                List<Tuple<int, string>> distances = new List<Tuple<int, string>>();
-                foreach(var possibleLine in possibleLines) {
-
-                    var possibleLinesLower = possibleLine.ToLower();
-
-                    int levDist = Toolbox.LevenshteinDistance(actualLineLower, possibleLinesLower);
-                    distances.Add(new Tuple<int, string>(levDist, possibleLine));
-                }
-
-                int minDist = int.MaxValue;
-                string chosenLine = null;
-                foreach(var kvp in distances) {
-                    if(kvp.Item1 < minDist) {
-                        minDist = kvp.Item1;
-                        chosenLine = kvp.Item2;
-                    }
-                }
-
-                var possibleMods = PossibleModsDict[chosenLine];
-
-                foreach(var mod in possibleMods) {
-                    var tempMod = MapMod.CopyObject(mod);
-                    if (ChosenCandidateMods.ContainsKey(tempMod.Name)) {
-                        MapMod currentMultiLineMod = ChosenCandidateMods[tempMod.Name];
-
-                        foreach(var line in currentMultiLineMod.ModLines) {
-                            if(line.LineText == chosenLine) {
-                                line.IsFound = true;
-                            }
-                        }
-                    }
-                    else {
-                        ChosenCandidateMods[mod.Name] = tempMod;
-
-                        foreach (var line in ChosenCandidateMods[tempMod.Name].ModLines) {
-                            if (line.LineText == chosenLine) {
-                                line.IsFound = true;
-                            }
-                        }
-                    }
-                }
-
-                
-            }
-
-            foreach(var kvp in ChosenCandidateMods) {
-                bool allFound = true;
-                foreach(var line in kvp.Value.ModLines) {
-                    allFound = allFound && line.IsFound;
-                }
-
-                if (allFound) {
-                    ActualChosenMods.Add(kvp.Value);
-                }
-            }
-
-
-            ParseStatus status;
-            if (LinesWithContent > 0) {
-                status = ParseStatus.Parsed;
-            }
-            else {
-                status = ParseStatus.NotPresent;
-            }
-
-            return (ActualChosenMods, status);
-        }
     }
 
     public enum ParseStatus { Parsed, PresentNotParsedCorrectly, NotPresent }
