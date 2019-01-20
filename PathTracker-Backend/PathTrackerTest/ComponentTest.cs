@@ -195,6 +195,141 @@ namespace PathTrackerTest {
             #endregion
 
 
+            //-------------------------------------  Testzone7  -------------------------------------
+            #region TestZone7
+            processScreenshotCapture.SetupImageAddToQueue(Directory.GetCurrentDirectory() + "//TestData//Screenshots//Zone6_Mods.jpg");
+            Zone testZone7 = new Zone("TestZone7", setup.resourceManager);
+            testZone7.ZoneID = "TestZone7";
+            zonePropertyExtractor.SetZone(testZone7);
+
+            List<MapMod> mods_zone7;
+            ParseStatus parseStatus_zone7;
+            ZoneInfo zone7Info;
+            ZoneProperty zone7Property = zonePropertyExtractor.GetZoneProperties();
+            mods_zone7 = zone7Property.mapMods;
+            parseStatus_zone7 = zone7Property.mapModsParseStatus;
+            zone7Info = zone7Property.zoneInfo;
+
+            Assert.IsTrue(parseStatus_zone7 == ParseStatus.Parsed);
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone7, "Armoured"));
+
+            Assert.AreEqual(mods_zone7.Where(mod => mod.Type == "Sextant").ToList().Count, 0);
+            Assert.AreEqual(mods_zone7.Where(mod => mod.Type == "MapAffix").ToList().Count, 1);
+
+            Assert.AreEqual(zone7Property.zoneInfoParseStatus, ParseStatus.Parsed);
+            Assert.AreEqual(zone7Info.monsterLevelNumeric, "76");
+            #endregion
+
+            //-------------------------------------  Testzone8  -------------------------------------
+            #region TestZone8
+            processScreenshotCapture.SetupImageAddToQueue(Directory.GetCurrentDirectory() + "//TestData//Screenshots//Zone7_Mods.jpg");
+            Zone testZone8 = new Zone("TestZone8", setup.resourceManager);
+            testZone8.ZoneID = "TestZone8";
+            zonePropertyExtractor.SetZone(testZone8);
+
+            List<MapMod> mods_zone8;
+            ParseStatus parseStatus_zone8;
+            ZoneInfo zone8Info;
+            ZoneProperty zone8Property = zonePropertyExtractor.GetZoneProperties();
+            mods_zone8 = zone8Property.mapMods;
+            parseStatus_zone8 = zone8Property.mapModsParseStatus;
+            zone8Info = zone8Property.zoneInfo;
+
+            Assert.IsTrue(parseStatus_zone8 == ParseStatus.Parsed);
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone8, "of Rust"));
+
+            Assert.AreEqual(mods_zone8.Where(mod => mod.Type == "Sextant").ToList().Count, 0);
+            Assert.AreEqual(mods_zone8.Where(mod => mod.Type == "MapAffix").ToList().Count, 1);
+
+            Assert.AreEqual(zone8Property.zoneInfoParseStatus, ParseStatus.Parsed);
+            Assert.AreEqual(zone8Info.monsterLevelNumeric, "74");
+            #endregion
+
+            //-------------------------------------  Testzone9  -------------------------------------
+            #region TestZone9
+            processScreenshotCapture.SetupImageAddToQueue(Directory.GetCurrentDirectory() + "//TestData//Screenshots//Zone8_Mods.jpg");
+            Zone testZone9 = new Zone("TestZone9", setup.resourceManager);
+            testZone9.ZoneID = "TestZone9";
+            zonePropertyExtractor.SetZone(testZone9);
+
+            List<MapMod> mods_zone9;
+            ParseStatus parseStatus_zone9;
+            ZoneInfo zone9Info;
+            ZoneProperty zone9Property = zonePropertyExtractor.GetZoneProperties();
+            mods_zone9 = zone9Property.mapMods;
+            parseStatus_zone9 = zone9Property.mapModsParseStatus;
+            zone9Info = zone9Property.zoneInfo;
+
+            Assert.IsTrue(parseStatus_zone9 == ParseStatus.Parsed);
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone9, "Fecund"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone9, "Savage"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone9, "of Toughness"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone9, "of Impotence"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone9, "MapHasQuality"));
+
+            Assert.AreEqual(mods_zone9.Where(mod => mod.Type == "Sextant").ToList().Count, 0);
+            Assert.AreEqual(mods_zone9.Where(mod => mod.Type == "MapAffix").ToList().Count, 4);
+            Assert.AreEqual(mods_zone9.Where(mod => mod.Type == "Other").ToList().Count, 1);
+
+            Assert.AreEqual(zone9Property.zoneInfoParseStatus, ParseStatus.Parsed);
+            Assert.AreEqual(zone9Info.monsterLevelNumeric, "79");
+            #endregion
+
+            //-------------------------------------  Testzone10  -------------------------------------
+            #region TestZone10
+            processScreenshotCapture.SetupImageAddToQueue(Directory.GetCurrentDirectory() + "//TestData//Screenshots//Zone9_Mods.jpg");
+            Zone testZone10 = new Zone("TestZone10", setup.resourceManager);
+            testZone10.ZoneID = "TestZone10";
+            zonePropertyExtractor.SetZone(testZone10);
+
+            List<MapMod> mods_zone10;
+            ParseStatus parseStatus_zone10;
+            ZoneInfo zone10Info;
+            ZoneProperty zone10Property = zonePropertyExtractor.GetZoneProperties();
+            mods_zone10 = zone10Property.mapMods;
+            parseStatus_zone10 = zone10Property.mapModsParseStatus;
+            zone10Info = zone10Property.zoneInfo;
+
+            Assert.IsTrue(parseStatus_zone10 == ParseStatus.Parsed);
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone10, "Antagonist's"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone10, "Multifarious"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone10, "of Balance"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone10, "of Elemental Weakness"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone10, "Resistant"));
+            Assert.IsTrue(setup.MapModsListContainsMod(mods_zone9, "MapHasQuality"));
+
+            Assert.AreEqual(mods_zone10.Where(mod => mod.Type == "Sextant").ToList().Count, 0);
+            Assert.AreEqual(mods_zone10.Where(mod => mod.Type == "MapAffix").ToList().Count, 5);
+            Assert.AreEqual(mods_zone9.Where(mod => mod.Type == "Other").ToList().Count, 1);
+
+            Assert.AreEqual(zone10Property.zoneInfoParseStatus, ParseStatus.Parsed);
+            Assert.AreEqual(zone10Info.monsterLevelNumeric, "79");
+            #endregion
+
+            //-------------------------------------  Testzone11  -------------------------------------
+            #region TestZone11
+            processScreenshotCapture.SetupImageAddToQueue(Directory.GetCurrentDirectory() + "//TestData//Screenshots//Zone11_Mods.jpg");
+            Zone testZone11 = new Zone("TestZone11", setup.resourceManager);
+            testZone11.ZoneID = "TestZone11";
+            zonePropertyExtractor.SetZone(testZone11);
+
+            List<MapMod> mods_zone11;
+            ParseStatus parseStatus_zone11;
+            ZoneInfo zone11Info;
+            ZoneProperty zone11Property = zonePropertyExtractor.GetZoneProperties();
+            mods_zone11 = zone11Property.mapMods;
+            parseStatus_zone11 = zone11Property.mapModsParseStatus;
+            zone11Info = zone11Property.zoneInfo;
+
+            Assert.IsTrue(parseStatus_zone11 == ParseStatus.Parsed);
+
+            Assert.AreEqual(mods_zone11.Where(mod => mod.Type == "Sextant").ToList().Count, 0);
+            Assert.AreEqual(mods_zone11.Where(mod => mod.Type == "MapAffix").ToList().Count, 0);
+
+            Assert.AreEqual(zone11Property.zoneInfoParseStatus, ParseStatus.Parsed);
+            Assert.AreEqual(zone11Info.monsterLevelNumeric, "11");
+            Assert.AreEqual(zone11Info.delveDepthNumeric, "9");
+            #endregion
         }
 
     }

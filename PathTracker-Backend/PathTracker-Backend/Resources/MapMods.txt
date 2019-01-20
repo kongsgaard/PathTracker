@@ -2374,6 +2374,25 @@
       ],
       "Name": "MapAtlasCorruptedMapBossesDropAdditionalVaalItems",
       "Type": "Sextant"
+    },
+
+
+
+    {
+      "Lines": [
+        {
+          "Line": "Map has #% Quality",
+          "MaxRoll": "20",
+          "MinRoll": ""
+        },
+		{
+          "Line": "#% increased Quantity of Items found in this Area",
+          "MaxRoll": "35",
+          "MinRoll": "1"
+        }
+      ],
+      "Name": "MapHasQuality",
+      "Type": "Other"
     }
   ]
 }
